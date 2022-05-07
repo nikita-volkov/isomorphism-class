@@ -240,6 +240,34 @@ instance IsomorphicTo IntSet (HashSet Int) where
   to = fromList . toList
   from = fromList . toList
 
+--
+
+instance (Hashable k, Ord k) => IsomorphicTo (HashMap k v) (Map k v) where
+  to = fromList . toList
+  from = fromList . toList
+
+instance IsomorphicTo (HashMap Int v) (IntMap v) where
+  to = fromList . toList
+  from = fromList . toList
+
+instance (Hashable k, Ord k) => IsomorphicTo (Map k v) (HashMap k v) where
+  to = fromList . toList
+  from = fromList . toList
+
+instance IsomorphicTo (Map Int v) (IntMap v) where
+  to = fromList . toList
+  from = fromList . toList
+
+instance IsomorphicTo (IntMap v) (HashMap Int v) where
+  to = fromList . toList
+  from = fromList . toList
+
+instance IsomorphicTo (IntMap v) (Map Int v) where
+  to = fromList . toList
+  from = fromList . toList
+
+--
+
 instance IsomorphicTo Int8 Word8 where
   to = fromIntegral
   from = fromIntegral
