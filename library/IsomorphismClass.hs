@@ -80,10 +80,6 @@ class IsomorphicTo a b where
   to :: b -> a
   from :: a -> b
 
-instance IsomorphicTo String String where
-  to = id
-  from = id
-
 instance IsomorphicTo String Text where
   to = Text.unpack
   from = Text.pack
@@ -95,10 +91,6 @@ instance IsomorphicTo String TextLazy.Text where
 instance IsomorphicTo String TextLazyBuilder.Builder where
   to = TextLazy.unpack . TextLazyBuilder.toLazyText
   from = TextLazyBuilder.fromString
-
-instance IsomorphicTo Text Text where
-  to = id
-  from = id
 
 instance IsomorphicTo Text String where
   to = Text.pack
@@ -116,10 +108,6 @@ instance IsomorphicTo Text (VectorUnboxed.Vector Char) where
   to = from @[Char] . to
   from = from @[Char] . to
 
-instance IsomorphicTo TextLazy.Text TextLazy.Text where
-  to = id
-  from = id
-
 instance IsomorphicTo TextLazy.Text String where
   to = fromString
   from = TextLazy.unpack
@@ -127,10 +115,6 @@ instance IsomorphicTo TextLazy.Text String where
 instance IsomorphicTo TextLazy.Text Text where
   to = TextLazy.fromStrict
   from = TextLazy.toStrict
-
-instance IsomorphicTo TextLazyBuilder.Builder TextLazyBuilder.Builder where
-  to = id
-  from = id
 
 instance IsomorphicTo TextLazyBuilder.Builder String where
   to = fromString
