@@ -240,6 +240,46 @@ instance IsomorphicTo IntSet (HashSet Int) where
   to = fromList . toList
   from = fromList . toList
 
+instance IsomorphicTo Int8 Word8 where
+  to = fromIntegral
+  from = fromIntegral
+
+instance IsomorphicTo Int16 Word16 where
+  to = fromIntegral
+  from = fromIntegral
+
+instance IsomorphicTo Int32 Word32 where
+  to = fromIntegral
+  from = fromIntegral
+
+instance IsomorphicTo Int64 Word64 where
+  to = fromIntegral
+  from = fromIntegral
+
+instance IsomorphicTo Int Word where
+  to = fromIntegral
+  from = fromIntegral
+
+instance IsomorphicTo Word8 Int8 where
+  to = fromIntegral
+  from = fromIntegral
+
+instance IsomorphicTo Word16 Int16 where
+  to = fromIntegral
+  from = fromIntegral
+
+instance IsomorphicTo Word32 Int32 where
+  to = fromIntegral
+  from = fromIntegral
+
+instance IsomorphicTo Word64 Int64 where
+  to = fromIntegral
+  from = fromIntegral
+
+instance IsomorphicTo Word Int where
+  to = fromIntegral
+  from = fromIntegral
+
 -- |
 -- Ideally there should be a direct instance and this function
 -- should merely serve as a helper for defining instances
