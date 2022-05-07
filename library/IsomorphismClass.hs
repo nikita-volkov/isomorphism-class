@@ -39,6 +39,8 @@ module IsomorphismClass
   )
 where
 
+import qualified Data.HashSet as HashSet
+import qualified Data.Set as Set
 import qualified Data.Text as Text
 import qualified Data.Text.Lazy as TextLazy
 import qualified Data.Text.Lazy.Builder as TextLazyBuilder
@@ -205,6 +207,38 @@ instance IsomorphicTo (Seq a) (Vector a) where
 instance VectorUnboxed.Unbox a => IsomorphicTo (Seq a) (VectorUnboxed.Vector a) where
   to = from @[a] . to
   from = from @[a] . to
+
+instance (IsomorphicTo a b, Ord a, Ord b) => IsomorphicTo (Set a) (Set b) where
+  to = Set.map to
+  from = Set.map from
+
+instance (Hashable a, Ord a) => IsomorphicTo (Set a) (HashSet a) where
+  to = fromList . toList
+  from = fromList . toList
+
+instance IsomorphicTo (Set Int) IntSet where
+  to = fromList . toList
+  from = fromList . toList
+
+instance (IsomorphicTo a b, Eq a, Hashable a, Eq b, Hashable b) => IsomorphicTo (HashSet a) (HashSet b) where
+  to = HashSet.map to
+  from = HashSet.map from
+
+instance (Hashable a, Ord a) => IsomorphicTo (HashSet a) (Set a) where
+  to = fromList . toList
+  from = fromList . toList
+
+instance IsomorphicTo (HashSet Int) IntSet where
+  to = fromList . toList
+  from = fromList . toList
+
+instance IsomorphicTo IntSet (Set Int) where
+  to = fromList . toList
+  from = fromList . toList
+
+instance IsomorphicTo IntSet (HashSet Int) where
+  to = fromList . toList
+  from = fromList . toList
 
 -- |
 -- Ideally there should be a direct instance and this function

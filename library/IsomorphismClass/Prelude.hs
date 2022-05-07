@@ -31,11 +31,17 @@ import Data.Functor.Classes as Exports
 import Data.Functor.Compose as Exports
 import Data.Functor.Contravariant as Exports
 import Data.Functor.Identity as Exports
+import Data.HashMap.Strict as Exports (HashMap)
+import Data.HashSet as Exports (HashSet)
+import Data.Hashable as Exports
 import Data.IORef as Exports
 import Data.Int as Exports
+import Data.IntMap.Strict as Exports (IntMap)
+import Data.IntSet as Exports (IntSet)
 import Data.Ix as Exports
 import Data.List as Exports hiding (all, and, any, concat, concatMap, elem, find, foldl, foldl', foldl1, foldr, foldr1, mapAccumL, mapAccumR, maximum, maximumBy, minimum, minimumBy, notElem, or, product, sum)
 import Data.List.NonEmpty as Exports (NonEmpty (..))
+import Data.Map.Strict as Exports (Map)
 import Data.Maybe as Exports
 import Data.Monoid as Exports hiding (First (..), Last (..), (<>))
 import Data.Ord as Exports
@@ -44,6 +50,7 @@ import Data.Ratio as Exports
 import Data.STRef as Exports
 import Data.Semigroup as Exports hiding (Option)
 import Data.Sequence as Exports (Seq)
+import Data.Set as Exports (Set)
 import Data.String as Exports
 import Data.Text as Exports (Text)
 import Data.Traversable as Exports
