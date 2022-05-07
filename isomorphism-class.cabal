@@ -1,0 +1,34 @@
+cabal-version: 3.0
+
+name: isomorphism-class
+version: 1
+homepage: https://github.com/nikita-volkov/isomorphism-class
+bug-reports: https://github.com/nikita-volkov/isomorphism-class/issues
+author: Nikita Volkov <nikita.y.volkov@mail.ru>
+maintainer: Nikita Volkov <nikita.y.volkov@mail.ru>
+copyright: (c) 2022 Nikita Volkov
+license: MIT
+license-file: LICENSE
+
+source-repository head
+  type: git
+  location: git://github.com/nikita-volkov/isomorphism-class.git
+
+common language-settings
+  default-extensions: ApplicativeDo, BangPatterns, BinaryLiterals, BlockArguments, ConstraintKinds, DataKinds, DefaultSignatures, DeriveDataTypeable, DeriveFoldable, DeriveFunctor, DeriveGeneric, DeriveTraversable, DerivingVia, DuplicateRecordFields, EmptyDataDecls, FlexibleContexts, FlexibleInstances, FunctionalDependencies, GADTs, GeneralizedNewtypeDeriving, HexFloatLiterals, LambdaCase, LiberalTypeSynonyms, MultiParamTypeClasses, MultiWayIf, NoImplicitPrelude, NoMonomorphismRestriction, NumericUnderscores, OverloadedLabels, OverloadedStrings, PatternGuards, PatternSynonyms, ParallelListComp, QuasiQuotes, RankNTypes, RecordWildCards, ScopedTypeVariables, StandaloneDeriving, StrictData, TemplateHaskell, TupleSections, TypeApplications, TypeFamilies, TypeOperators, UndecidableInstances, ViewPatterns
+  default-language: Haskell2010
+
+library
+  import: language-settings
+  hs-source-dirs: library
+  exposed-modules:
+    IsomorphismClass
+  other-modules:
+    IsomorphismClass.Prelude
+  build-depends:
+    base >=4.12 && <5,
+    bytestring >=0.10 && <0.12,
+    containers >=0.6 && <0.7,
+    text >=1.2 && <3,
+    unordered-containers >=0.2 && <0.3,
+    vector >=0.12 && <0.13,
