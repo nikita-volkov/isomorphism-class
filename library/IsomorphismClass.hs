@@ -298,3 +298,11 @@ instance IsomorphicTo Word Int where
 {-# INLINE thru #-}
 thru :: (IsomorphicTo a b, IsomorphicTo a c) => Proxy a -> b -> c
 thru proxy = from . flip asProxyTypeOf proxy . to
+
+{-# INLINE thruString #-}
+thruString :: (IsomorphicTo String a, IsomorphicTo String b) => a -> b
+thruString = from @String . to
+
+{-# INLINE thruText #-}
+thruText :: (IsomorphicTo Text a, IsomorphicTo Text b) => a -> b
+thruText = from @Text . to
