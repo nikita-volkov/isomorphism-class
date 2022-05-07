@@ -306,3 +306,7 @@ thruString = from @String . to
 {-# INLINE thruText #-}
 thruText :: (IsomorphicTo Text a, IsomorphicTo Text b) => a -> b
 thruText = from @Text . to
+
+{-# INLINE thruList #-}
+thruList :: forall a f g. (IsomorphicTo [a] (f a), IsomorphicTo [a] (g a)) => f a -> g a
+thruList = from @[a] . to
