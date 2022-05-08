@@ -53,7 +53,7 @@ import IsomorphismClass.Prelude
 --
 -- You can read the signature @IsomorphicTo a b@ as \"B is isomorphic to A\".
 --
--- == Laws
+-- __Laws__
 --
 -- This class is lawful. The laws are:
 --
@@ -63,7 +63,7 @@ import IsomorphismClass.Prelude
 -- - @'to' . 'from' = 'id'@ - Converting from a type and back to it should too
 -- produce a value that is identical to the orignal.
 --
--- == Usage
+-- __Usage__
 --
 -- This class is particularly easy to use in combination with
 -- the @TypeApplications@ extension making it clear to the reader what sort
@@ -81,7 +81,7 @@ import IsomorphismClass.Prelude
 -- > > :t to @Text
 -- > to @Text :: IsomorphicTo Text b => b -> Text
 --
--- == Instance Definition
+-- __Instance Definition__
 --
 -- There's two conventions in defining instances for this class:
 --
