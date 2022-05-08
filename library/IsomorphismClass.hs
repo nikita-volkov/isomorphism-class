@@ -1,26 +1,25 @@
 -- |
--- The ultimate solution to the Conversion Problem.
+-- = The ultimate solution to the Conversion Problem
 --
--- By Conversion Problem we mean occasionally having to go thru a repetitive
--- chain of brainless actions to be able to go from one representation of some
--- information into its other form in such a way that no information gets lost?
--- It's likely that you do that hourly.
+-- By Conversion Problem we mean a repetitive chain of robotic actions one has
+-- to take to translate data from one form to another without losing
+-- information.
 --
--- How often do you use the `toList` function? How about importing `Data.Text`
--- only to be able to call its 'unpack'? How about going thru the always
--- fun sequence of importing `Data.Text.Lazy.Builder` only to be able to call its
--- `toLazyText` and then importing `Data.Text.Lazy` only to call its
--- `toStrict`?
+-- How often do you use the 'toList' or 'fromList' functions? How about
+-- importing @Data.Text@ only to be able to call its 'Data.Text.unpack'? How
+-- about going thru the always fun sequence of
+-- importing @Data.Text.Lazy.Builder@ only to to call its
+-- 'Data.Text.Lazy.Builder.toLazyText' and then importing
+-- @Data.Text.Lazy@ only to call its 'Data.Text.Lazy.toStrict'?
 --
 -- Those all are instances of one pattern. They are conversions of
 -- representations of data, which lose no information. The loss of no
 -- information can be proven by being able to restore data identical to the
 -- original from its transformed representation.
 --
--- Turns out there can only be one way of defining such an instance. So when it
--- doesn't make it evident what happens during conversions, like from `String`
--- to `Text` and back, it at least makes it very easy to remember what each
--- instance is doing.
+-- Turns out there can only be one way of defining such an instance. When it's
+-- not evident what it does, like in the case of converting from 'String' to
+-- 'Text' and back, it is at least very easy to remember.
 --
 -- Why another conversion library? No conversion library has become standard for
 -- a reason. I think it's because they are lawless. Which means that there are
@@ -54,6 +53,8 @@ import IsomorphismClass.Prelude
 --
 -- You can read the signature @IsomorphicTo a b@ as \"B is isomorphic to A\".
 --
+-- == Laws
+--
 -- This class is lawful. The laws are:
 --
 -- - @'from' . 'to' = 'id'@ - Converting to a type and back from it should
@@ -62,8 +63,11 @@ import IsomorphismClass.Prelude
 -- - @'to' . 'from' = 'id'@ - Converting from a type and back to it should too
 -- produce a value that is identical to the orignal.
 --
--- This class is particularly easy to use in combination with the @TypeApplications@ extension
--- making it clear to the reader what sort of conversion he sees. E.g.,
+-- == Usage
+--
+-- This class is particularly easy to use in combination with
+-- the @TypeApplications@ extension making it clear to the reader what sort
+-- of conversion he sees. E.g.,
 --
 -- > fromString = from @String
 --
@@ -76,6 +80,19 @@ import IsomorphismClass.Prelude
 --
 -- > > :t to @Text
 -- > to @Text :: IsomorphicTo Text b => b -> Text
+--
+-- == Instance Definition
+--
+-- There's two conventions in defining instances for this class:
+--
+-- - Always define dual instances. If there is @IsomorphicTo String Text@,
+--   then there should also be @IsomorphicTo Text String@. This serves
+--   consistency, making things more predictable to the user, and it gives
+--   him flexibility.
+--
+-- - Never define identity instances, like @IsomorphicTo Int Int@. Why?
+--   Because it's useless, only adds noise and to be consistent you'll have
+--   to define it for absolutely every type.
 class IsomorphicTo a b where
   to :: b -> a
   from :: a -> b
