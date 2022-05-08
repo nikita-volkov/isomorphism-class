@@ -5,12 +5,12 @@
 -- to take to translate data from one form to another without losing
 -- information.
 --
--- How often do you use the 'toList' or 'fromList' functions? How about
--- importing @Data.Text@ only to be able to call its 'Data.Text.unpack'? How
--- about going thru the always fun sequence of
--- importing @Data.Text.Lazy.Builder@ only to to call its
--- 'Data.Text.Lazy.Builder.toLazyText' and then importing
--- @Data.Text.Lazy@ only to call its 'Data.Text.Lazy.toStrict'?
+-- How often do you import @Data.Text.Lazy@ only to call
+-- its 'Data.Text.Lazy.fromStrict'? How about importing @Data.Text@ only to
+-- to call its 'Data.Text.unpack'? How about going thru the always fun
+-- sequence of importing @Data.ByteString.Builder@ only to to call its
+-- 'Data.ByteString.Builder.toLazyByteString' and then importing
+-- @Data.ByteString.Lazy@ only to call its 'Data.ByteString.Lazy.toStrict'?
 --
 -- Those all are instances of one pattern. They are conversions between
 -- representations of the same information. Information being the same
@@ -21,17 +21,16 @@
 -- Turns out there can only be one way of defining such a conversion between
 -- two types. E.g., there is only one way you can convert 'String' to 'Text'
 -- in such a way that you'd be able to get back the same 'String' when
--- converting back. This applies to all cases and thus makes it evident to
--- the user, what happens where he sees such a conversion, and just as
--- evident to the author how to define one.
+-- converting back for any input. This applies to all cases and thus makes it
+-- evident to the user, what happens where he sees such a conversion, and
+-- just as evident to the author how to define one.
 --
--- So why another conversion library? No conversion library has become
--- standard for a reason. We believe it's because they are lawless and there
--- are millions of ways of defining lawless conversions. No help for library
--- authors to ensure whether they define something that makes sense and no
--- insight for the users about what the conversions authored by someone else
--- do. In this library we're defining a lawful class, which ensures that
--- there is only one proper way of defining an instance for it.
+-- That's why it's not just another conversion library. It is a lawful
+-- abstraction, which is easy to define and infer. It helps the library
+-- authors to ensure that they define something that makes sense and provides
+-- insight to the users about what the conversions do. We capture this with a
+-- lawful class, which ensures that there is only one proper way of defining
+-- an instance for it and also accidentally provides a nice API.
 --
 -- Here's a bit of a sample of what this library lets you do:
 --
