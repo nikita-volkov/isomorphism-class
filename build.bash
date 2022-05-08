@@ -30,9 +30,16 @@ function build {
   --fast
 }
 
+function haddock {
+  stack haddock \
+  --ghc-options "-j +RTS -A128m -n2m -RTS -fwarn-incomplete-patterns" \
+  --fast
+}
+
 function demo {
   stack exec demo
 }
 
 format
 build_and_test
+haddock
