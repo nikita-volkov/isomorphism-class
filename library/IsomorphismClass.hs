@@ -12,14 +12,16 @@
 -- 'Data.Text.Lazy.Builder.toLazyText' and then importing
 -- @Data.Text.Lazy@ only to call its 'Data.Text.Lazy.toStrict'?
 --
--- Those all are instances of one pattern. They are conversions of
+-- Those all are instances of one pattern. They are conversions between
 -- representations of data, which lose no information. The loss of no
 -- information can be proven by being able to restore data identical to the
 -- original from its transformed representation.
 --
--- Turns out there can only be one way of defining such an instance. When it's
--- not evident what it does, like in the case of converting from 'String' to
--- 'Text' and back, it is at least very easy to remember.
+-- Turns out there can only be one way of defining such an instance. E.g.,
+-- there is only one way you can convert "String" to "Text" in such a way
+-- that you'd be able to get back the same "String" when converting back.
+-- This applies to all cases and thus makes it evident to the user, what
+-- happens where he sees a 'to' or a 'from'.
 --
 -- Why another conversion library? No conversion library has become standard for
 -- a reason. I think it's because they are lawless. Which means that there are
