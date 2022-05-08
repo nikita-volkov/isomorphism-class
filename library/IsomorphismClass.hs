@@ -327,6 +327,10 @@ instance VectorUnboxed.Unbox a => IsomorphicTo (VectorUnboxed.Vector a) (Vector 
   to = from @(Vector a)
   from = to @(Vector a)
 
+instance (VectorUnboxed.Unbox a, Storable a) => IsomorphicTo (VectorUnboxed.Vector a) (VectorStorable.Vector a) where
+  to = VectorGeneric.unstreamR . VectorGeneric.streamR
+  from = VectorGeneric.unstreamR . VectorGeneric.streamR
+
 instance VectorUnboxed.Unbox a => IsomorphicTo (VectorUnboxed.Vector a) (Seq a) where
   to = from @[a] . to
   from = from @[a] . to
@@ -348,6 +352,10 @@ instance Storable a => IsomorphicTo (VectorStorable.Vector a) [a] where
 instance Storable a => IsomorphicTo (VectorStorable.Vector a) (Vector a) where
   to = from @(Vector a)
   from = to @(Vector a)
+
+instance (VectorUnboxed.Unbox a, Storable a) => IsomorphicTo (VectorStorable.Vector a) (VectorUnboxed.Vector a) where
+  to = VectorGeneric.unstreamR . VectorGeneric.streamR
+  from = VectorGeneric.unstreamR . VectorGeneric.streamR
 
 instance Storable a => IsomorphicTo (VectorStorable.Vector a) (Seq a) where
   to = from @[a] . to
@@ -372,6 +380,10 @@ instance IsomorphicTo (Seq a) (Vector a) where
   from = from @[a] . to
 
 instance VectorUnboxed.Unbox a => IsomorphicTo (Seq a) (VectorUnboxed.Vector a) where
+  to = from @[a] . to
+  from = from @[a] . to
+
+instance Storable a => IsomorphicTo (Seq a) (VectorStorable.Vector a) where
   to = from @[a] . to
   from = from @[a] . to
 
