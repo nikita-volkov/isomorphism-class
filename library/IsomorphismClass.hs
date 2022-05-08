@@ -143,22 +143,38 @@ instance IsomorphicTo Text (VectorUnboxed.Vector Char) where
 --
 
 instance IsomorphicTo TextLazy.Text String where
-  to = fromString
+  to = TextLazy.pack
   from = TextLazy.unpack
 
 instance IsomorphicTo TextLazy.Text Text where
   to = TextLazy.fromStrict
   from = TextLazy.toStrict
 
+instance IsomorphicTo TextLazy.Text TextLazyBuilder.Builder where
+  to = TextLazyBuilder.toLazyText
+  from = TextLazyBuilder.fromLazyText
+
+instance IsomorphicTo TextLazy.Text (VectorUnboxed.Vector Char) where
+  to = from @[Char] . to
+  from = from @[Char] . to
+
 --
 
 instance IsomorphicTo TextLazyBuilder.Builder String where
-  to = fromString
-  from = to . to @Text
+  to = from
+  from = to
 
 instance IsomorphicTo TextLazyBuilder.Builder Text where
-  to = TextLazyBuilder.fromText
-  from = TextLazy.toStrict . TextLazyBuilder.toLazyText
+  to = from
+  from = to
+
+instance IsomorphicTo TextLazyBuilder.Builder TextLazy.Text where
+  to = from
+  from = to
+
+instance IsomorphicTo TextLazyBuilder.Builder (VectorUnboxed.Vector Char) where
+  to = from @Text . to
+  from = from @Text . to
 
 --
 
