@@ -13,27 +13,33 @@
 -- @Data.Text.Lazy@ only to call its 'Data.Text.Lazy.toStrict'?
 --
 -- Those all are instances of one pattern. They are conversions between
--- representations of data, which lose no information. The loss of no
--- information can be proven by being able to restore data identical to the
--- original from its transformed representation.
+-- representations of the same information. Information being the same
+-- implies that none of it gets lost during the conversions. The zero loss
+-- can be proven by being able to restore data identical to the original from
+-- its transformed representation.
 --
--- Turns out there can only be one way of defining such an instance. E.g.,
--- there is only one way you can convert "String" to "Text" in such a way
--- that you'd be able to get back the same "String" when converting back.
--- This applies to all cases and thus makes it evident to the user, what
--- happens where he sees a 'to' or a 'from'.
+-- Turns out there can only be one way of defining such a conversion between
+-- two types. E.g., there is only one way you can convert 'String' to 'Text'
+-- in such a way that you'd be able to get back the same 'String' when
+-- converting back. This applies to all cases and thus makes it evident to
+-- the user, what happens where he sees such a conversion, and just as
+-- evident to the author how to define one.
 --
--- Why another conversion library? No conversion library has become standard for
--- a reason. I think it's because they are lawless. Which means that there are
--- millions of ways of defining a lawless conversion. No help for library
--- authors to ensure whether they define something that makes sense. And no
--- insight for the users about what the conversions do.
+-- So why another conversion library? No conversion library has become
+-- standard for a reason. We believe it's because they are lawless and there
+-- are millions of ways of defining lawless conversions. No help for library
+-- authors to ensure whether they define something that makes sense and no
+-- insight for the users about what the conversions authored by someone else
+-- do. In this library we're defining a lawful class, which ensures that
+-- there is only one proper way of defining an instance for it.
 --
--- Here's an example of what this library lets you do:
+-- Here's a bit of a sample of what this library lets you do:
 --
--- >renderNameAndSurname :: Text -> Text -> Text
--- >renderNameAndSurname name surname =
--- >  from @Builder $ to name <> " " <> to surname
+-- @
+-- renderNameAndSurnameViaBuilder :: 'Text' -> 'Text' -> 'Text'
+-- renderNameAndSurnameViaBuilder name surname =
+--   'from' @t'Data.Text.Lazy.Builder.Builder' $ 'to' name <> \" \" <> 'to' surname
+-- @
 module IsomorphismClass
   ( -- * Typeclass
     IsomorphicTo (..),
