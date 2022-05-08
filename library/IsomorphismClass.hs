@@ -56,6 +56,7 @@ import qualified Data.Text.Lazy as TextLazy
 import qualified Data.Text.Lazy.Builder as TextLazyBuilder
 import qualified Data.Vector as Vector
 import qualified Data.Vector.Generic as VectorGeneric
+import qualified Data.Vector.Storable as VectorStorable
 import qualified Data.Vector.Unboxed as VectorUnboxed
 import IsomorphismClass.Prelude
 
@@ -140,6 +141,10 @@ instance IsomorphicTo Text (VectorUnboxed.Vector Char) where
   to = from @[Char] . to
   from = from @[Char] . to
 
+instance IsomorphicTo Text (VectorStorable.Vector Char) where
+  to = from @[Char] . to
+  from = from @[Char] . to
+
 --
 
 instance IsomorphicTo TextLazy.Text String where
@@ -158,6 +163,10 @@ instance IsomorphicTo TextLazy.Text (VectorUnboxed.Vector Char) where
   to = from @[Char] . to
   from = from @[Char] . to
 
+instance IsomorphicTo TextLazy.Text (VectorStorable.Vector Char) where
+  to = from @[Char] . to
+  from = from @[Char] . to
+
 --
 
 instance IsomorphicTo TextLazyBuilder.Builder String where
@@ -173,6 +182,10 @@ instance IsomorphicTo TextLazyBuilder.Builder TextLazy.Text where
   from = to
 
 instance IsomorphicTo TextLazyBuilder.Builder (VectorUnboxed.Vector Char) where
+  to = from @Text . to
+  from = from @Text . to
+
+instance IsomorphicTo TextLazyBuilder.Builder (VectorStorable.Vector Char) where
   to = from @Text . to
   from = from @Text . to
 
@@ -208,6 +221,10 @@ instance IsomorphicTo ByteString (VectorUnboxed.Vector Word8) where
   to = ByteString.pack . VectorUnboxed.toList
   from = VectorUnboxed.fromList . ByteString.unpack
 
+instance IsomorphicTo ByteString (VectorStorable.Vector Word8) where
+  to = ByteString.pack . VectorStorable.toList
+  from = VectorStorable.fromList . ByteString.unpack
+
 --
 
 instance IsomorphicTo ByteStringLazy.ByteString [Word8] where
@@ -225,6 +242,10 @@ instance IsomorphicTo ByteStringLazy.ByteString ByteStringBuilder.Builder where
 instance IsomorphicTo ByteStringLazy.ByteString (VectorUnboxed.Vector Word8) where
   to = ByteStringLazy.pack . VectorUnboxed.toList
   from = VectorUnboxed.fromList . ByteStringLazy.unpack
+
+instance IsomorphicTo ByteStringLazy.ByteString (VectorStorable.Vector Word8) where
+  to = ByteStringLazy.pack . VectorStorable.toList
+  from = VectorStorable.fromList . ByteStringLazy.unpack
 
 --
 
@@ -244,6 +265,10 @@ instance IsomorphicTo ByteStringBuilder.Builder (VectorUnboxed.Vector Word8) whe
   to = from @ByteString . to
   from = from @ByteString . to
 
+instance IsomorphicTo ByteStringBuilder.Builder (VectorStorable.Vector Word8) where
+  to = from @ByteString . to
+  from = from @ByteString . to
+
 --
 
 instance IsomorphicTo a b => IsomorphicTo [a] [b] where
@@ -258,9 +283,15 @@ instance VectorUnboxed.Unbox a => IsomorphicTo [a] (VectorUnboxed.Vector a) wher
   to = toList
   from = fromList
 
+instance Storable a => IsomorphicTo [a] (VectorStorable.Vector a) where
+  to = toList
+  from = fromList
+
 instance IsomorphicTo [a] (Seq a) where
   to = toList
   from = fromList
+
+--
 
 instance IsomorphicTo a b => IsomorphicTo (Vector a) (Vector b) where
   to = fmap to
@@ -274,9 +305,15 @@ instance VectorUnboxed.Unbox a => IsomorphicTo (Vector a) (VectorUnboxed.Vector 
   to = VectorGeneric.unstreamR . VectorGeneric.streamR
   from = VectorGeneric.unstreamR . VectorGeneric.streamR
 
+instance Storable a => IsomorphicTo (Vector a) (VectorStorable.Vector a) where
+  to = VectorGeneric.unstreamR . VectorGeneric.streamR
+  from = VectorGeneric.unstreamR . VectorGeneric.streamR
+
 instance IsomorphicTo (Vector a) (Seq a) where
   to = from @[a] . to
   from = from @[a] . to
+
+--
 
 instance (IsomorphicTo a b, VectorUnboxed.Unbox a, VectorUnboxed.Unbox b) => IsomorphicTo (VectorUnboxed.Vector a) (VectorUnboxed.Vector b) where
   to = VectorUnboxed.map to
@@ -295,8 +332,32 @@ instance VectorUnboxed.Unbox a => IsomorphicTo (VectorUnboxed.Vector a) (Seq a) 
   from = from @[a] . to
 
 instance IsomorphicTo (VectorUnboxed.Vector Char) Text where
-  to = from @[Char] . to
-  from = from @[Char] . to
+  to = from
+  from = to
+
+--
+
+instance (IsomorphicTo a b, Storable a, Storable b) => IsomorphicTo (VectorStorable.Vector a) (VectorStorable.Vector b) where
+  to = VectorStorable.map to
+  from = VectorStorable.map from
+
+instance Storable a => IsomorphicTo (VectorStorable.Vector a) [a] where
+  to = from @[a]
+  from = to @[a]
+
+instance Storable a => IsomorphicTo (VectorStorable.Vector a) (Vector a) where
+  to = from @(Vector a)
+  from = to @(Vector a)
+
+instance Storable a => IsomorphicTo (VectorStorable.Vector a) (Seq a) where
+  to = from @[a] . to
+  from = from @[a] . to
+
+instance IsomorphicTo (VectorStorable.Vector Char) Text where
+  to = from
+  from = to
+
+--
 
 instance IsomorphicTo a b => IsomorphicTo (Seq a) (Seq b) where
   to = fmap to
@@ -314,6 +375,8 @@ instance VectorUnboxed.Unbox a => IsomorphicTo (Seq a) (VectorUnboxed.Vector a) 
   to = from @[a] . to
   from = from @[a] . to
 
+--
+
 instance (IsomorphicTo a b, Ord a, Ord b) => IsomorphicTo (Set a) (Set b) where
   to = Set.map to
   from = Set.map from
@@ -326,6 +389,8 @@ instance IsomorphicTo (Set Int) IntSet where
   to = fromList . toList
   from = fromList . toList
 
+--
+
 instance (IsomorphicTo a b, Eq a, Hashable a, Eq b, Hashable b) => IsomorphicTo (HashSet a) (HashSet b) where
   to = HashSet.map to
   from = HashSet.map from
@@ -337,6 +402,8 @@ instance (Hashable a, Ord a) => IsomorphicTo (HashSet a) (Set a) where
 instance IsomorphicTo (HashSet Int) IntSet where
   to = fromList . toList
   from = fromList . toList
+
+--
 
 instance IsomorphicTo IntSet (Set Int) where
   to = fromList . toList
@@ -356,6 +423,8 @@ instance IsomorphicTo (HashMap Int v) (IntMap v) where
   to = fromList . toList
   from = fromList . toList
 
+--
+
 instance (Hashable k, Ord k) => IsomorphicTo (Map k v) (HashMap k v) where
   to = fromList . toList
   from = fromList . toList
@@ -363,6 +432,8 @@ instance (Hashable k, Ord k) => IsomorphicTo (Map k v) (HashMap k v) where
 instance IsomorphicTo (Map Int v) (IntMap v) where
   to = fromList . toList
   from = fromList . toList
+
+--
 
 instance IsomorphicTo (IntMap v) (HashMap Int v) where
   to = fromList . toList
@@ -413,6 +484,8 @@ instance IsomorphicTo Word64 Int64 where
 instance IsomorphicTo Word Int where
   to = fromIntegral
   from = fromIntegral
+
+--
 
 -- |
 -- Ideally there should be a direct instance and this function
