@@ -178,9 +178,23 @@ instance IsomorphicTo TextLazyBuilder.Builder (VectorUnboxed.Vector Char) where
 
 --
 
+instance IsomorphicTo [Word8] ByteString where
+  to = ByteString.unpack
+  from = ByteString.pack
+
+instance IsomorphicTo [Word8] ByteStringLazy.ByteString where
+  to = ByteStringLazy.unpack
+  from = ByteStringLazy.pack
+
+instance IsomorphicTo [Word8] ByteStringBuilder.Builder where
+  to = ByteStringLazy.unpack . ByteStringBuilder.toLazyByteString
+  from = ByteStringBuilder.byteString . ByteString.pack
+
+--
+
 instance IsomorphicTo ByteString [Word8] where
-  to = ByteString.pack
-  from = ByteString.unpack
+  to = from
+  from = to
 
 instance IsomorphicTo ByteString ByteStringLazy.ByteString where
   to = ByteStringLazy.toStrict
@@ -197,8 +211,8 @@ instance IsomorphicTo ByteString (VectorUnboxed.Vector Word8) where
 --
 
 instance IsomorphicTo ByteStringLazy.ByteString [Word8] where
-  to = ByteStringLazy.pack
-  from = ByteStringLazy.unpack
+  to = from
+  from = to
 
 instance IsomorphicTo ByteStringLazy.ByteString ByteString where
   to = from
@@ -215,8 +229,8 @@ instance IsomorphicTo ByteStringLazy.ByteString (VectorUnboxed.Vector Word8) whe
 --
 
 instance IsomorphicTo ByteStringBuilder.Builder [Word8] where
-  to = from @ByteString . to
-  from = from @ByteString . to
+  to = from
+  from = to
 
 instance IsomorphicTo ByteStringBuilder.Builder ByteString where
   to = from
