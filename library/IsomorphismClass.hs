@@ -46,6 +46,9 @@ module IsomorphismClass
   )
 where
 
+import qualified Data.ByteString as ByteString
+import qualified Data.ByteString.Builder as ByteStringBuilder
+import qualified Data.ByteString.Lazy as ByteStringLazy
 import qualified Data.HashSet as HashSet
 import qualified Data.Set as Set
 import qualified Data.Text as Text
@@ -105,6 +108,8 @@ class IsomorphicTo a b where
   to :: b -> a
   from :: a -> b
 
+--
+
 instance IsomorphicTo String Text where
   to = Text.unpack
   from = Text.pack
@@ -116,6 +121,8 @@ instance IsomorphicTo String TextLazy.Text where
 instance IsomorphicTo String TextLazyBuilder.Builder where
   to = TextLazy.unpack . TextLazyBuilder.toLazyText
   from = TextLazyBuilder.fromString
+
+--
 
 instance IsomorphicTo Text String where
   to = Text.pack
@@ -133,6 +140,8 @@ instance IsomorphicTo Text (VectorUnboxed.Vector Char) where
   to = from @[Char] . to
   from = from @[Char] . to
 
+--
+
 instance IsomorphicTo TextLazy.Text String where
   to = fromString
   from = TextLazy.unpack
@@ -141,6 +150,8 @@ instance IsomorphicTo TextLazy.Text Text where
   to = TextLazy.fromStrict
   from = TextLazy.toStrict
 
+--
+
 instance IsomorphicTo TextLazyBuilder.Builder String where
   to = fromString
   from = to . to @Text
@@ -148,6 +159,62 @@ instance IsomorphicTo TextLazyBuilder.Builder String where
 instance IsomorphicTo TextLazyBuilder.Builder Text where
   to = TextLazyBuilder.fromText
   from = TextLazy.toStrict . TextLazyBuilder.toLazyText
+
+--
+
+instance IsomorphicTo ByteString [Word8] where
+  to = ByteString.pack
+  from = ByteString.unpack
+
+instance IsomorphicTo ByteString ByteStringLazy.ByteString where
+  to = ByteStringLazy.toStrict
+  from = ByteStringLazy.fromStrict
+
+instance IsomorphicTo ByteString ByteStringBuilder.Builder where
+  to = ByteStringLazy.toStrict . ByteStringBuilder.toLazyByteString
+  from = ByteStringBuilder.byteString
+
+instance IsomorphicTo ByteString (VectorUnboxed.Vector Word8) where
+  to = ByteString.pack . VectorUnboxed.toList
+  from = VectorUnboxed.fromList . ByteString.unpack
+
+--
+
+instance IsomorphicTo ByteStringLazy.ByteString [Word8] where
+  to = ByteStringLazy.pack
+  from = ByteStringLazy.unpack
+
+instance IsomorphicTo ByteStringLazy.ByteString ByteString where
+  to = from
+  from = to
+
+instance IsomorphicTo ByteStringLazy.ByteString ByteStringBuilder.Builder where
+  to = ByteStringBuilder.toLazyByteString
+  from = ByteStringBuilder.lazyByteString
+
+instance IsomorphicTo ByteStringLazy.ByteString (VectorUnboxed.Vector Word8) where
+  to = ByteStringLazy.pack . VectorUnboxed.toList
+  from = VectorUnboxed.fromList . ByteStringLazy.unpack
+
+--
+
+instance IsomorphicTo ByteStringBuilder.Builder [Word8] where
+  to = from @ByteString . to
+  from = from @ByteString . to
+
+instance IsomorphicTo ByteStringBuilder.Builder ByteString where
+  to = from
+  from = to
+
+instance IsomorphicTo ByteStringBuilder.Builder ByteStringLazy.ByteString where
+  to = from
+  from = to
+
+instance IsomorphicTo ByteStringBuilder.Builder (VectorUnboxed.Vector Word8) where
+  to = from @ByteString . to
+  from = from @ByteString . to
+
+--
 
 instance IsomorphicTo a b => IsomorphicTo [a] [b] where
   to = fmap to
