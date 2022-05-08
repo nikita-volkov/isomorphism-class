@@ -32,12 +32,17 @@
 -- lawful class, which ensures that there is only one proper way of defining
 -- an instance for it and also accidentally provides a nice API.
 --
--- Here's a bit of a sample of what this library lets you do:
+-- Here's a few samples of what this library lets you do:
 --
 -- @
 -- renderNameAndSurnameViaBuilder :: 'Text' -> 'Text' -> 'Text'
 -- renderNameAndSurnameViaBuilder name surname =
 --   'from' @t'Data.Text.Lazy.Builder.Builder' $ 'to' name <> \" \" <> 'to' surname
+-- @
+--
+-- @
+-- showText :: Show a => a -> Text
+-- showText = to @Text . show
 -- @
 module IsomorphismClass
   ( -- * Typeclass
