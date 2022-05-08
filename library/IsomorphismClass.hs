@@ -528,3 +528,10 @@ thruText = from @Text . to
 {-# INLINE thruList #-}
 thruList :: forall a f g. (IsomorphicTo [a] (f a), IsomorphicTo [a] (g a)) => f a -> g a
 thruList = from @[a] . to
+
+-- | A utility, which uses the 'Show' instance to produce a value
+-- that 'String' is isomorphic to.
+--
+-- Think of it as a generalization over @showAsText@ or @showAsBuilder@.
+showTo :: (IsomorphicTo b String, Show a) => a -> b
+showTo = to . show
