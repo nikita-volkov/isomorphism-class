@@ -78,13 +78,13 @@ import IsomorphismClass.Prelude
 --
 -- __Laws__
 --
--- This class is lawful. The laws are:
+-- This class is lawful. The laws are (for all values of a type):
 --
--- - @'from' . 'to' = 'id'@ - Converting to a type and back from it should
--- produce a value that is identical to the original.
+-- - @'from' . 'to' = 'id'@ - Converting to the type and back from it should
+--     produce a value that is identical to the original.
 --
--- - @'to' . 'from' = 'id'@ - Converting from a type and back to it should too
--- produce a value that is identical to the orignal.
+-- - @'to' . 'from' = 'id'@ - Converting from the type and back to it should
+--     too produce a value that is identical to the orignal.
 --
 -- __Usage__
 --
