@@ -62,6 +62,7 @@ import qualified Data.ByteString.Lazy as ByteStringLazy
 import qualified Data.ByteString.Short as ByteStringShort
 import qualified Data.HashSet as HashSet
 import qualified Data.Primitive.ByteArray as PrimitiveByteArray
+import qualified Data.Sequence as Seq
 import qualified Data.Set as Set
 import qualified Data.Text as Text
 import qualified Data.Text.Lazy as TextLazy
@@ -351,7 +352,7 @@ instance IsomorphicTo a b => IsomorphicTo (Vector a) (Vector b) where
   to = fmap to
 
 instance IsomorphicTo (Vector a) [a] where
-  to = from @[a]
+  to = Vector.fromList
 
 instance VectorUnboxed.Unbox a => IsomorphicTo (Vector a) (VectorUnboxed.Vector a) where
   to = VectorGeneric.convert
@@ -371,10 +372,10 @@ instance (IsomorphicTo a b, VectorUnboxed.Unbox a, VectorUnboxed.Unbox b) => Iso
   to = VectorUnboxed.map to
 
 instance VectorUnboxed.Unbox a => IsomorphicTo (VectorUnboxed.Vector a) [a] where
-  to = from @[a]
+  to = VectorUnboxed.fromList
 
 instance VectorUnboxed.Unbox a => IsomorphicTo (VectorUnboxed.Vector a) (Vector a) where
-  to = from @(Vector a)
+  to = VectorGeneric.convert
 
 instance (VectorUnboxed.Unbox a, Storable a) => IsomorphicTo (VectorUnboxed.Vector a) (VectorStorable.Vector a) where
   to = VectorGeneric.convert
@@ -470,7 +471,7 @@ instance IsomorphicTo a b => IsomorphicTo (Seq a) (Seq b) where
   to = fmap to
 
 instance IsomorphicTo (Seq a) [a] where
-  to = from @[a]
+  to = Seq.fromList
 
 instance IsomorphicTo (Seq a) (Vector a) where
   to = from @[a] . to
