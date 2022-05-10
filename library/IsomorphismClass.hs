@@ -61,12 +61,14 @@ import qualified Data.ByteString.Builder as ByteStringBuilder
 import qualified Data.ByteString.Lazy as ByteStringLazy
 import qualified Data.ByteString.Short as ByteStringShort
 import qualified Data.HashSet as HashSet
+import qualified Data.Primitive.ByteArray as PrimitiveByteArray
 import qualified Data.Set as Set
 import qualified Data.Text as Text
 import qualified Data.Text.Lazy as TextLazy
 import qualified Data.Text.Lazy.Builder as TextLazyBuilder
 import qualified Data.Vector as Vector
 import qualified Data.Vector.Generic as VectorGeneric
+import qualified Data.Vector.Primitive as VectorPrimitive
 import qualified Data.Vector.Storable as VectorStorable
 import qualified Data.Vector.Unboxed as VectorUnboxed
 import IsomorphismClass.Prelude
@@ -234,6 +236,9 @@ instance IsomorphicTo ByteString ByteStringShort.ShortByteString where
 instance IsomorphicTo ByteString ByteStringBuilder.Builder where
   to = ByteStringLazy.toStrict . ByteStringBuilder.toLazyByteString
 
+instance IsomorphicTo ByteString PrimitiveByteArray.ByteArray where
+  to = to . to @ByteStringShort.ShortByteString
+
 instance IsomorphicTo ByteString (VectorUnboxed.Vector Word8) where
   to = ByteString.pack . VectorUnboxed.toList
 
@@ -256,6 +261,9 @@ instance IsomorphicTo ByteStringLazy.ByteString ByteStringShort.ShortByteString 
 
 instance IsomorphicTo ByteStringLazy.ByteString ByteStringBuilder.Builder where
   to = ByteStringBuilder.toLazyByteString
+
+instance IsomorphicTo ByteStringLazy.ByteString PrimitiveByteArray.ByteArray where
+  to = to . to @ByteStringShort.ShortByteString
 
 instance IsomorphicTo ByteStringLazy.ByteString (VectorUnboxed.Vector Word8) where
   to = ByteStringLazy.pack . VectorUnboxed.toList
@@ -280,6 +288,9 @@ instance IsomorphicTo ByteStringShort.ShortByteString ByteStringLazy.ByteString 
 instance IsomorphicTo ByteStringShort.ShortByteString ByteStringBuilder.Builder where
   to = to . to @ByteStringLazy.ByteString
 
+instance IsomorphicTo ByteStringShort.ShortByteString PrimitiveByteArray.ByteArray where
+  to (PrimitiveByteArray.ByteArray array) = ByteStringShort.SBS array
+
 instance IsomorphicTo ByteStringShort.ShortByteString (VectorUnboxed.Vector Word8) where
   to = to . to @ByteString
 
@@ -303,11 +314,28 @@ instance IsomorphicTo ByteStringBuilder.Builder ByteStringLazy.ByteString where
 instance IsomorphicTo ByteStringBuilder.Builder ByteStringShort.ShortByteString where
   to = ByteStringBuilder.shortByteString
 
+instance IsomorphicTo ByteStringBuilder.Builder PrimitiveByteArray.ByteArray where
+  to = to . to @ByteStringShort.ShortByteString
+
 instance IsomorphicTo ByteStringBuilder.Builder (VectorUnboxed.Vector Word8) where
   to = from @ByteString . to
 
 instance IsomorphicTo ByteStringBuilder.Builder (VectorStorable.Vector Word8) where
   to = from @ByteString . to
+
+--
+
+instance IsomorphicTo PrimitiveByteArray.ByteArray ByteStringShort.ShortByteString where
+  to (ByteStringShort.SBS array) = PrimitiveByteArray.ByteArray array
+
+instance IsomorphicTo PrimitiveByteArray.ByteArray ByteString where
+  to = to . to @ByteStringShort.ShortByteString
+
+instance IsomorphicTo PrimitiveByteArray.ByteArray ByteStringLazy.ByteString where
+  to = to . to @ByteStringShort.ShortByteString
+
+instance IsomorphicTo PrimitiveByteArray.ByteArray ByteStringBuilder.Builder where
+  to = to . to @ByteStringShort.ShortByteString
 
 --
 
