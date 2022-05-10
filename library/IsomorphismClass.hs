@@ -119,37 +119,36 @@ class IsomorphicTo a b where
   to :: b -> a
   from :: a -> b
 
+  -- |
+  -- When instances in both directions are defined,
+  -- we can reuse them to automatically define 'from'.
+  default from :: IsomorphicTo b a => a -> b
+  from = to
+
 --
 
 instance IsomorphicTo String Text where
   to = Text.unpack
-  from = Text.pack
 
 instance IsomorphicTo String TextLazy.Text where
   to = TextLazy.unpack
-  from = TextLazy.pack
 
 instance IsomorphicTo String TextLazyBuilder.Builder where
   to = TextLazy.unpack . TextLazyBuilder.toLazyText
-  from = TextLazyBuilder.fromString
 
 --
 
 instance IsomorphicTo [Word8] ByteString where
   to = ByteString.unpack
-  from = ByteString.pack
 
 instance IsomorphicTo [Word8] ByteStringLazy.ByteString where
   to = ByteStringLazy.unpack
-  from = ByteStringLazy.pack
 
 instance IsomorphicTo [Word8] ByteStringShort.ShortByteString where
   to = ByteStringShort.unpack
-  from = ByteStringShort.pack
 
 instance IsomorphicTo [Word8] ByteStringBuilder.Builder where
   to = ByteStringLazy.unpack . ByteStringBuilder.toLazyByteString
-  from = ByteStringBuilder.byteString . ByteString.pack
 
 --
 
@@ -159,181 +158,146 @@ instance IsomorphicTo a b => IsomorphicTo [a] [b] where
 
 instance IsomorphicTo [a] (Vector a) where
   to = toList
-  from = fromList
 
 instance VectorUnboxed.Unbox a => IsomorphicTo [a] (VectorUnboxed.Vector a) where
   to = toList
-  from = fromList
 
 instance Storable a => IsomorphicTo [a] (VectorStorable.Vector a) where
   to = toList
-  from = fromList
 
 instance IsomorphicTo [a] (Seq a) where
   to = toList
-  from = fromList
 
 --
 
 instance IsomorphicTo Text String where
   to = Text.pack
-  from = Text.unpack
 
 instance IsomorphicTo Text TextLazy.Text where
   to = TextLazy.toStrict
-  from = TextLazy.fromStrict
 
 instance IsomorphicTo Text TextLazyBuilder.Builder where
   to = TextLazy.toStrict . TextLazyBuilder.toLazyText
-  from = TextLazyBuilder.fromText
 
 instance IsomorphicTo Text (VectorUnboxed.Vector Char) where
   to = from @[Char] . to
-  from = from @[Char] . to
 
 instance IsomorphicTo Text (VectorStorable.Vector Char) where
   to = from @[Char] . to
-  from = from @[Char] . to
 
 --
 
 instance IsomorphicTo TextLazy.Text String where
   to = TextLazy.pack
-  from = TextLazy.unpack
 
 instance IsomorphicTo TextLazy.Text Text where
   to = TextLazy.fromStrict
-  from = TextLazy.toStrict
 
 instance IsomorphicTo TextLazy.Text TextLazyBuilder.Builder where
   to = TextLazyBuilder.toLazyText
-  from = TextLazyBuilder.fromLazyText
 
 instance IsomorphicTo TextLazy.Text (VectorUnboxed.Vector Char) where
   to = from @[Char] . to
-  from = from @[Char] . to
 
 instance IsomorphicTo TextLazy.Text (VectorStorable.Vector Char) where
   to = from @[Char] . to
-  from = from @[Char] . to
 
 --
 
 instance IsomorphicTo TextLazyBuilder.Builder String where
-  to = from
-  from = to
+  to = TextLazyBuilder.fromString
 
 instance IsomorphicTo TextLazyBuilder.Builder Text where
-  to = from
-  from = to
+  to = TextLazyBuilder.fromText
 
 instance IsomorphicTo TextLazyBuilder.Builder TextLazy.Text where
-  to = from
-  from = to
+  to = TextLazyBuilder.fromLazyText
 
 instance IsomorphicTo TextLazyBuilder.Builder (VectorUnboxed.Vector Char) where
   to = from @Text . to
-  from = from @Text . to
 
 instance IsomorphicTo TextLazyBuilder.Builder (VectorStorable.Vector Char) where
   to = from @Text . to
-  from = from @Text . to
 
 --
 
 instance IsomorphicTo ByteString [Word8] where
-  to = from
-  from = to
+  to = ByteString.pack
 
 instance IsomorphicTo ByteString ByteStringLazy.ByteString where
   to = ByteStringLazy.toStrict
-  from = ByteStringLazy.fromStrict
 
 instance IsomorphicTo ByteString ByteStringShort.ShortByteString where
   to = ByteStringShort.fromShort
-  from = ByteStringShort.toShort
 
 instance IsomorphicTo ByteString ByteStringBuilder.Builder where
   to = ByteStringLazy.toStrict . ByteStringBuilder.toLazyByteString
-  from = ByteStringBuilder.byteString
 
 instance IsomorphicTo ByteString (VectorUnboxed.Vector Word8) where
   to = ByteString.pack . VectorUnboxed.toList
-  from = VectorUnboxed.fromList . ByteString.unpack
 
 instance IsomorphicTo ByteString (VectorStorable.Vector Word8) where
   to = ByteString.pack . VectorStorable.toList
-  from = VectorStorable.fromList . ByteString.unpack
 
 --
 
 instance IsomorphicTo ByteStringLazy.ByteString [Word8] where
-  to = from
-  from = to
+  to = ByteStringLazy.pack
 
 instance IsomorphicTo ByteStringLazy.ByteString ByteString where
-  to = from
-  from = to
+  to = ByteStringLazy.fromStrict
 
 instance IsomorphicTo ByteStringLazy.ByteString ByteStringShort.ShortByteString where
   to = from @ByteString . to
-  from = from @ByteString . to
 
 instance IsomorphicTo ByteStringLazy.ByteString ByteStringBuilder.Builder where
   to = ByteStringBuilder.toLazyByteString
-  from = ByteStringBuilder.lazyByteString
 
 instance IsomorphicTo ByteStringLazy.ByteString (VectorUnboxed.Vector Word8) where
   to = ByteStringLazy.pack . VectorUnboxed.toList
-  from = VectorUnboxed.fromList . ByteStringLazy.unpack
 
 instance IsomorphicTo ByteStringLazy.ByteString (VectorStorable.Vector Word8) where
   to = ByteStringLazy.pack . VectorStorable.toList
-  from = VectorStorable.fromList . ByteStringLazy.unpack
 
 --
 
 instance IsomorphicTo ByteStringShort.ShortByteString [Word8] where
-  to = from
-  from = to
+  to = ByteStringShort.pack
 
 instance IsomorphicTo ByteStringShort.ShortByteString ByteString where
-  to = from
-  from = to
+  to = ByteStringShort.toShort
 
 instance IsomorphicTo ByteStringShort.ShortByteString ByteStringLazy.ByteString where
-  to = from
-  from = to
+  to = to . to @ByteString
 
 instance IsomorphicTo ByteStringShort.ShortByteString ByteStringBuilder.Builder where
-  to = from
-  from = to
+  to = to . to @ByteStringLazy.ByteString
+
+instance IsomorphicTo ByteStringShort.ShortByteString (VectorUnboxed.Vector Word8) where
+  to = to . to @ByteString
+
+instance IsomorphicTo ByteStringShort.ShortByteString (VectorStorable.Vector Word8) where
+  to = to . to @ByteString
 
 --
 
 instance IsomorphicTo ByteStringBuilder.Builder [Word8] where
-  to = from
-  from = to
+  to = to . to @ByteString
 
 instance IsomorphicTo ByteStringBuilder.Builder ByteString where
-  to = from
-  from = to
+  to = ByteStringBuilder.byteString
 
 instance IsomorphicTo ByteStringBuilder.Builder ByteStringLazy.ByteString where
-  to = from
-  from = to
+  to = ByteStringBuilder.lazyByteString
 
 instance IsomorphicTo ByteStringBuilder.Builder ByteStringShort.ShortByteString where
   to = ByteStringBuilder.shortByteString
-  from = from @ByteString . to
 
 instance IsomorphicTo ByteStringBuilder.Builder (VectorUnboxed.Vector Word8) where
   to = from @ByteString . to
-  from = from @ByteString . to
 
 instance IsomorphicTo ByteStringBuilder.Builder (VectorStorable.Vector Word8) where
   to = from @ByteString . to
-  from = from @ByteString . to
 
 --
 
@@ -343,19 +307,15 @@ instance IsomorphicTo a b => IsomorphicTo (Vector a) (Vector b) where
 
 instance IsomorphicTo (Vector a) [a] where
   to = from @[a]
-  from = to @[a]
 
 instance VectorUnboxed.Unbox a => IsomorphicTo (Vector a) (VectorUnboxed.Vector a) where
   to = VectorGeneric.unstreamR . VectorGeneric.streamR
-  from = VectorGeneric.unstreamR . VectorGeneric.streamR
 
 instance Storable a => IsomorphicTo (Vector a) (VectorStorable.Vector a) where
   to = VectorGeneric.unstreamR . VectorGeneric.streamR
-  from = VectorGeneric.unstreamR . VectorGeneric.streamR
 
 instance IsomorphicTo (Vector a) (Seq a) where
   to = from @[a] . to
-  from = from @[a] . to
 
 --
 
@@ -365,23 +325,36 @@ instance (IsomorphicTo a b, VectorUnboxed.Unbox a, VectorUnboxed.Unbox b) => Iso
 
 instance VectorUnboxed.Unbox a => IsomorphicTo (VectorUnboxed.Vector a) [a] where
   to = from @[a]
-  from = to @[a]
 
 instance VectorUnboxed.Unbox a => IsomorphicTo (VectorUnboxed.Vector a) (Vector a) where
   to = from @(Vector a)
-  from = to @(Vector a)
 
 instance (VectorUnboxed.Unbox a, Storable a) => IsomorphicTo (VectorUnboxed.Vector a) (VectorStorable.Vector a) where
   to = VectorGeneric.unstreamR . VectorGeneric.streamR
-  from = VectorGeneric.unstreamR . VectorGeneric.streamR
 
 instance VectorUnboxed.Unbox a => IsomorphicTo (VectorUnboxed.Vector a) (Seq a) where
   to = from @[a] . to
-  from = from @[a] . to
 
 instance IsomorphicTo (VectorUnboxed.Vector Char) Text where
-  to = from
-  from = to
+  to = from @[Char] . to
+
+instance IsomorphicTo (VectorUnboxed.Vector Char) TextLazy.Text where
+  to = from @[Char] . to
+
+instance IsomorphicTo (VectorUnboxed.Vector Char) TextLazyBuilder.Builder where
+  to = thru @TextLazy.Text Proxy
+
+instance IsomorphicTo (VectorUnboxed.Vector Word8) ByteString where
+  to = VectorUnboxed.fromList . ByteString.unpack
+
+instance IsomorphicTo (VectorUnboxed.Vector Word8) ByteStringLazy.ByteString where
+  to = VectorUnboxed.fromList . ByteStringLazy.unpack
+
+instance IsomorphicTo (VectorUnboxed.Vector Word8) ByteStringShort.ShortByteString where
+  to = from @ByteString . to
+
+instance IsomorphicTo (VectorUnboxed.Vector Word8) ByteStringBuilder.Builder where
+  to = from @ByteString . to
 
 --
 
@@ -391,23 +364,36 @@ instance (IsomorphicTo a b, Storable a, Storable b) => IsomorphicTo (VectorStora
 
 instance Storable a => IsomorphicTo (VectorStorable.Vector a) [a] where
   to = from @[a]
-  from = to @[a]
 
 instance Storable a => IsomorphicTo (VectorStorable.Vector a) (Vector a) where
   to = from @(Vector a)
-  from = to @(Vector a)
 
 instance (VectorUnboxed.Unbox a, Storable a) => IsomorphicTo (VectorStorable.Vector a) (VectorUnboxed.Vector a) where
   to = VectorGeneric.unstreamR . VectorGeneric.streamR
-  from = VectorGeneric.unstreamR . VectorGeneric.streamR
 
 instance Storable a => IsomorphicTo (VectorStorable.Vector a) (Seq a) where
   to = from @[a] . to
-  from = from @[a] . to
 
 instance IsomorphicTo (VectorStorable.Vector Char) Text where
-  to = from
-  from = to
+  to = from @[Char] . to
+
+instance IsomorphicTo (VectorStorable.Vector Char) TextLazy.Text where
+  to = from @[Char] . to
+
+instance IsomorphicTo (VectorStorable.Vector Char) TextLazyBuilder.Builder where
+  to = thru @TextLazy.Text Proxy
+
+instance IsomorphicTo (VectorStorable.Vector Word8) ByteString where
+  to = VectorStorable.fromList . ByteString.unpack
+
+instance IsomorphicTo (VectorStorable.Vector Word8) ByteStringLazy.ByteString where
+  to = VectorStorable.fromList . ByteStringLazy.unpack
+
+instance IsomorphicTo (VectorStorable.Vector Word8) ByteStringBuilder.Builder where
+  to = from @ByteString . to
+
+instance IsomorphicTo (VectorStorable.Vector Word8) ByteStringShort.ShortByteString where
+  to = from @ByteString . to
 
 --
 
@@ -417,19 +403,15 @@ instance IsomorphicTo a b => IsomorphicTo (Seq a) (Seq b) where
 
 instance IsomorphicTo (Seq a) [a] where
   to = from @[a]
-  from = to @[a]
 
 instance IsomorphicTo (Seq a) (Vector a) where
   to = from @[a] . to
-  from = from @[a] . to
 
 instance VectorUnboxed.Unbox a => IsomorphicTo (Seq a) (VectorUnboxed.Vector a) where
   to = from @[a] . to
-  from = from @[a] . to
 
 instance Storable a => IsomorphicTo (Seq a) (VectorStorable.Vector a) where
   to = from @[a] . to
-  from = from @[a] . to
 
 --
 
@@ -439,11 +421,9 @@ instance (IsomorphicTo a b, Ord a, Ord b) => IsomorphicTo (Set a) (Set b) where
 
 instance (Hashable a, Ord a) => IsomorphicTo (Set a) (HashSet a) where
   to = fromList . toList
-  from = fromList . toList
 
 instance IsomorphicTo (Set Int) IntSet where
   to = fromList . toList
-  from = fromList . toList
 
 --
 
@@ -453,93 +433,73 @@ instance (IsomorphicTo a b, Eq a, Hashable a, Eq b, Hashable b) => IsomorphicTo 
 
 instance (Hashable a, Ord a) => IsomorphicTo (HashSet a) (Set a) where
   to = fromList . toList
-  from = fromList . toList
 
 instance IsomorphicTo (HashSet Int) IntSet where
   to = fromList . toList
-  from = fromList . toList
 
 --
 
 instance IsomorphicTo IntSet (Set Int) where
   to = fromList . toList
-  from = fromList . toList
 
 instance IsomorphicTo IntSet (HashSet Int) where
   to = fromList . toList
-  from = fromList . toList
 
 --
 
 instance (Hashable k, Ord k) => IsomorphicTo (HashMap k v) (Map k v) where
   to = fromList . toList
-  from = fromList . toList
 
 instance IsomorphicTo (HashMap Int v) (IntMap v) where
   to = fromList . toList
-  from = fromList . toList
 
 --
 
 instance (Hashable k, Ord k) => IsomorphicTo (Map k v) (HashMap k v) where
   to = fromList . toList
-  from = fromList . toList
 
 instance IsomorphicTo (Map Int v) (IntMap v) where
   to = fromList . toList
-  from = fromList . toList
 
 --
 
 instance IsomorphicTo (IntMap v) (HashMap Int v) where
   to = fromList . toList
-  from = fromList . toList
 
 instance IsomorphicTo (IntMap v) (Map Int v) where
   to = fromList . toList
-  from = fromList . toList
 
 --
 
 instance IsomorphicTo Int8 Word8 where
   to = fromIntegral
-  from = fromIntegral
 
 instance IsomorphicTo Int16 Word16 where
   to = fromIntegral
-  from = fromIntegral
 
 instance IsomorphicTo Int32 Word32 where
   to = fromIntegral
-  from = fromIntegral
 
 instance IsomorphicTo Int64 Word64 where
   to = fromIntegral
-  from = fromIntegral
 
 instance IsomorphicTo Int Word where
   to = fromIntegral
-  from = fromIntegral
 
 instance IsomorphicTo Word8 Int8 where
   to = fromIntegral
-  from = fromIntegral
 
 instance IsomorphicTo Word16 Int16 where
   to = fromIntegral
-  from = fromIntegral
 
 instance IsomorphicTo Word32 Int32 where
   to = fromIntegral
-  from = fromIntegral
 
 instance IsomorphicTo Word64 Int64 where
   to = fromIntegral
-  from = fromIntegral
 
 instance IsomorphicTo Word Int where
   to = fromIntegral
-  from = fromIntegral
 
 --
 
