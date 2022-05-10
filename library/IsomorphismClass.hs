@@ -552,6 +552,15 @@ instance IsomorphicTo Word8 Word8 where to = id
 
 -- |
 -- 'to' in reverse direction.
+--
+-- Particularly useful in combination with the @TypeApplications@ extension,
+-- where it allows to specify the input type, e.g.:
+--
+-- > fromString :: IsomorphicTo a String => String -> a
+-- > fromString = from @String
+--
+-- The first type application of the 'to' function on the other hand specifies
+-- the output data type.
 from :: forall a b. IsomorphicTo b a => a -> b
 from = to
 
