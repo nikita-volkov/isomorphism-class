@@ -129,6 +129,42 @@ instance IsomorphicTo String TextLazyBuilder.Builder where
 
 --
 
+instance IsomorphicTo [Word8] ByteString where
+  to = ByteString.unpack
+  from = ByteString.pack
+
+instance IsomorphicTo [Word8] ByteStringLazy.ByteString where
+  to = ByteStringLazy.unpack
+  from = ByteStringLazy.pack
+
+instance IsomorphicTo [Word8] ByteStringBuilder.Builder where
+  to = ByteStringLazy.unpack . ByteStringBuilder.toLazyByteString
+  from = ByteStringBuilder.byteString . ByteString.pack
+
+--
+
+instance IsomorphicTo a b => IsomorphicTo [a] [b] where
+  to = fmap to
+  from = fmap from
+
+instance IsomorphicTo [a] (Vector a) where
+  to = toList
+  from = fromList
+
+instance VectorUnboxed.Unbox a => IsomorphicTo [a] (VectorUnboxed.Vector a) where
+  to = toList
+  from = fromList
+
+instance Storable a => IsomorphicTo [a] (VectorStorable.Vector a) where
+  to = toList
+  from = fromList
+
+instance IsomorphicTo [a] (Seq a) where
+  to = toList
+  from = fromList
+
+--
+
 instance IsomorphicTo Text String where
   to = Text.pack
   from = Text.unpack
@@ -195,20 +231,6 @@ instance IsomorphicTo TextLazyBuilder.Builder (VectorStorable.Vector Char) where
 
 --
 
-instance IsomorphicTo [Word8] ByteString where
-  to = ByteString.unpack
-  from = ByteString.pack
-
-instance IsomorphicTo [Word8] ByteStringLazy.ByteString where
-  to = ByteStringLazy.unpack
-  from = ByteStringLazy.pack
-
-instance IsomorphicTo [Word8] ByteStringBuilder.Builder where
-  to = ByteStringLazy.unpack . ByteStringBuilder.toLazyByteString
-  from = ByteStringBuilder.byteString . ByteString.pack
-
---
-
 instance IsomorphicTo ByteString [Word8] where
   to = from
   from = to
@@ -272,28 +294,6 @@ instance IsomorphicTo ByteStringBuilder.Builder (VectorUnboxed.Vector Word8) whe
 instance IsomorphicTo ByteStringBuilder.Builder (VectorStorable.Vector Word8) where
   to = from @ByteString . to
   from = from @ByteString . to
-
---
-
-instance IsomorphicTo a b => IsomorphicTo [a] [b] where
-  to = fmap to
-  from = fmap from
-
-instance IsomorphicTo [a] (Vector a) where
-  to = toList
-  from = fromList
-
-instance VectorUnboxed.Unbox a => IsomorphicTo [a] (VectorUnboxed.Vector a) where
-  to = toList
-  from = fromList
-
-instance Storable a => IsomorphicTo [a] (VectorStorable.Vector a) where
-  to = toList
-  from = fromList
-
-instance IsomorphicTo [a] (Seq a) where
-  to = toList
-  from = fromList
 
 --
 
