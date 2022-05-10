@@ -49,6 +49,7 @@
 module IsomorphismClass
   ( -- * Typeclass
     IsomorphicTo (..),
+    from,
 
     -- * Common Utilities
     showAs,
@@ -105,25 +106,18 @@ import IsomorphismClass.Prelude
 --
 -- __Instance Definition__
 --
--- There's two conventions in defining instances for this class:
+-- As you can see the typeclass has a dependency on itself with arguments
+-- flipped. Thus we state that mappings exist in both directions. So for each
+-- pair of isomorphic types (say, A and B) the compiler will require you have
+-- to define two instances, namely: @IsomorphicTo A B@ and @IsomorphicTo B A@.
 --
--- - Always define dual instances. If there is @IsomorphicTo String Text@,
---   then there should also be @IsomorphicTo Text String@. This serves
---   consistency, making things more predictable to the user, and it gives
---   him flexibility.
---
--- - Never define identity instances, like @IsomorphicTo Int Int@. Why?
---   Because it's useless, only adds noise and to be consistent you'll have
---   to define it for absolutely every type.
-class IsomorphicTo a b where
+-- The current policy in regards to identity instances (from A to A) is not to
+-- define them. Until proven otherwise they don't seem to be particularly
+-- useful and if we were to define them, absolutely every type would have an
+-- instance, so it seems like a lot of noise. IOW, please avoid defining
+-- identity instances.
+class IsomorphicTo b a => IsomorphicTo a b where
   to :: b -> a
-  from :: a -> b
-
-  -- |
-  -- When instances in both directions are defined,
-  -- we can reuse them to automatically define 'from'.
-  default from :: IsomorphicTo b a => a -> b
-  from = to
 
 --
 
@@ -154,7 +148,6 @@ instance IsomorphicTo [Word8] ByteStringBuilder.Builder where
 
 instance IsomorphicTo a b => IsomorphicTo [a] [b] where
   to = fmap to
-  from = fmap from
 
 instance IsomorphicTo [a] (Vector a) where
   to = toList
@@ -303,7 +296,6 @@ instance IsomorphicTo ByteStringBuilder.Builder (VectorStorable.Vector Word8) wh
 
 instance IsomorphicTo a b => IsomorphicTo (Vector a) (Vector b) where
   to = fmap to
-  from = fmap from
 
 instance IsomorphicTo (Vector a) [a] where
   to = from @[a]
@@ -321,7 +313,6 @@ instance IsomorphicTo (Vector a) (Seq a) where
 
 instance (IsomorphicTo a b, VectorUnboxed.Unbox a, VectorUnboxed.Unbox b) => IsomorphicTo (VectorUnboxed.Vector a) (VectorUnboxed.Vector b) where
   to = VectorUnboxed.map to
-  from = VectorUnboxed.map from
 
 instance VectorUnboxed.Unbox a => IsomorphicTo (VectorUnboxed.Vector a) [a] where
   to = from @[a]
@@ -360,7 +351,6 @@ instance IsomorphicTo (VectorUnboxed.Vector Word8) ByteStringBuilder.Builder whe
 
 instance (IsomorphicTo a b, Storable a, Storable b) => IsomorphicTo (VectorStorable.Vector a) (VectorStorable.Vector b) where
   to = VectorStorable.map to
-  from = VectorStorable.map from
 
 instance Storable a => IsomorphicTo (VectorStorable.Vector a) [a] where
   to = from @[a]
@@ -399,7 +389,6 @@ instance IsomorphicTo (VectorStorable.Vector Word8) ByteStringShort.ShortByteStr
 
 instance IsomorphicTo a b => IsomorphicTo (Seq a) (Seq b) where
   to = fmap to
-  from = fmap from
 
 instance IsomorphicTo (Seq a) [a] where
   to = from @[a]
@@ -417,7 +406,6 @@ instance Storable a => IsomorphicTo (Seq a) (VectorStorable.Vector a) where
 
 instance (IsomorphicTo a b, Ord a, Ord b) => IsomorphicTo (Set a) (Set b) where
   to = Set.map to
-  from = Set.map from
 
 instance (Hashable a, Ord a) => IsomorphicTo (Set a) (HashSet a) where
   to = fromList . toList
@@ -429,7 +417,6 @@ instance IsomorphicTo (Set Int) IntSet where
 
 instance (IsomorphicTo a b, Eq a, Hashable a, Eq b, Hashable b) => IsomorphicTo (HashSet a) (HashSet b) where
   to = HashSet.map to
-  from = HashSet.map from
 
 instance (Hashable a, Ord a) => IsomorphicTo (HashSet a) (Set a) where
   to = fromList . toList
@@ -502,6 +489,11 @@ instance IsomorphicTo Word Int where
   to = fromIntegral
 
 --
+
+-- |
+-- 'to' in reverse direction.
+from :: forall a b. IsomorphicTo b a => a -> b
+from = to
 
 -- |
 -- Ideally there should be a direct instance and this function
