@@ -354,10 +354,13 @@ instance IsomorphicTo (Vector a) [a] where
   to = from @[a]
 
 instance VectorUnboxed.Unbox a => IsomorphicTo (Vector a) (VectorUnboxed.Vector a) where
-  to = VectorGeneric.unstreamR . VectorGeneric.streamR
+  to = VectorGeneric.convert
 
 instance Storable a => IsomorphicTo (Vector a) (VectorStorable.Vector a) where
-  to = VectorGeneric.unstreamR . VectorGeneric.streamR
+  to = VectorGeneric.convert
+
+instance VectorPrimitive.Prim a => IsomorphicTo (Vector a) (VectorPrimitive.Vector a) where
+  to = VectorGeneric.convert
 
 instance IsomorphicTo (Vector a) (Seq a) where
   to = from @[a] . to
@@ -374,7 +377,10 @@ instance VectorUnboxed.Unbox a => IsomorphicTo (VectorUnboxed.Vector a) (Vector 
   to = from @(Vector a)
 
 instance (VectorUnboxed.Unbox a, Storable a) => IsomorphicTo (VectorUnboxed.Vector a) (VectorStorable.Vector a) where
-  to = VectorGeneric.unstreamR . VectorGeneric.streamR
+  to = VectorGeneric.convert
+
+instance (VectorUnboxed.Unbox a, VectorPrimitive.Prim a) => IsomorphicTo (VectorUnboxed.Vector a) (VectorPrimitive.Vector a) where
+  to = VectorGeneric.convert
 
 instance VectorUnboxed.Unbox a => IsomorphicTo (VectorUnboxed.Vector a) (Seq a) where
   to = from @[a] . to
@@ -406,13 +412,16 @@ instance (IsomorphicTo a b, Storable a, Storable b) => IsomorphicTo (VectorStora
   to = VectorStorable.map to
 
 instance Storable a => IsomorphicTo (VectorStorable.Vector a) [a] where
-  to = from @[a]
+  to = VectorStorable.fromList
 
 instance Storable a => IsomorphicTo (VectorStorable.Vector a) (Vector a) where
-  to = from @(Vector a)
+  to = VectorGeneric.convert
 
 instance (VectorUnboxed.Unbox a, Storable a) => IsomorphicTo (VectorStorable.Vector a) (VectorUnboxed.Vector a) where
-  to = VectorGeneric.unstreamR . VectorGeneric.streamR
+  to = VectorGeneric.convert
+
+instance (VectorPrimitive.Prim a, Storable a) => IsomorphicTo (VectorStorable.Vector a) (VectorPrimitive.Vector a) where
+  to = VectorGeneric.convert
 
 instance Storable a => IsomorphicTo (VectorStorable.Vector a) (Seq a) where
   to = from @[a] . to
@@ -445,6 +454,15 @@ instance IsomorphicTo (VectorPrimitive.Vector Word8) PrimitiveByteArray.ByteArra
 
 instance IsomorphicTo (VectorPrimitive.Vector Word8) ByteStringShort.ShortByteString where
   to = to . to @PrimitiveByteArray.ByteArray
+
+instance (VectorPrimitive.Prim a) => IsomorphicTo (VectorPrimitive.Vector a) (Vector a) where
+  to = VectorGeneric.convert
+
+instance (VectorPrimitive.Prim a, VectorUnboxed.Unbox a) => IsomorphicTo (VectorPrimitive.Vector a) (VectorUnboxed.Vector a) where
+  to = VectorGeneric.convert
+
+instance (VectorPrimitive.Prim a, Storable a) => IsomorphicTo (VectorPrimitive.Vector a) (VectorStorable.Vector a) where
+  to = VectorGeneric.convert
 
 --
 
