@@ -538,5 +538,5 @@ thruList = from @[a] . to
 -- that 'String' is isomorphic to.
 --
 -- Think of it as a generalization over @showAsText@ or @showAsBuilder@.
-showTo :: (IsomorphicTo b String, Show a) => a -> b
-showTo = to . show
+showAs :: (IsomorphicTo b String, Show a) => a -> b
+showAs = to . show
