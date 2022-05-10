@@ -110,12 +110,6 @@ import IsomorphismClass.Prelude
 -- flipped. Thus we state that mappings exist in both directions. So for each
 -- pair of isomorphic types (say, A and B) the compiler will require you have
 -- to define two instances, namely: @IsomorphicTo A B@ and @IsomorphicTo B A@.
---
--- The current policy in regards to identity instances (from A to A) is not to
--- define them. Until proven otherwise they don't seem to be particularly
--- useful and if we were to define them, absolutely every type would have an
--- instance, so it seems like a lot of noise. IOW, please avoid defining
--- identity instances.
 class IsomorphicTo b a => IsomorphicTo a b where
   to :: b -> a
 
@@ -163,6 +157,9 @@ instance IsomorphicTo [a] (Seq a) where
 
 --
 
+instance IsomorphicTo Text Text where
+  to = id
+
 instance IsomorphicTo Text String where
   to = Text.pack
 
@@ -179,6 +176,9 @@ instance IsomorphicTo Text (VectorStorable.Vector Char) where
   to = from @[Char] . to
 
 --
+
+instance IsomorphicTo TextLazy.Text TextLazy.Text where
+  to = id
 
 instance IsomorphicTo TextLazy.Text String where
   to = TextLazy.pack
@@ -197,6 +197,9 @@ instance IsomorphicTo TextLazy.Text (VectorStorable.Vector Char) where
 
 --
 
+instance IsomorphicTo TextLazyBuilder.Builder TextLazyBuilder.Builder where
+  to = id
+
 instance IsomorphicTo TextLazyBuilder.Builder String where
   to = TextLazyBuilder.fromString
 
@@ -213,6 +216,9 @@ instance IsomorphicTo TextLazyBuilder.Builder (VectorStorable.Vector Char) where
   to = from @Text . to
 
 --
+
+instance IsomorphicTo ByteString ByteString where
+  to = id
 
 instance IsomorphicTo ByteString [Word8] where
   to = ByteString.pack
@@ -234,6 +240,9 @@ instance IsomorphicTo ByteString (VectorStorable.Vector Word8) where
 
 --
 
+instance IsomorphicTo ByteStringLazy.ByteString ByteStringLazy.ByteString where
+  to = id
+
 instance IsomorphicTo ByteStringLazy.ByteString [Word8] where
   to = ByteStringLazy.pack
 
@@ -254,6 +263,9 @@ instance IsomorphicTo ByteStringLazy.ByteString (VectorStorable.Vector Word8) wh
 
 --
 
+instance IsomorphicTo ByteStringShort.ShortByteString ByteStringShort.ShortByteString where
+  to = id
+
 instance IsomorphicTo ByteStringShort.ShortByteString [Word8] where
   to = ByteStringShort.pack
 
@@ -273,6 +285,9 @@ instance IsomorphicTo ByteStringShort.ShortByteString (VectorStorable.Vector Wor
   to = to . to @ByteString
 
 --
+
+instance IsomorphicTo ByteStringBuilder.Builder ByteStringBuilder.Builder where
+  to = id
 
 instance IsomorphicTo ByteStringBuilder.Builder [Word8] where
   to = to . to @ByteString
@@ -480,35 +495,58 @@ instance (IsomorphicTo a b) => IsomorphicTo (Product a) (Product b) where to = f
 instance (IsomorphicTo a b) => IsomorphicTo (Sum a) (Sum b) where to = fmap to
 
 --
-instance IsomorphicTo Int8 Word8 where
-  to = fromIntegral
 
-instance IsomorphicTo Int16 Word16 where
-  to = fromIntegral
+instance IsomorphicTo Bool Bool where to = id
 
-instance IsomorphicTo Int32 Word32 where
-  to = fromIntegral
+instance IsomorphicTo Char Char where to = id
 
-instance IsomorphicTo Int64 Word64 where
-  to = fromIntegral
+instance IsomorphicTo Double Double where to = id
 
-instance IsomorphicTo Int Word where
-  to = fromIntegral
+instance IsomorphicTo Float Float where to = id
 
-instance IsomorphicTo Word8 Int8 where
-  to = fromIntegral
+instance IsomorphicTo Int Int where to = id
 
-instance IsomorphicTo Word16 Int16 where
-  to = fromIntegral
+instance IsomorphicTo Int Word where to = fromIntegral
 
-instance IsomorphicTo Word32 Int32 where
-  to = fromIntegral
+instance IsomorphicTo Int16 Int16 where to = id
 
-instance IsomorphicTo Word64 Int64 where
-  to = fromIntegral
+instance IsomorphicTo Int16 Word16 where to = fromIntegral
 
-instance IsomorphicTo Word Int where
-  to = fromIntegral
+instance IsomorphicTo Int32 Int32 where to = id
+
+instance IsomorphicTo Int32 Word32 where to = fromIntegral
+
+instance IsomorphicTo Int64 Int64 where to = id
+
+instance IsomorphicTo Int64 Word64 where to = fromIntegral
+
+instance IsomorphicTo Int8 Int8 where to = id
+
+instance IsomorphicTo Int8 Word8 where to = fromIntegral
+
+instance IsomorphicTo Integer Integer where to = id
+
+instance IsomorphicTo Rational Rational where to = id
+
+instance IsomorphicTo Word Int where to = fromIntegral
+
+instance IsomorphicTo Word Word where to = id
+
+instance IsomorphicTo Word16 Int16 where to = fromIntegral
+
+instance IsomorphicTo Word16 Word16 where to = id
+
+instance IsomorphicTo Word32 Int32 where to = fromIntegral
+
+instance IsomorphicTo Word32 Word32 where to = id
+
+instance IsomorphicTo Word64 Int64 where to = fromIntegral
+
+instance IsomorphicTo Word64 Word64 where to = id
+
+instance IsomorphicTo Word8 Int8 where to = fromIntegral
+
+instance IsomorphicTo Word8 Word8 where to = id
 
 --
 
