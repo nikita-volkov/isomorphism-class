@@ -76,6 +76,9 @@ import IsomorphismClass.Prelude
 --
 -- You can read the signature @IsomorphicTo a b@ as \"B is isomorphic to A\".
 --
+-- The typeclass has a dependency on itself with arguments flipped. Thus we
+-- state that mappings exist in both directions.
+--
 -- __Laws__
 --
 -- This class is lawful. The laws are (for all values of a type):
@@ -106,10 +109,9 @@ import IsomorphismClass.Prelude
 --
 -- __Instance Definition__
 --
--- As you can see the typeclass has a dependency on itself with arguments
--- flipped. Thus we state that mappings exist in both directions. So for each
--- pair of isomorphic types (say, A and B) the compiler will require you have
--- to define two instances, namely: @IsomorphicTo A B@ and @IsomorphicTo B A@.
+-- For each pair of isomorphic types (say, A and B) the compiler will require
+-- you to define two instances, namely: @IsomorphicTo A B@ and @IsomorphicTo
+-- B A@.
 class IsomorphicTo b a => IsomorphicTo a b where
   to :: b -> a
 
