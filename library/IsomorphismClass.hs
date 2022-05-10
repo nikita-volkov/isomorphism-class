@@ -47,12 +47,16 @@
 module IsomorphismClass
   ( -- * Typeclass
     IsomorphicTo (..),
+
+    -- * Common Utilities
+    showAs,
   )
 where
 
 import qualified Data.ByteString as ByteString
 import qualified Data.ByteString.Builder as ByteStringBuilder
 import qualified Data.ByteString.Lazy as ByteStringLazy
+import qualified Data.ByteString.Short as ByteStringShort
 import qualified Data.HashSet as HashSet
 import qualified Data.Set as Set
 import qualified Data.Text as Text
@@ -136,6 +140,10 @@ instance IsomorphicTo [Word8] ByteString where
 instance IsomorphicTo [Word8] ByteStringLazy.ByteString where
   to = ByteStringLazy.unpack
   from = ByteStringLazy.pack
+
+instance IsomorphicTo [Word8] ByteStringShort.ShortByteString where
+  to = ByteStringShort.unpack
+  from = ByteStringShort.pack
 
 instance IsomorphicTo [Word8] ByteStringBuilder.Builder where
   to = ByteStringLazy.unpack . ByteStringBuilder.toLazyByteString
@@ -239,6 +247,10 @@ instance IsomorphicTo ByteString ByteStringLazy.ByteString where
   to = ByteStringLazy.toStrict
   from = ByteStringLazy.fromStrict
 
+instance IsomorphicTo ByteString ByteStringShort.ShortByteString where
+  to = ByteStringShort.fromShort
+  from = ByteStringShort.toShort
+
 instance IsomorphicTo ByteString ByteStringBuilder.Builder where
   to = ByteStringLazy.toStrict . ByteStringBuilder.toLazyByteString
   from = ByteStringBuilder.byteString
@@ -261,6 +273,10 @@ instance IsomorphicTo ByteStringLazy.ByteString ByteString where
   to = from
   from = to
 
+instance IsomorphicTo ByteStringLazy.ByteString ByteStringShort.ShortByteString where
+  to = from @ByteString . to
+  from = from @ByteString . to
+
 instance IsomorphicTo ByteStringLazy.ByteString ByteStringBuilder.Builder where
   to = ByteStringBuilder.toLazyByteString
   from = ByteStringBuilder.lazyByteString
@@ -275,6 +291,24 @@ instance IsomorphicTo ByteStringLazy.ByteString (VectorStorable.Vector Word8) wh
 
 --
 
+instance IsomorphicTo ByteStringShort.ShortByteString [Word8] where
+  to = from
+  from = to
+
+instance IsomorphicTo ByteStringShort.ShortByteString ByteString where
+  to = from
+  from = to
+
+instance IsomorphicTo ByteStringShort.ShortByteString ByteStringLazy.ByteString where
+  to = from
+  from = to
+
+instance IsomorphicTo ByteStringShort.ShortByteString ByteStringBuilder.Builder where
+  to = from
+  from = to
+
+--
+
 instance IsomorphicTo ByteStringBuilder.Builder [Word8] where
   to = from
   from = to
@@ -286,6 +320,10 @@ instance IsomorphicTo ByteStringBuilder.Builder ByteString where
 instance IsomorphicTo ByteStringBuilder.Builder ByteStringLazy.ByteString where
   to = from
   from = to
+
+instance IsomorphicTo ByteStringBuilder.Builder ByteStringShort.ShortByteString where
+  to = ByteStringBuilder.shortByteString
+  from = from @ByteString . to
 
 instance IsomorphicTo ByteStringBuilder.Builder (VectorUnboxed.Vector Word8) where
   to = from @ByteString . to
@@ -537,6 +575,12 @@ thruList = from @[a] . to
 -- | A utility, which uses the 'Show' instance to produce a value
 -- that 'String' is isomorphic to.
 --
--- Think of it as a generalization over @showAsText@ or @showAsBuilder@.
+-- It lets you generalize over the functions like the following:
+--
+-- > showAsText :: Show a => a -> Text
+-- > showAsText = showAs @Text
+--
+-- > showAsBuilder :: Show a => a -> Builder
+-- > showAsBuilder = showAs @Builder
 showAs :: (IsomorphicTo b String, Show a) => a -> b
 showAs = to . show
