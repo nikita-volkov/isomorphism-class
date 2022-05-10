@@ -458,6 +458,19 @@ instance IsomorphicTo (IntMap v) (Map Int v) where
 
 --
 
+instance (IsomorphicTo a b) => IsomorphicTo (First a) (First b) where to = fmap to
+
+instance (IsomorphicTo a b) => IsomorphicTo (Last a) (Last b) where to = fmap to
+
+instance (IsomorphicTo a b) => IsomorphicTo (Maybe a) (Maybe b) where to = fmap to
+
+instance (IsomorphicTo a b, IsomorphicTo c d) => IsomorphicTo (Either a c) (Either b d) where to = bimap to to
+
+instance (IsomorphicTo a b) => IsomorphicTo (Product a) (Product b) where to = fmap to
+
+instance (IsomorphicTo a b) => IsomorphicTo (Sum a) (Sum b) where to = fmap to
+
+--
 instance IsomorphicTo Int8 Word8 where
   to = fromIntegral
 
