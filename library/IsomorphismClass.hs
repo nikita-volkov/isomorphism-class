@@ -434,6 +434,9 @@ instance IsomorphicTo IntSet (HashSet Int) where
 
 --
 
+instance (IsomorphicTo v v') => IsomorphicTo (HashMap k v) (HashMap k v') where
+  to = fmap to
+
 instance (Hashable k, Ord k) => IsomorphicTo (HashMap k v) (Map k v) where
   to = fromList . toList
 
@@ -442,6 +445,9 @@ instance IsomorphicTo (HashMap Int v) (IntMap v) where
 
 --
 
+instance (IsomorphicTo v v') => IsomorphicTo (Map k v) (Map k v') where
+  to = fmap to
+
 instance (Hashable k, Ord k) => IsomorphicTo (Map k v) (HashMap k v) where
   to = fromList . toList
 
@@ -449,6 +455,9 @@ instance IsomorphicTo (Map Int v) (IntMap v) where
   to = fromList . toList
 
 --
+
+instance (IsomorphicTo a b) => IsomorphicTo (IntMap a) (IntMap b) where
+  to = fmap to
 
 instance IsomorphicTo (IntMap v) (HashMap Int v) where
   to = fromList . toList
