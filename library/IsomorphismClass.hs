@@ -651,5 +651,5 @@ thruList = from @[a] . to
 --
 -- > showAsBuilder :: Show a => a -> Builder
 -- > showAsBuilder = showAs @Builder
-showAs :: (IsomorphicTo b String, Show a) => a -> b
-showAs = to . show
+showAs :: forall b a. (IsomorphicTo String b, Show a) => a -> b
+showAs = from . show
