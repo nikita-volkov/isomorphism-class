@@ -75,20 +75,15 @@ import IsomorphismClass.Prelude
 -- |
 -- Bidirectional conversion between two types with no loss of information.
 --
--- You can read the signature @IsomorphicTo a b@ as \"B is isomorphic to A\".
---
--- The typeclass has a dependency on itself with arguments flipped. Thus we
--- state that mappings exist in both directions.
+-- You can read the signature @IsomorphicTo a b@ as \"/B/ is isomorphic to /A/\".
 --
 -- __Laws__
 --
--- This class is lawful. The laws are (for all values of a type):
+-- /A/ is isomorphic to /B/ if and only if there exists a conversion from /A/ to /B/ and a conversion from /B/ to /A/ such that:
 --
--- - @'from' . 'to' = 'id'@ - Converting to the type and back from it should
---     produce a value that is identical to the original.
+-- - @'from' . 'to' = 'id'@ - For all values of /A/ converting from /A/ to /B/ and then converting from /B/ to /A/ produces a value that is identical to the original.
 --
--- - @'to' . 'from' = 'id'@ - Converting from the type and back to it should
---     too produce a value that is identical to the orignal.
+-- - @'to' . 'from' = 'id'@ - For all values of /B/ converting from /B/ to /A/ and then converting from /A/ to /B/ produces a value that is identical to the original.
 --
 -- __Usage__
 --
@@ -110,9 +105,12 @@ import IsomorphismClass.Prelude
 --
 -- __Instance Definition__
 --
--- For each pair of isomorphic types (say, A and B) the compiler will require
+-- For each pair of isomorphic types (/A/ and /B/) the compiler will require
 -- you to define two instances, namely: @IsomorphicTo A B@ and @IsomorphicTo
 -- B A@.
+--
+-- The typeclass has a dependency on itself with arguments flipped. Thus we
+-- state that mappings exist in both directions.
 class IsomorphicTo b a => IsomorphicTo a b where
   to :: b -> a
 
