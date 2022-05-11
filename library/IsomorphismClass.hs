@@ -4,7 +4,7 @@
 -- By Conversion Problem we mean a repetitive chain of robotic actions one has
 -- to take to translate data from one form to another without losing
 -- information. This problem is often extended by packages using different
--- conventions. This library address all those problems by abstracting over
+-- conventions. This library addresses all those problems by abstracting over
 -- patterns and providing a standard, concise and clear interface.
 --
 -- How often do you import @Data.Text.Lazy@ only to call
@@ -21,30 +21,28 @@
 -- its transformed representation.
 --
 -- Turns out there can only be one way of defining such a conversion between
--- two types. E.g., there is only one way you can convert 'String' to 'Text'
--- in such a way that you'd be able to get back the same 'String' when
--- converting back for any input. This applies to all cases and thus makes it
--- evident to the user, what happens where he sees such a conversion, and
--- just as evident to the author how to define one.
---
--- That's why it's not just another conversion library. It is a lawful
--- abstraction, which is easy to define and infer. It helps the library
--- authors to ensure that they define something that makes sense and provides
--- insight to the users about what the conversions do. We capture this with a
--- lawful class, which ensures that there is only one proper way of defining
--- an instance for it and also accidentally provides a nice API.
+-- two types. This makes a huge deal in terms of how clear it is what the
+-- conversion does. It helps the library authors ensure that they define
+-- something that makes sense and provides insight to the users about what
+-- the conversions do. We capture this with a lawful class, which ensures
+-- that there is only one proper way of defining an instance for it. However
+-- despite the strict rules, there's a lot of instances of this pattern. So
+-- it is both universal and clear.
 --
 -- Here's a few samples of what this library lets you do:
 --
 -- @
--- renderNameAndSurnameViaBuilder :: 'Text' -> 'Text' -> 'Text'
--- renderNameAndSurnameViaBuilder name surname =
---   'from' @t'Data.Text.Lazy.Builder.Builder' $ 'to' name <> \" \" <> 'to' surname
+-- renderNameAndHeight :: 'Text' -> 'Int' -> 'Text'
+-- renderNameAndHeight name height =
+--   'from' @'TextLazyBuilder.Builder' $
+--     "Height of " <> 'to' name <> " is " <> 'showAs' height
 -- @
 --
 -- @
--- showText :: Show a => a -> Text
--- showText = to @Text . show
+-- combineEncodings :: 'ByteStringShort.ShortByteString' -> 'PrimitiveByteArray.ByteArray' -> 'ByteString' -> 'VectorUnboxed.Vector' Word8
+-- combineEncodings a b c =
+--   'from' @'ByteStringBuilder.Builder' $
+--     'to' a <> 'to' b <> 'to' c
 -- @
 module IsomorphismClass
   ( -- * Typeclass
