@@ -243,8 +243,14 @@ instance IsomorphicTo ByteString PrimitiveByteArray.ByteArray where
 instance IsomorphicTo ByteString (VectorUnboxed.Vector Word8) where
   to = ByteString.pack . VectorUnboxed.toList
 
+instance IsomorphicTo ByteString (VectorUnboxed.Vector Int8) where
+  to = ByteString.pack . fmap to . VectorUnboxed.toList
+
 instance IsomorphicTo ByteString (VectorStorable.Vector Word8) where
   to = ByteString.pack . VectorStorable.toList
+
+instance IsomorphicTo ByteString (VectorStorable.Vector Int8) where
+  to = ByteString.pack . VectorStorable.toList . coerce
 
 --
 
@@ -407,6 +413,9 @@ instance IsomorphicTo (VectorUnboxed.Vector Word8) ByteStringShort.ShortByteStri
 instance IsomorphicTo (VectorUnboxed.Vector Word8) ByteStringBuilder.Builder where
   to = from @ByteString . to
 
+instance IsomorphicTo (VectorUnboxed.Vector Int8) ByteString where
+  to = VectorUnboxed.fromList . fmap to . ByteString.unpack
+
 --
 
 instance (IsomorphicTo a b, Storable a, Storable b) => IsomorphicTo (VectorStorable.Vector a) (VectorStorable.Vector b) where
@@ -447,6 +456,9 @@ instance IsomorphicTo (VectorStorable.Vector Word8) ByteStringBuilder.Builder wh
 
 instance IsomorphicTo (VectorStorable.Vector Word8) ByteStringShort.ShortByteString where
   to = from @ByteString . to
+
+instance IsomorphicTo (VectorStorable.Vector Int8) ByteString where
+  to = coerce . VectorStorable.fromList . ByteString.unpack
 
 --
 
