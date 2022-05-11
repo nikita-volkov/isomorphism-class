@@ -82,7 +82,7 @@ import IsomorphismClass.Prelude
 -- __Laws__
 --
 -- /A/ is isomorphic to /B/ if and only if there exists a conversion from /A/
--- to /B/ and a conversion from /B/ to /A/ such that:
+-- to /B/ ('to') and a conversion from /B/ to /A/ ('from') such that:
 --
 -- - @'from' . 'to' = 'id'@ - For all values of /A/ converting from /A/ to /B/
 --     and then converting from /B/ to /A/ produces a value that is identical
