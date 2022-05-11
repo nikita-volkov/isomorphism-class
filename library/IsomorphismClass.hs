@@ -66,6 +66,7 @@ import qualified Data.Text as Text
 import qualified Data.Text.Lazy as TextLazy
 import qualified Data.Text.Lazy.Builder as TextLazyBuilder
 import qualified Data.Vector as Vector
+import qualified Data.Vector.Fusion.Bundle as VectorBundle
 import qualified Data.Vector.Generic as VectorGeneric
 import qualified Data.Vector.Primitive as VectorPrimitive
 import qualified Data.Vector.Storable as VectorStorable
@@ -463,6 +464,14 @@ instance (VectorPrimitive.Prim a, VectorUnboxed.Unbox a) => IsomorphicTo (Vector
 
 instance (VectorPrimitive.Prim a, Storable a) => IsomorphicTo (VectorPrimitive.Vector a) (VectorStorable.Vector a) where
   to = VectorGeneric.convert
+
+instance (VectorPrimitive.Prim a) => IsomorphicTo (VectorPrimitive.Vector a) (VectorBundle.Bundle v a) where
+  to = VectorGeneric.unstream . VectorBundle.reVector
+
+--
+
+instance (VectorPrimitive.Prim a) => IsomorphicTo (VectorBundle.Bundle v a) (VectorPrimitive.Vector a) where
+  to = VectorBundle.reVector . VectorGeneric.stream
 
 --
 
