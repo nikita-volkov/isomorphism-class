@@ -145,8 +145,8 @@ instance IsomorphicTo [Word8] ByteStringBuilder.Builder where
 
 --
 
-instance IsomorphicTo a b => IsomorphicTo [a] [b] where
-  to = fmap to
+instance IsomorphicTo [a] [a] where
+  to = id
 
 instance IsomorphicTo [a] (Vector a) where
   to = toList
@@ -335,6 +335,9 @@ instance IsomorphicTo ByteStringBuilder.Builder (VectorStorable.Vector Word8) wh
 
 --
 
+instance IsomorphicTo PrimitiveByteArray.ByteArray PrimitiveByteArray.ByteArray where
+  to = id
+
 instance IsomorphicTo PrimitiveByteArray.ByteArray ByteStringShort.ShortByteString where
   to (ByteStringShort.SBS array) = PrimitiveByteArray.ByteArray array
 
@@ -354,8 +357,8 @@ instance IsomorphicTo PrimitiveByteArray.ByteArray (VectorPrimitive.Vector Word8
 
 --
 
-instance IsomorphicTo a b => IsomorphicTo (Vector a) (Vector b) where
-  to = fmap to
+instance IsomorphicTo (Vector a) (Vector a) where
+  to = id
 
 instance IsomorphicTo (Vector a) [a] where
   to = Vector.fromList
@@ -374,8 +377,8 @@ instance IsomorphicTo (Vector a) (Seq a) where
 
 --
 
-instance (IsomorphicTo a b, VectorUnboxed.Unbox a, VectorUnboxed.Unbox b) => IsomorphicTo (VectorUnboxed.Vector a) (VectorUnboxed.Vector b) where
-  to = VectorUnboxed.map to
+instance IsomorphicTo (VectorUnboxed.Vector a) (VectorUnboxed.Vector a) where
+  to = id
 
 instance VectorUnboxed.Unbox a => IsomorphicTo (VectorUnboxed.Vector a) [a] where
   to = VectorUnboxed.fromList
@@ -418,8 +421,8 @@ instance IsomorphicTo (VectorUnboxed.Vector Int8) ByteString where
 
 --
 
-instance (IsomorphicTo a b, Storable a, Storable b) => IsomorphicTo (VectorStorable.Vector a) (VectorStorable.Vector b) where
-  to = VectorStorable.map to
+instance IsomorphicTo (VectorStorable.Vector a) (VectorStorable.Vector a) where
+  to = id
 
 instance Storable a => IsomorphicTo (VectorStorable.Vector a) [a] where
   to = VectorStorable.fromList
@@ -462,6 +465,9 @@ instance IsomorphicTo (VectorStorable.Vector Int8) ByteString where
 
 --
 
+instance IsomorphicTo (VectorPrimitive.Vector a) (VectorPrimitive.Vector a) where
+  to = id
+
 instance IsomorphicTo (VectorPrimitive.Vector Word8) PrimitiveByteArray.ByteArray where
   to = VectorPrimitive.Vector 0 <$> PrimitiveByteArray.sizeofByteArray <*> id
 
@@ -482,13 +488,16 @@ instance (VectorPrimitive.Prim a) => IsomorphicTo (VectorPrimitive.Vector a) (Ve
 
 --
 
+instance IsomorphicTo (VectorBundle.Bundle v a) (VectorBundle.Bundle v a) where
+  to = id
+
 instance (VectorPrimitive.Prim a) => IsomorphicTo (VectorBundle.Bundle v a) (VectorPrimitive.Vector a) where
   to = VectorBundle.reVector . VectorGeneric.stream
 
 --
 
-instance IsomorphicTo a b => IsomorphicTo (Seq a) (Seq b) where
-  to = fmap to
+instance IsomorphicTo (Seq a) (Seq a) where
+  to = id
 
 instance IsomorphicTo (Seq a) [a] where
   to = Seq.fromList
@@ -504,8 +513,8 @@ instance Storable a => IsomorphicTo (Seq a) (VectorStorable.Vector a) where
 
 --
 
-instance (IsomorphicTo a b, Ord a, Ord b) => IsomorphicTo (Set a) (Set b) where
-  to = Set.map to
+instance IsomorphicTo (Set a) (Set a) where
+  to = id
 
 instance (Hashable a, Ord a) => IsomorphicTo (Set a) (HashSet a) where
   to = fromList . toList
@@ -515,8 +524,8 @@ instance IsomorphicTo (Set Int) IntSet where
 
 --
 
-instance (IsomorphicTo a b, Eq a, Hashable a, Eq b, Hashable b) => IsomorphicTo (HashSet a) (HashSet b) where
-  to = HashSet.map to
+instance IsomorphicTo (HashSet a) (HashSet a) where
+  to = id
 
 instance (Hashable a, Ord a) => IsomorphicTo (HashSet a) (Set a) where
   to = fromList . toList
@@ -526,6 +535,9 @@ instance IsomorphicTo (HashSet Int) IntSet where
 
 --
 
+instance IsomorphicTo IntSet IntSet where
+  to = id
+
 instance IsomorphicTo IntSet (Set Int) where
   to = fromList . toList
 
@@ -534,8 +546,8 @@ instance IsomorphicTo IntSet (HashSet Int) where
 
 --
 
-instance (IsomorphicTo v v') => IsomorphicTo (HashMap k v) (HashMap k v') where
-  to = fmap to
+instance IsomorphicTo (HashMap k v) (HashMap k v) where
+  to = id
 
 instance (Hashable k, Ord k) => IsomorphicTo (HashMap k v) (Map k v) where
   to = fromList . toList
@@ -545,8 +557,8 @@ instance IsomorphicTo (HashMap Int v) (IntMap v) where
 
 --
 
-instance (IsomorphicTo v v') => IsomorphicTo (Map k v) (Map k v') where
-  to = fmap to
+instance IsomorphicTo (Map k v) (Map k v) where
+  to = id
 
 instance (Hashable k, Ord k) => IsomorphicTo (Map k v) (HashMap k v) where
   to = fromList . toList
@@ -556,8 +568,8 @@ instance IsomorphicTo (Map Int v) (IntMap v) where
 
 --
 
-instance (IsomorphicTo a b) => IsomorphicTo (IntMap a) (IntMap b) where
-  to = fmap to
+instance IsomorphicTo (IntMap a) (IntMap a) where
+  to = id
 
 instance IsomorphicTo (IntMap v) (HashMap Int v) where
   to = fromList . toList
@@ -567,17 +579,17 @@ instance IsomorphicTo (IntMap v) (Map Int v) where
 
 --
 
-instance (IsomorphicTo a b) => IsomorphicTo (First a) (First b) where to = fmap to
+instance IsomorphicTo (Maybe a) (Maybe a) where to = id
 
-instance (IsomorphicTo a b) => IsomorphicTo (Last a) (Last b) where to = fmap to
+instance IsomorphicTo (Either a b) (Either a b) where to = id
 
-instance (IsomorphicTo a b) => IsomorphicTo (Maybe a) (Maybe b) where to = fmap to
+instance IsomorphicTo (First a) (First a) where to = id
 
-instance (IsomorphicTo a b, IsomorphicTo c d) => IsomorphicTo (Either a c) (Either b d) where to = bimap to to
+instance IsomorphicTo (Last a) (Last a) where to = id
 
-instance (IsomorphicTo a b) => IsomorphicTo (Product a) (Product b) where to = fmap to
+instance IsomorphicTo (Product a) (Product a) where to = id
 
-instance (IsomorphicTo a b) => IsomorphicTo (Sum a) (Sum b) where to = fmap to
+instance IsomorphicTo (Sum a) (Sum a) where to = id
 
 --
 
