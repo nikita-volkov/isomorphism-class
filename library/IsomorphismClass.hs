@@ -419,8 +419,14 @@ instance IsomorphicTo (VectorUnboxed.Vector Word8) ByteStringShort.ShortByteStri
 instance IsomorphicTo (VectorUnboxed.Vector Word8) ByteStringBuilder.Builder where
   to = from @ByteString . to
 
+instance IsomorphicTo (VectorUnboxed.Vector Word8) (VectorUnboxed.Vector Int8) where
+  to = VectorGeneric.unstream . fmap to . VectorGeneric.stream
+
 instance IsomorphicTo (VectorUnboxed.Vector Int8) ByteString where
   to = VectorUnboxed.fromList . fmap to . ByteString.unpack
+
+instance IsomorphicTo (VectorUnboxed.Vector Int8) (VectorUnboxed.Vector Word8) where
+  to = VectorGeneric.unstream . fmap to . VectorGeneric.stream
 
 instance (VectorUnboxed.Unbox a) => IsomorphicTo (VectorUnboxed.Vector a) (VectorBundle.Bundle v a) where
   to = VectorGeneric.unstream . VectorBundle.reVector
