@@ -307,6 +307,9 @@ instance IsomorphicTo ByteStringShort.ShortByteString (VectorStorable.Vector Wor
 instance IsomorphicTo ByteStringShort.ShortByteString (VectorPrimitive.Vector Word8) where
   to = to . to @PrimitiveByteArray.ByteArray
 
+instance IsomorphicTo ByteStringShort.ShortByteString (VectorPrimitive.Vector Int8) where
+  to = from @(VectorPrimitive.Vector Word8) . to
+
 --
 
 instance IsomorphicTo ByteStringBuilder.Builder ByteStringBuilder.Builder where
@@ -354,6 +357,9 @@ instance IsomorphicTo PrimitiveByteArray.ByteArray (VectorPrimitive.Vector Word8
   to = array . VectorPrimitive.force
     where
       array (VectorPrimitive.Vector _ _ a) = a
+
+instance IsomorphicTo PrimitiveByteArray.ByteArray (VectorPrimitive.Vector Int8) where
+  to = from @(VectorPrimitive.Vector Word8) . to
 
 --
 
@@ -483,11 +489,23 @@ instance (Storable a) => IsomorphicTo (VectorStorable.Vector a) (VectorBundle.Bu
 instance IsomorphicTo (VectorPrimitive.Vector a) (VectorPrimitive.Vector a) where
   to = id
 
+instance IsomorphicTo (VectorPrimitive.Vector Word8) (VectorPrimitive.Vector Int8) where
+  to = coerce
+
 instance IsomorphicTo (VectorPrimitive.Vector Word8) PrimitiveByteArray.ByteArray where
   to = VectorPrimitive.Vector 0 <$> PrimitiveByteArray.sizeofByteArray <*> id
 
 instance IsomorphicTo (VectorPrimitive.Vector Word8) ByteStringShort.ShortByteString where
   to = to . to @PrimitiveByteArray.ByteArray
+
+instance IsomorphicTo (VectorPrimitive.Vector Int8) (VectorPrimitive.Vector Word8) where
+  to = coerce
+
+instance IsomorphicTo (VectorPrimitive.Vector Int8) PrimitiveByteArray.ByteArray where
+  to = coerce . to @(VectorPrimitive.Vector Word8)
+
+instance IsomorphicTo (VectorPrimitive.Vector Int8) ByteStringShort.ShortByteString where
+  to = coerce . to @(VectorPrimitive.Vector Word8)
 
 instance (VectorPrimitive.Prim a) => IsomorphicTo (VectorPrimitive.Vector a) (Vector a) where
   to = VectorGeneric.convert
