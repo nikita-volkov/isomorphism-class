@@ -375,6 +375,9 @@ instance VectorPrimitive.Prim a => IsomorphicTo (Vector a) (VectorPrimitive.Vect
 instance IsomorphicTo (Vector a) (Seq a) where
   to = from @[a] . to
 
+instance IsomorphicTo (Vector a) (VectorBundle.Bundle v a) where
+  to = VectorGeneric.unstream . VectorBundle.reVector
+
 --
 
 instance IsomorphicTo (VectorUnboxed.Vector a) (VectorUnboxed.Vector a) where
@@ -418,6 +421,9 @@ instance IsomorphicTo (VectorUnboxed.Vector Word8) ByteStringBuilder.Builder whe
 
 instance IsomorphicTo (VectorUnboxed.Vector Int8) ByteString where
   to = VectorUnboxed.fromList . fmap to . ByteString.unpack
+
+instance (VectorUnboxed.Unbox a) => IsomorphicTo (VectorUnboxed.Vector a) (VectorBundle.Bundle v a) where
+  to = VectorGeneric.unstream . VectorBundle.reVector
 
 --
 
@@ -463,6 +469,9 @@ instance IsomorphicTo (VectorStorable.Vector Word8) ByteStringShort.ShortByteStr
 instance IsomorphicTo (VectorStorable.Vector Int8) ByteString where
   to = coerce . VectorStorable.fromList . ByteString.unpack
 
+instance (Storable a) => IsomorphicTo (VectorStorable.Vector a) (VectorBundle.Bundle v a) where
+  to = VectorGeneric.unstream . VectorBundle.reVector
+
 --
 
 instance IsomorphicTo (VectorPrimitive.Vector a) (VectorPrimitive.Vector a) where
@@ -490,6 +499,15 @@ instance (VectorPrimitive.Prim a) => IsomorphicTo (VectorPrimitive.Vector a) (Ve
 
 instance IsomorphicTo (VectorBundle.Bundle v a) (VectorBundle.Bundle v a) where
   to = id
+
+instance IsomorphicTo (VectorBundle.Bundle v a) (Vector a) where
+  to = VectorBundle.reVector . VectorGeneric.stream
+
+instance (VectorUnboxed.Unbox a) => IsomorphicTo (VectorBundle.Bundle v a) (VectorUnboxed.Vector a) where
+  to = VectorBundle.reVector . VectorGeneric.stream
+
+instance (Storable a) => IsomorphicTo (VectorBundle.Bundle v a) (VectorStorable.Vector a) where
+  to = VectorBundle.reVector . VectorGeneric.stream
 
 instance (VectorPrimitive.Prim a) => IsomorphicTo (VectorBundle.Bundle v a) (VectorPrimitive.Vector a) where
   to = VectorBundle.reVector . VectorGeneric.stream
