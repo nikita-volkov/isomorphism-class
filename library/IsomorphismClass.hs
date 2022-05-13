@@ -143,6 +143,9 @@ instance IsomorphicTo [Word8] ByteStringShort.ShortByteString where
 instance IsomorphicTo [Word8] ByteStringBuilder.Builder where
   to = ByteStringLazy.unpack . ByteStringBuilder.toLazyByteString
 
+instance IsomorphicTo [Word8] PrimitiveByteArray.ByteArray where
+  to = toList
+
 --
 
 instance IsomorphicTo [a] [a] where
@@ -340,6 +343,9 @@ instance IsomorphicTo ByteStringBuilder.Builder (VectorStorable.Vector Word8) wh
 
 instance IsomorphicTo PrimitiveByteArray.ByteArray PrimitiveByteArray.ByteArray where
   to = id
+
+instance IsomorphicTo PrimitiveByteArray.ByteArray [Word8] where
+  to = fromList
 
 instance IsomorphicTo PrimitiveByteArray.ByteArray ByteStringShort.ShortByteString where
   to (ByteStringShort.SBS array) = PrimitiveByteArray.ByteArray array
