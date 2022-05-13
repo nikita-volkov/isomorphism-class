@@ -20,9 +20,9 @@
 -- can be proven by being able to restore data identical to the original from
 -- its transformed representation.
 --
--- Turns out there can only be one way of defining such a conversion between
--- two types. This makes a huge deal in terms of how clear it is what the
--- conversion does. It helps the library authors ensure that they define
+-- Turns out there usually can only be one way of defining such a conversion
+-- between two types. This makes a huge deal in terms of how clear it is what
+-- the conversion does. It helps the library authors ensure that they define
 -- something that makes sense and provides insight to the users about what
 -- the conversions do. We capture this with a lawful class, which ensures
 -- that there is only one proper way of defining an instance for it. However
