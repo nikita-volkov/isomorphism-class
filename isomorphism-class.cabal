@@ -28,7 +28,7 @@ common language-settings
 
 common library-dependencies
   build-depends:
-    base >=4.11 && <5,
+    base >=4.12 && <5,
     bytestring >=0.10 && <0.12,
     containers >=0.6 && <0.7,
     hashable >=1 && <2,
