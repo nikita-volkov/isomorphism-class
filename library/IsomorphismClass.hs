@@ -58,6 +58,7 @@ import qualified Data.ByteString as ByteString
 import qualified Data.ByteString.Builder as ByteStringBuilder
 import qualified Data.ByteString.Lazy as ByteStringLazy
 import qualified Data.ByteString.Short as ByteStringShort
+import qualified Data.ByteString.Short.Internal as ByteStringShortInternal
 import qualified Data.HashSet as HashSet
 import qualified Data.Primitive.ByteArray as PrimitiveByteArray
 import qualified Data.Sequence as Seq
@@ -66,7 +67,6 @@ import qualified Data.Text as Text
 import qualified Data.Text.Lazy as TextLazy
 import qualified Data.Text.Lazy.Builder as TextLazyBuilder
 import qualified Data.Vector as Vector
-import qualified Data.Vector.Fusion.Bundle as VectorBundle
 import qualified Data.Vector.Generic as VectorGeneric
 import qualified Data.Vector.Primitive as VectorPrimitive
 import qualified Data.Vector.Storable as VectorStorable
@@ -155,7 +155,7 @@ instance IsomorphicTo [a] (Vector a) where
   to = toList
 
 instance VectorUnboxed.Unbox a => IsomorphicTo [a] (VectorUnboxed.Vector a) where
-  to = toList
+  to = VectorUnboxed.toList
 
 instance Storable a => IsomorphicTo [a] (VectorStorable.Vector a) where
   to = toList
@@ -299,7 +299,7 @@ instance IsomorphicTo ByteStringShort.ShortByteString ByteStringBuilder.Builder 
   to = to . to @ByteStringLazy.ByteString
 
 instance IsomorphicTo ByteStringShort.ShortByteString PrimitiveByteArray.ByteArray where
-  to (PrimitiveByteArray.ByteArray array) = ByteStringShort.SBS array
+  to (PrimitiveByteArray.ByteArray array) = ByteStringShortInternal.SBS array
 
 instance IsomorphicTo ByteStringShort.ShortByteString (VectorUnboxed.Vector Word8) where
   to = to . to @ByteString
@@ -348,7 +348,7 @@ instance IsomorphicTo PrimitiveByteArray.ByteArray [Word8] where
   to = fromList
 
 instance IsomorphicTo PrimitiveByteArray.ByteArray ByteStringShort.ShortByteString where
-  to (ByteStringShort.SBS array) = PrimitiveByteArray.ByteArray array
+  to (ByteStringShortInternal.SBS array) = PrimitiveByteArray.ByteArray array
 
 instance IsomorphicTo PrimitiveByteArray.ByteArray ByteString where
   to = to . to @ByteStringShort.ShortByteString
@@ -386,9 +386,6 @@ instance VectorPrimitive.Prim a => IsomorphicTo (Vector a) (VectorPrimitive.Vect
 
 instance IsomorphicTo (Vector a) (Seq a) where
   to = from @[a] . to
-
-instance IsomorphicTo (Vector a) (VectorBundle.Bundle v a) where
-  to = VectorGeneric.unstream . VectorBundle.reVector
 
 --
 
@@ -440,9 +437,6 @@ instance IsomorphicTo (VectorUnboxed.Vector Int8) ByteString where
 instance IsomorphicTo (VectorUnboxed.Vector Int8) (VectorUnboxed.Vector Word8) where
   to = VectorGeneric.unstream . fmap to . VectorGeneric.stream
 
-instance (VectorUnboxed.Unbox a) => IsomorphicTo (VectorUnboxed.Vector a) (VectorBundle.Bundle v a) where
-  to = VectorGeneric.unstream . VectorBundle.reVector
-
 --
 
 instance IsomorphicTo (VectorStorable.Vector a) (VectorStorable.Vector a) where
@@ -487,9 +481,6 @@ instance IsomorphicTo (VectorStorable.Vector Word8) ByteStringShort.ShortByteStr
 instance IsomorphicTo (VectorStorable.Vector Int8) ByteString where
   to = coerce . VectorStorable.fromList . ByteString.unpack
 
-instance (Storable a) => IsomorphicTo (VectorStorable.Vector a) (VectorBundle.Bundle v a) where
-  to = VectorGeneric.unstream . VectorBundle.reVector
-
 --
 
 instance IsomorphicTo (VectorPrimitive.Vector a) (VectorPrimitive.Vector a) where
@@ -521,26 +512,6 @@ instance (VectorPrimitive.Prim a, VectorUnboxed.Unbox a) => IsomorphicTo (Vector
 
 instance (VectorPrimitive.Prim a, Storable a) => IsomorphicTo (VectorPrimitive.Vector a) (VectorStorable.Vector a) where
   to = VectorGeneric.convert
-
-instance (VectorPrimitive.Prim a) => IsomorphicTo (VectorPrimitive.Vector a) (VectorBundle.Bundle v a) where
-  to = VectorGeneric.unstream . VectorBundle.reVector
-
---
-
-instance IsomorphicTo (VectorBundle.Bundle v a) (VectorBundle.Bundle v a) where
-  to = id
-
-instance IsomorphicTo (VectorBundle.Bundle v a) (Vector a) where
-  to = VectorBundle.reVector . VectorGeneric.stream
-
-instance (VectorUnboxed.Unbox a) => IsomorphicTo (VectorBundle.Bundle v a) (VectorUnboxed.Vector a) where
-  to = VectorBundle.reVector . VectorGeneric.stream
-
-instance (Storable a) => IsomorphicTo (VectorBundle.Bundle v a) (VectorStorable.Vector a) where
-  to = VectorBundle.reVector . VectorGeneric.stream
-
-instance (VectorPrimitive.Prim a) => IsomorphicTo (VectorBundle.Bundle v a) (VectorPrimitive.Vector a) where
-  to = VectorBundle.reVector . VectorGeneric.stream
 
 --
 
