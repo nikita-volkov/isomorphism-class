@@ -47,7 +47,7 @@ jobs:
             ${{ runner.os }}-${{ matrix.ghc }}-
 
       - run: cabal build --enable-tests --enable-benchmarks
-      - run: cabal test --enable-tests --enable-benchmarks
+      - run: cabal test --enable-tests --enable-benchmarks --test-show-details=streaming
       
       - if: matrix.ghc != '8.4'
         run: cabal haddock --enable-tests --enable-benchmarks
