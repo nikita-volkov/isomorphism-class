@@ -144,9 +144,6 @@ instance IsomorphicTo [Word8] PrimitiveByteArray.ByteArray where
 
 --
 
-instance IsomorphicTo [a] [a] where
-  to = id
-
 instance IsomorphicTo [a] (Vector a) where
   to = toList
 
@@ -154,9 +151,6 @@ instance IsomorphicTo [a] (Seq a) where
   to = toList
 
 --
-
-instance IsomorphicTo Text Text where
-  to = id
 
 instance IsomorphicTo Text String where
   to = Text.pack
@@ -169,9 +163,6 @@ instance IsomorphicTo Text TextLazyBuilder.Builder where
 
 --
 
-instance IsomorphicTo TextLazy.Text TextLazy.Text where
-  to = id
-
 instance IsomorphicTo TextLazy.Text String where
   to = TextLazy.pack
 
@@ -183,9 +174,6 @@ instance IsomorphicTo TextLazy.Text TextLazyBuilder.Builder where
 
 --
 
-instance IsomorphicTo TextLazyBuilder.Builder TextLazyBuilder.Builder where
-  to = id
-
 instance IsomorphicTo TextLazyBuilder.Builder String where
   to = TextLazyBuilder.fromString
 
@@ -196,9 +184,6 @@ instance IsomorphicTo TextLazyBuilder.Builder TextLazy.Text where
   to = TextLazyBuilder.fromLazyText
 
 --
-
-instance IsomorphicTo ByteString ByteString where
-  to = id
 
 instance IsomorphicTo ByteString [Word8] where
   to = ByteString.pack
@@ -217,9 +202,6 @@ instance IsomorphicTo ByteString PrimitiveByteArray.ByteArray where
 
 --
 
-instance IsomorphicTo ByteStringLazy.ByteString ByteStringLazy.ByteString where
-  to = id
-
 instance IsomorphicTo ByteStringLazy.ByteString [Word8] where
   to = ByteStringLazy.pack
 
@@ -236,9 +218,6 @@ instance IsomorphicTo ByteStringLazy.ByteString PrimitiveByteArray.ByteArray whe
   to = to . to @ByteStringShort.ShortByteString
 
 --
-
-instance IsomorphicTo ByteStringShort.ShortByteString ByteStringShort.ShortByteString where
-  to = id
 
 instance IsomorphicTo ByteStringShort.ShortByteString [Word8] where
   to = ByteStringShort.pack
@@ -257,9 +236,6 @@ instance IsomorphicTo ByteStringShort.ShortByteString PrimitiveByteArray.ByteArr
 
 --
 
-instance IsomorphicTo ByteStringBuilder.Builder ByteStringBuilder.Builder where
-  to = id
-
 instance IsomorphicTo ByteStringBuilder.Builder [Word8] where
   to = to . to @ByteString
 
@@ -276,9 +252,6 @@ instance IsomorphicTo ByteStringBuilder.Builder PrimitiveByteArray.ByteArray whe
   to = to . to @ByteStringShort.ShortByteString
 
 --
-
-instance IsomorphicTo PrimitiveByteArray.ByteArray PrimitiveByteArray.ByteArray where
-  to = id
 
 instance IsomorphicTo PrimitiveByteArray.ByteArray [Word8] where
   to = fromList
@@ -297,9 +270,6 @@ instance IsomorphicTo PrimitiveByteArray.ByteArray ByteStringBuilder.Builder whe
 
 --
 
-instance IsomorphicTo (Vector a) (Vector a) where
-  to = id
-
 instance IsomorphicTo (Vector a) [a] where
   to = Vector.fromList
 
@@ -307,9 +277,6 @@ instance IsomorphicTo (Vector a) (Seq a) where
   to = from @[a] . to
 
 --
-
-instance IsomorphicTo (Seq a) (Seq a) where
-  to = id
 
 instance IsomorphicTo (Seq a) [a] where
   to = Seq.fromList
@@ -319,103 +286,45 @@ instance IsomorphicTo (Seq a) (Vector a) where
 
 --
 
-instance IsomorphicTo (Set a) (Set a) where
-  to = id
-
 instance IsomorphicTo (Set Int) IntSet where
   to = fromList . toList
 
 --
-
-instance IsomorphicTo IntSet IntSet where
-  to = id
 
 instance IsomorphicTo IntSet (Set Int) where
   to = fromList . toList
 
 --
 
-instance IsomorphicTo (Map k v) (Map k v) where
-  to = id
-
 instance IsomorphicTo (Map Int v) (IntMap v) where
   to = fromList . toList
 
 --
 
-instance IsomorphicTo (IntMap a) (IntMap a) where
-  to = id
-
 instance IsomorphicTo (IntMap v) (Map Int v) where
   to = fromList . toList
 
 --
-
-instance IsomorphicTo (Maybe a) (Maybe a) where to = id
-
-instance IsomorphicTo (Either a b) (Either a b) where to = id
-
-instance IsomorphicTo (First a) (First a) where to = id
-
-instance IsomorphicTo (Last a) (Last a) where to = id
-
-instance IsomorphicTo (Product a) (Product a) where to = id
-
-instance IsomorphicTo (Sum a) (Sum a) where to = id
-
 --
-
-instance IsomorphicTo Bool Bool where to = id
-
-instance IsomorphicTo Char Char where to = id
-
-instance IsomorphicTo Double Double where to = id
-
-instance IsomorphicTo Float Float where to = id
-
-instance IsomorphicTo Int Int where to = id
-
 instance IsomorphicTo Int Word where to = fromIntegral
-
-instance IsomorphicTo Int16 Int16 where to = id
 
 instance IsomorphicTo Int16 Word16 where to = fromIntegral
 
-instance IsomorphicTo Int32 Int32 where to = id
-
 instance IsomorphicTo Int32 Word32 where to = fromIntegral
-
-instance IsomorphicTo Int64 Int64 where to = id
 
 instance IsomorphicTo Int64 Word64 where to = fromIntegral
 
-instance IsomorphicTo Int8 Int8 where to = id
-
 instance IsomorphicTo Int8 Word8 where to = fromIntegral
-
-instance IsomorphicTo Integer Integer where to = id
-
-instance IsomorphicTo Rational Rational where to = id
 
 instance IsomorphicTo Word Int where to = fromIntegral
 
-instance IsomorphicTo Word Word where to = id
-
 instance IsomorphicTo Word16 Int16 where to = fromIntegral
-
-instance IsomorphicTo Word16 Word16 where to = id
 
 instance IsomorphicTo Word32 Int32 where to = fromIntegral
 
-instance IsomorphicTo Word32 Word32 where to = id
-
 instance IsomorphicTo Word64 Int64 where to = fromIntegral
 
-instance IsomorphicTo Word64 Word64 where to = id
-
 instance IsomorphicTo Word8 Int8 where to = fromIntegral
-
-instance IsomorphicTo Word8 Word8 where to = id
 
 --
 
