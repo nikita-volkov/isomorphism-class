@@ -20,6 +20,7 @@ common language-settings
   default-extensions:
     FlexibleContexts
     FlexibleInstances
+    MagicHash
     MultiParamTypeClasses
     NoImplicitPrelude
     ScopedTypeVariables
@@ -44,6 +45,7 @@ library
     IsomorphismClass
   other-modules:
     IsomorphismClass.Prelude
+    IsomorphismClass.TextCompat.Array
 
 test-suite test
   import: language-settings, library-dependencies
@@ -53,7 +55,7 @@ test-suite test
   other-modules:
     Test.ExtraInstances
   build-depends:
-    bytestring ==0.11.3.0,
+    bytestring,
     isomorphism-class,
     QuickCheck >=2.13 && <3,
     quickcheck-instances ==0.3.27,
