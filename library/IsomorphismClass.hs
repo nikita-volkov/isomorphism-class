@@ -69,6 +69,7 @@ import qualified Data.Text.Lazy.Builder as TextLazyBuilder
 import qualified Data.Vector as Vector
 import qualified Data.Vector.Generic as VectorGeneric
 import IsomorphismClass.Prelude
+import qualified IsomorphismClass.TextCompat.Array as TextCompatArray
 
 -- | Bidirectional conversion between two types with no loss of information.
 -- The bidirectionality is encoded via a recursive dependency with arguments
@@ -266,7 +267,7 @@ instance IsomorphicTo ByteStringShort.ShortByteString PrimitiveByteArray.ByteArr
   to (PrimitiveByteArray.ByteArray array) = ByteStringShortInternal.SBS array
 
 instance IsomorphicTo ByteStringShort.ShortByteString TextArray.Array where
-  to (TextArray.ByteArray arr) = ByteStringShortInternal.SBS arr
+  to a = ByteStringShortInternal.SBS (TextCompatArray.toUnliftedByteArray a)
 
 --
 
@@ -312,7 +313,7 @@ instance IsomorphicTo PrimitiveByteArray.ByteArray ByteStringBuilder.Builder whe
   to = to . to @ByteStringShort.ShortByteString
 
 instance IsomorphicTo PrimitiveByteArray.ByteArray TextArray.Array where
-  to (TextArray.ByteArray arr) = PrimitiveByteArray.ByteArray arr
+  to a = PrimitiveByteArray.ByteArray (TextCompatArray.toUnliftedByteArray a)
 
 --
 
@@ -320,10 +321,10 @@ instance IsomorphicTo TextArray.Array [Word8] where
   to = to . to @ByteStringShort.ShortByteString
 
 instance IsomorphicTo TextArray.Array PrimitiveByteArray.ByteArray where
-  to (PrimitiveByteArray.ByteArray arr) = TextArray.ByteArray arr
+  to (PrimitiveByteArray.ByteArray arr) = TextCompatArray.fromUnliftedByteArray arr
 
 instance IsomorphicTo TextArray.Array ByteStringShort.ShortByteString where
-  to (ByteStringShortInternal.SBS arr) = TextArray.ByteArray arr
+  to (ByteStringShortInternal.SBS arr) = TextCompatArray.fromUnliftedByteArray arr
 
 instance IsomorphicTo TextArray.Array ByteString where
   to = to . to @ByteStringShort.ShortByteString

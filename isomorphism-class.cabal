@@ -20,6 +20,7 @@ common language-settings
   default-extensions:
     FlexibleContexts
     FlexibleInstances
+    MagicHash
     MultiParamTypeClasses
     NoImplicitPrelude
     ScopedTypeVariables
@@ -33,7 +34,7 @@ common library-dependencies
     containers >=0.6 && <0.7,
     hashable >=1 && <2,
     primitive >=0.7.3 && <0.8,
-    text >=2 && <3,
+    text >=1.2 && <3,
     unordered-containers >=0.2 && <0.3,
     vector >=0.12 && <0.13,
 
@@ -44,6 +45,7 @@ library
     IsomorphismClass
   other-modules:
     IsomorphismClass.Prelude
+    IsomorphismClass.TextCompat.Array
 
 test-suite test
   import: language-settings, library-dependencies
