@@ -5,7 +5,7 @@
 -- to take to translate data from one form to another without losing
 -- information. This problem is often extended by packages using different
 -- conventions. This library addresses all those problems by abstracting over
--- patterns and providing a standard, concise and clear interface.
+-- patterns and providing a lawful, concise and clear interface.
 --
 -- How often do you import @Data.Text.Lazy@ only to call
 -- its 'Data.Text.Lazy.fromStrict'? How about importing @Data.Text@ only to
