@@ -103,7 +103,7 @@ import qualified IsomorphismClass.TextCompat.Array as TextCompatArray
 -- The types are also self-evident:
 --
 -- > > :t from @String
--- > from @String :: IsomorphicTo String b => String -> b
+-- > from @String :: IsomorphicTo b String => String -> b
 --
 -- > > :t to @Text
 -- > to @Text :: IsomorphicTo Text b => b -> Text
