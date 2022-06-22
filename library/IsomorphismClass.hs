@@ -1,5 +1,5 @@
 -- |
--- Isomorphism law as a lawful solution to the conversion problem.
+-- Isomorphism as a lawful solution to the conversion problem.
 --
 -- = Conversion problem
 --
