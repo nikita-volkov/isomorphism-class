@@ -55,7 +55,7 @@ test-suite test
   other-modules:
     Test.ExtraInstances
   build-depends:
-    bytestring,
+    bytestring >=0.11,
     isomorphism-class,
     QuickCheck >=2.13 && <3,
     quickcheck-instances ==0.3.27,
