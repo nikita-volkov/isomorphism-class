@@ -197,6 +197,7 @@ instance IsomorphicTo [a] (Seq a) where
 instance IsomorphicTo Text Text where
   to = id
 
+-- | Performs replacement on invalid Unicode chars in the string.
 instance IsomorphicTo Text String where
   to = Text.pack
 
@@ -211,6 +212,7 @@ instance IsomorphicTo Text TextLazyBuilder.Builder where
 instance IsomorphicTo TextLazy.Text TextLazy.Text where
   to = id
 
+-- | Performs replacement on invalid Unicode chars in the string.
 instance IsomorphicTo TextLazy.Text String where
   to = TextLazy.pack
 
@@ -225,6 +227,7 @@ instance IsomorphicTo TextLazy.Text TextLazyBuilder.Builder where
 instance IsomorphicTo TextLazyBuilder.Builder TextLazyBuilder.Builder where
   to = id
 
+-- | Performs replacement on invalid Unicode chars in the string.
 instance IsomorphicTo TextLazyBuilder.Builder String where
   to = TextLazyBuilder.fromString
 
