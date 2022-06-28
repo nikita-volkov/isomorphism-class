@@ -542,7 +542,7 @@ thruList :: forall a f g. (IsomorphicTo [a] (f a), IsomorphicTo [a] (g a)) => f 
 thruList = from @[a] . to
 
 -- | A utility, which uses the 'Show' instance to produce a value
--- that 'String' is isomorphic to.
+-- that is isomorphic to 'String'.
 --
 -- It lets you generalize over the functions like the following:
 --
