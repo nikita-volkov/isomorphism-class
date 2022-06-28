@@ -576,6 +576,8 @@ showAs = from . show
 -- * Specialization and generalization
 
 class GeneralizationOf a b where
+  -- | Every specialized value is a valid generalized value.
+  -- E.g., for every 'Int64' there exists an according value of 'Integer'.
   generalize :: a -> b
   default generalize :: IsomorphicTo b a => a -> b
   generalize = to
