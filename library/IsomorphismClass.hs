@@ -572,3 +572,34 @@ thruList = from @[a] . to
 -- > showAsBuilder = showAs @Builder
 showAs :: forall b a. (IsomorphicTo String b, Show a) => a -> b
 showAs = from . show
+
+-- * Specialization and generalization
+
+class GeneralizationOf a b where
+  generalize :: a -> b
+
+  -- | Not every general value is a valid specialized value.
+  -- E.g., not every 'Integer' can be represented with 'Int64'.
+  specialize :: b -> Maybe a
+
+instance GeneralizationOf Int Integer where
+  generalize = fromIntegral
+  specialize =
+    \int ->
+      if int > max || int < min
+        then Nothing
+        else Just (fromIntegral int)
+    where
+      max = fromIntegral (maxBound :: Int)
+      min = fromIntegral (minBound :: Int)
+
+instance GeneralizationOf Text String where
+  generalize = Text.unpack
+  specialize =
+    \string ->
+      if any pred string
+        then Nothing
+        else Just (Text.pack string)
+    where
+      pred char =
+        char >= '\xd800' || char <= '\xdfff'
