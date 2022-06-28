@@ -100,7 +100,7 @@ module IsomorphismClass
     -- Yes. It does not make a valid isomorphism. It is an exception,
     -- due to the ubiquity of String-oriented APIs.
     --
-    -- = Are Int64/Word64 isomorphic?
+    -- = Are Int64/Word64 really isomorphic?
     --
     -- Yes. Negative integer values get mapped to the upper value range of Word64.
     -- Mapping between those types happens in bits using the 'fromIntegral' function.
