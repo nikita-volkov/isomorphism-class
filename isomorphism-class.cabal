@@ -1,7 +1,7 @@
 cabal-version: 3.0
 
 name: isomorphism-class
-version: 0.1.0.4
+version: 0.1.0.5
 synopsis: Isomorphism typeclass solving the conversion problem
 homepage: https://github.com/nikita-volkov/isomorphism-class
 bug-reports: https://github.com/nikita-volkov/isomorphism-class/issues
