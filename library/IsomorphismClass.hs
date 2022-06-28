@@ -113,15 +113,15 @@ import qualified IsomorphismClass.TextCompat.Array as TextCompatArray
 --
 -- __Laws__
 --
--- /A/ is isomorphic to /B/ if and only if there exists a conversion from /A/
--- to /B/ ('to') and a conversion from /B/ to /A/ ('from') such that:
+-- /B/ is isomorphic to /A/ if and only if there exists a conversion from /B/
+-- to /A/ ('to') and a conversion from /A/ to /B/ ('from') such that:
 --
--- - @'from' . 'to' = 'id'@ - For all values of /A/ converting from /A/ to /B/
---     and then converting from /B/ to /A/ produces a value that is identical
+-- - @'from' . 'to' = 'id'@ - For all values of /B/ converting from /B/ to /A/
+--     and then converting from /A/ to /B/ produces a value that is identical
 --     to the original.
 --
--- - @'to' . 'from' = 'id'@ - For all values of /B/ converting from /B/ to /A/
---     and then converting from /A/ to /B/ produces a value that is identical
+-- - @'to' . 'from' = 'id'@ - For all values of /A/ converting from /A/ to /B/
+--     and then converting from /B/ to /A/ produces a value that is identical
 --     to the original.
 --
 -- __Usage__
