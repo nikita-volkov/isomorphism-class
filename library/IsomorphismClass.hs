@@ -117,6 +117,7 @@ import qualified Data.Sequence as Seq
 import qualified Data.Set as Set
 import qualified Data.Text as Text
 import qualified Data.Text.Array as TextArray
+import qualified Data.Text.Encoding as TextEncoding
 import qualified Data.Text.Lazy as TextLazy
 import qualified Data.Text.Lazy.Builder as TextLazyBuilder
 import qualified Data.Vector as Vector
@@ -609,3 +610,7 @@ instance GeneralizationOf Text String where
     where
       pred char =
         char >= '\xd800' || char <= '\xdfff'
+
+instance GeneralizationOf Text ByteString where
+  generalize = TextEncoding.encodeUtf8
+  specialize = either (const Nothing) Just . TextEncoding.decodeUtf8'
