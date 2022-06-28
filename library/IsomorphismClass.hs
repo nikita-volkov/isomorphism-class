@@ -85,6 +85,25 @@ module IsomorphismClass
 
     -- * Common Utilities
     showAs,
+
+    -- * FAQ
+
+    -- |
+    -- = Why no instance for Text/ByteString?
+    --
+    -- It is not a total isomorphism. Yes, you can represent every Text value using ByteString.
+    -- However, not every ByteString can be decoded as valid Text. It doesn't matter which encoding you apply whatever encoding you apply.
+    -- So it doesn't matter whether it's UTF8 or ISO-8859, or any other.
+    --
+    -- = String/Text is not exactly a valid isomorphism
+    --
+    -- Yes. It does not make a valid isomorphism. It is an exception,
+    -- due to the ubiquity of String-oriented APIs.
+    --
+    -- = Are Int64/Word64 isomorphic?
+    --
+    -- Yes. Negative integer values get mapped to the upper value range of Word64.
+    -- Mapping between those types happens in bits using the 'fromIntegral' function.
   )
 where
 
