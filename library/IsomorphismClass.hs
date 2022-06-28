@@ -609,7 +609,7 @@ instance GeneralizationOf Text String where
         else Just (Text.pack string)
     where
       pred char =
-        char >= '\xd800' || char <= '\xdfff'
+        char >= '\xd800' && char <= '\xdfff'
 
 instance GeneralizationOf Text ByteString where
   generalize = TextEncoding.encodeUtf8
