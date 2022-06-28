@@ -577,10 +577,14 @@ showAs = from . show
 
 class GeneralizationOf a b where
   generalize :: a -> b
+  default generalize :: IsomorphicTo b a => a -> b
+  generalize = to
 
   -- | Not every general value is a valid specialized value.
   -- E.g., not every 'Integer' can be represented with 'Int64'.
   specialize :: b -> Maybe a
+  default specialize :: IsomorphicTo a b => b -> Maybe a
+  specialize = Just . to
 
 instance GeneralizationOf Int Integer where
   generalize = fromIntegral
