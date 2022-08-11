@@ -24,10 +24,6 @@ instance (Arbitrary a, VectorPrimitive.Prim a, Show a) => Arbitrary (VectorPrimi
   arbitrary = arbitraryVector
   shrink = shrinkVector
 
-instance Arbitrary PrimitiveByteArray.ByteArray where
-  arbitrary = fromList <$> arbitrary
-  shrink = fmap fromList . shrink . toList
-
 instance Arbitrary TextLazyBuilder.Builder where
   arbitrary = TextLazyBuilder.fromText <$> arbitrary
   shrink = shrinkMap TextLazyBuilder.fromLazyText TextLazyBuilder.toLazyText
