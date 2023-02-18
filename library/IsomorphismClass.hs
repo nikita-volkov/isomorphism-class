@@ -92,8 +92,8 @@ module IsomorphismClass
     -- = Why no instance for Text/ByteString?
     --
     -- It is not a total isomorphism. Yes, you can represent every Text value using ByteString.
-    -- However, not every ByteString can be decoded as valid Text. It doesn't matter which encoding you apply whatever encoding you apply.
-    -- So it doesn't matter whether it's UTF8 or ISO-8859, or any other.
+    -- However, not every ByteString can be decoded as valid Text.
+    -- It doesn't matter which encoding you apply: UTF8, ISO-8859 or any other.
     --
     -- = String/Text is not exactly a valid isomorphism
     --
