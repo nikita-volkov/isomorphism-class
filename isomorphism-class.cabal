@@ -33,7 +33,7 @@ common library-dependencies
     bytestring >=0.10 && <0.12,
     containers >=0.6 && <0.7,
     hashable >=1 && <2,
-    primitive >=0.7.3 && <0.8,
+    primitive >=0.7.3 && <0.9,
     text >=1.2 && <3,
     unordered-containers >=0.2 && <0.3,
     vector >=0.12 && <0.14,
@@ -55,10 +55,10 @@ test-suite test
   other-modules:
     Test.ExtraInstances
   build-depends:
-    bytestring >=0.11,
+    bytestring,
     isomorphism-class,
     QuickCheck >=2.13 && <3,
-    quickcheck-instances ==0.3.28,
+    quickcheck-instances >=0.3.28 && <0.4,
     rebase >=1.15 && <2,
     tasty >=1.2.3 && <2,
     tasty-hunit >=0.10.0.2 && <0.11,
