@@ -27,28 +27,27 @@ common language-settings
     TypeApplications
     UndecidableSuperClasses
 
-common library-dependencies
-  build-depends:
-    base >=4.12 && <5,
-    bytestring >=0.10 && <0.12,
-    containers >=0.6 && <0.7,
-    hashable >=1 && <2,
-    primitive >=0.7.3 && <0.9,
-    text >=1.2 && <3,
-    unordered-containers >=0.2 && <0.3,
-    vector >=0.12 && <0.14,
 
 library
-  import: language-settings, library-dependencies
+  import: language-settings
   hs-source-dirs: library
   exposed-modules:
     IsomorphismClass
   other-modules:
     IsomorphismClass.Prelude
     IsomorphismClass.TextCompat.Array
+  build-depends:
+    base >=4.12 && <5,
+    bytestring >=0.10 && <0.12,
+    containers >=0.6 && <0.7,
+    hashable >=1 && <2,
+    primitive >=0.7.3 && <0.10,
+    text >=1.2 && <3,
+    unordered-containers >=0.2 && <0.3,
+    vector >=0.12 && <0.14,
 
 test-suite test
-  import: language-settings, library-dependencies
+  import: language-settings
   type: exitcode-stdio-1.0
   hs-source-dirs: test
   main-is: Main.hs
@@ -61,5 +60,9 @@ test-suite test
     quickcheck-instances >=0.3.28 && <0.4,
     rebase >=1.15 && <2,
     tasty >=1.2.3 && <2,
-    tasty-hunit >=0.10.0.2 && <0.11,
     tasty-quickcheck >=0.10.1 && <0.11,
+    
+    bytestring >=0.10 && <0.12,
+    primitive >=0.7.3 && <0.10,
+    text >=1.2 && <3,
+    vector >=0.12 && <0.14,

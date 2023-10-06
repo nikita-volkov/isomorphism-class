@@ -1,26 +1,21 @@
 module Main where
 
-import qualified Data.ByteString as ByteString
 import qualified Data.ByteString.Builder as ByteStringBuilder
 import qualified Data.ByteString.Lazy as ByteStringLazy
 import qualified Data.ByteString.Short as ByteStringShort
 import qualified Data.Primitive.ByteArray as PrimitiveByteArray
-import qualified Data.Sequence as Seq
-import qualified Data.Set as Set
-import qualified Data.Text as Text
 import qualified Data.Text.Lazy as TextLazy
 import qualified Data.Text.Lazy.Builder as TextLazyBuilder
-import qualified Data.Vector as Vector
-import qualified Data.Vector.Generic as VectorGeneric
 import IsomorphismClass
 import Rebase.Prelude
-import Test.ExtraInstances
+import Test.ExtraInstances ()
 import Test.Tasty
-import Test.Tasty.HUnit
 import Test.Tasty.QuickCheck hiding ((.&.))
 
+main :: IO ()
 main = defaultMain allTests
 
+allTests :: TestTree
 allTests =
   testGroup "All" $
     [ testPair @String @Text Proxy Proxy,

@@ -4,7 +4,6 @@ module IsomorphismClass.TextCompat.Array where
 
 import Data.Text.Array
 import GHC.Exts (ByteArray#)
-import IsomorphismClass.Prelude
 
 {-# INLINE toUnliftedByteArray #-}
 toUnliftedByteArray :: Array -> ByteArray#
