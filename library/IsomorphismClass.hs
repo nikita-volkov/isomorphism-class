@@ -1,3 +1,5 @@
+{-# OPTIONS_GHC -Wno-unused-top-binds #-}
+
 -- |
 -- Isomorphism as a lawful solution to the conversion problem.
 --
@@ -114,13 +116,11 @@ import qualified Data.ByteString.Short as ByteStringShort
 import qualified Data.ByteString.Short.Internal as ByteStringShortInternal
 import qualified Data.Primitive.ByteArray as PrimitiveByteArray
 import qualified Data.Sequence as Seq
-import qualified Data.Set as Set
 import qualified Data.Text as Text
 import qualified Data.Text.Array as TextArray
 import qualified Data.Text.Lazy as TextLazy
 import qualified Data.Text.Lazy.Builder as TextLazyBuilder
 import qualified Data.Vector as Vector
-import qualified Data.Vector.Generic as VectorGeneric
 import IsomorphismClass.Prelude
 import qualified IsomorphismClass.TextCompat.Array as TextCompatArray
 
@@ -166,7 +166,7 @@ import qualified IsomorphismClass.TextCompat.Array as TextCompatArray
 -- For each pair of isomorphic types (/A/ and /B/) the compiler will require
 -- you to define two instances, namely: @IsomorphicTo A B@ and @IsomorphicTo
 -- B A@.
-class IsomorphicTo b a => IsomorphicTo a b where
+class (IsomorphicTo b a) => IsomorphicTo a b where
   to :: b -> a
 
 --
@@ -526,7 +526,7 @@ instance IsomorphicTo Word8 Word8 where to = id
 --
 -- The first type application of the 'to' function on the other hand specifies
 -- the output data type.
-from :: forall a b. IsomorphicTo b a => a -> b
+from :: forall a b. (IsomorphicTo b a) => a -> b
 from = to
 
 -- |

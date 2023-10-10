@@ -48,7 +48,7 @@ import Data.Ord as Exports
 import Data.Proxy as Exports
 import Data.Ratio as Exports
 import Data.STRef as Exports
-import Data.Semigroup as Exports hiding (Option)
+import Data.Semigroup as Exports
 import Data.Sequence as Exports (Seq)
 import Data.Set as Exports (Set)
 import Data.String as Exports
@@ -81,8 +81,6 @@ import System.IO.Unsafe as Exports
 import System.Mem as Exports
 import System.Mem.StableName as Exports
 import System.Timeout as Exports
-import Text.ParserCombinators.ReadP as Exports (ReadP, ReadS, readP_to_S, readS_to_P)
-import Text.ParserCombinators.ReadPrec as Exports (ReadPrec, readP_to_Prec, readPrec_to_P, readPrec_to_S, readS_to_Prec)
 import Text.Printf as Exports (hPrintf, printf)
 import Text.Read as Exports (Read (..), readEither, readMaybe)
 import Unsafe.Coerce as Exports
