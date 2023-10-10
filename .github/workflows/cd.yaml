@@ -22,11 +22,14 @@ jobs:
     needs:
       - ci
     runs-on: ubuntu-latest
+    permissions:
+      # Give the default GITHUB_TOKEN write permission to commit and push the changed files back to the repository.
+      contents: write
     steps:
       - uses: actions/checkout@v3
 
       - name: Release
-        uses: nikita-volkov/release-haskell-package.github-action@v1.0.0
+        uses: nikita-volkov/release-haskell-package.github-action@v1.1.0
         with:
           hackage-token: ${{ secrets.HACKAGE_TOKEN }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
