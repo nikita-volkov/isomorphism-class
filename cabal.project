@@ -1,6 +1,7 @@
 packages: .
-with-compiler: ghc-9.6.3
-constraints:
-  , primitive >=0.9
 allow-newer:
-  , quickcheck-instances:primitive
+  , *:base
+  , *:bytestring
+  , *:deepseq
+  , *:primitive
+  , *:text

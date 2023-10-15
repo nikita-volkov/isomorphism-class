@@ -1,3 +1,4 @@
+{-# LANGUAGE CPP #-}
 {-# OPTIONS_GHC -Wno-unused-top-binds #-}
 
 -- |
@@ -117,12 +118,14 @@ import qualified Data.ByteString.Short.Internal as ByteStringShortInternal
 import qualified Data.Primitive.ByteArray as PrimitiveByteArray
 import qualified Data.Sequence as Seq
 import qualified Data.Text as Text
-import qualified Data.Text.Array as TextArray
 import qualified Data.Text.Lazy as TextLazy
 import qualified Data.Text.Lazy.Builder as TextLazyBuilder
 import qualified Data.Vector as Vector
 import IsomorphismClass.Prelude
+#if !MIN_VERSION_text(2,1,0)
+import qualified Data.Text.Array as TextArray
 import qualified IsomorphismClass.TextCompat.Array as TextCompatArray
+#endif
 
 -- | Bidirectional conversion between two types with no loss of information.
 -- The bidirectionality is encoded via a recursive dependency with arguments
@@ -197,8 +200,10 @@ instance IsomorphicTo [Word8] ByteStringBuilder.Builder where
 instance IsomorphicTo [Word8] PrimitiveByteArray.ByteArray where
   to = toList
 
+#if !MIN_VERSION_text(2,1,0)
 instance IsomorphicTo [Word8] TextArray.Array where
   to = to . to @ByteStringShort.ShortByteString
+#endif
 
 --
 
@@ -276,8 +281,10 @@ instance IsomorphicTo ByteString ByteStringBuilder.Builder where
 instance IsomorphicTo ByteString PrimitiveByteArray.ByteArray where
   to = to . to @ByteStringShort.ShortByteString
 
+#if !MIN_VERSION_text(2,1,0)
 instance IsomorphicTo ByteString TextArray.Array where
   to = to . to @ByteStringShort.ShortByteString
+#endif
 
 --
 
@@ -299,8 +306,10 @@ instance IsomorphicTo ByteStringLazy.ByteString ByteStringBuilder.Builder where
 instance IsomorphicTo ByteStringLazy.ByteString PrimitiveByteArray.ByteArray where
   to = to . to @ByteStringShort.ShortByteString
 
+#if !MIN_VERSION_text(2,1,0)
 instance IsomorphicTo ByteStringLazy.ByteString TextArray.Array where
   to = to . to @ByteStringShort.ShortByteString
+#endif
 
 --
 
@@ -322,8 +331,10 @@ instance IsomorphicTo ByteStringShort.ShortByteString ByteStringBuilder.Builder 
 instance IsomorphicTo ByteStringShort.ShortByteString PrimitiveByteArray.ByteArray where
   to (PrimitiveByteArray.ByteArray array) = ByteStringShortInternal.SBS array
 
+#if !MIN_VERSION_text(2,1,0)
 instance IsomorphicTo ByteStringShort.ShortByteString TextArray.Array where
   to a = ByteStringShortInternal.SBS (TextCompatArray.toUnliftedByteArray a)
+#endif
 
 --
 
@@ -345,8 +356,10 @@ instance IsomorphicTo ByteStringBuilder.Builder ByteStringShort.ShortByteString 
 instance IsomorphicTo ByteStringBuilder.Builder PrimitiveByteArray.ByteArray where
   to = to . to @ByteStringShort.ShortByteString
 
+#if !MIN_VERSION_text(2,1,0)
 instance IsomorphicTo ByteStringBuilder.Builder TextArray.Array where
   to = to . to @ByteStringShort.ShortByteString
+#endif
 
 --
 
@@ -368,11 +381,14 @@ instance IsomorphicTo PrimitiveByteArray.ByteArray ByteStringLazy.ByteString whe
 instance IsomorphicTo PrimitiveByteArray.ByteArray ByteStringBuilder.Builder where
   to = to . to @ByteStringShort.ShortByteString
 
+#if !MIN_VERSION_text(2,1,0)
 instance IsomorphicTo PrimitiveByteArray.ByteArray TextArray.Array where
   to a = PrimitiveByteArray.ByteArray (TextCompatArray.toUnliftedByteArray a)
+#endif
 
 --
 
+#if !MIN_VERSION_text(2,1,0)
 instance IsomorphicTo TextArray.Array [Word8] where
   to = to . to @ByteStringShort.ShortByteString
 
@@ -390,6 +406,7 @@ instance IsomorphicTo TextArray.Array ByteStringLazy.ByteString where
 
 instance IsomorphicTo TextArray.Array ByteStringBuilder.Builder where
   to = to . to @ByteStringShort.ShortByteString
+#endif
 
 --
 
