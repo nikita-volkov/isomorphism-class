@@ -2,6 +2,8 @@ cabal-version: 3.0
 name:          isomorphism-class
 version:       0.1.0.10
 synopsis:      Isomorphism typeclass solving the conversion problem
+description:   Lawful typeclass for lossless conversion between types.
+category:      Conversion
 homepage:      https://github.com/nikita-volkov/isomorphism-class
 bug-reports:   https://github.com/nikita-volkov/isomorphism-class/issues
 author:        Nikita Volkov <nikita.y.volkov@mail.ru>
