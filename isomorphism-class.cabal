@@ -1,7 +1,9 @@
 cabal-version: 3.0
 name:          isomorphism-class
-version:       0.1.0.10
+version:       0.1.0.11
 synopsis:      Isomorphism typeclass solving the conversion problem
+description:   Lawful typeclass for lossless conversion between types.
+category:      Conversion
 homepage:      https://github.com/nikita-volkov/isomorphism-class
 bug-reports:   https://github.com/nikita-volkov/isomorphism-class/issues
 author:        Nikita Volkov <nikita.y.volkov@mail.ru>
@@ -40,7 +42,7 @@ library
     , containers >=0.6 && <0.7
     , hashable >=1 && <2
     , primitive >=0.7.3 && <0.10
-    , text >=1.2 && <3
+    , text >=1.2 && <2.2
     , unordered-containers >=0.2 && <0.3
     , vector >=0.12 && <0.14
 
@@ -51,7 +53,7 @@ test-suite test
   main-is:        Main.hs
   other-modules:  Test.ExtraInstances
   build-depends:
-    , bytestring >=0.10 && <0.12
+    , bytestring >=0.11.1.0 && <0.12
     , isomorphism-class
     , primitive >=0.7.3 && <0.10
     , QuickCheck >=2.13 && <3
