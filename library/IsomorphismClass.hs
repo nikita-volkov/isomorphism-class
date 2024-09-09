@@ -126,6 +126,9 @@ import IsomorphismClass.Prelude
 import qualified Data.Text.Array as TextArray
 import qualified IsomorphismClass.TextCompat.Array as TextCompatArray
 #endif
+#if MIN_VERSION_text(2,0,2)
+import qualified Data.Text.Encoding as TextEncoding
+#endif
 
 -- | Bidirectional conversion between two types with no loss of information.
 -- The bidirectionality is encoded via a recursive dependency with arguments
@@ -183,6 +186,11 @@ instance IsomorphicTo String TextLazy.Text where
 instance IsomorphicTo String TextLazyBuilder.Builder where
   to = TextLazy.unpack . TextLazyBuilder.toLazyText
 
+#if MIN_VERSION_text(2,0,2)
+instance IsomorphicTo String TextEncoding.StrictBuilder where
+  to = to . TextEncoding.strictBuilderToText
+#endif
+
 --
 
 instance IsomorphicTo [Word8] ByteString where
@@ -231,6 +239,11 @@ instance IsomorphicTo Text TextLazy.Text where
 instance IsomorphicTo Text TextLazyBuilder.Builder where
   to = TextLazy.toStrict . TextLazyBuilder.toLazyText
 
+#if MIN_VERSION_text(2,0,2)
+instance IsomorphicTo Text TextEncoding.StrictBuilder where
+  to = TextEncoding.strictBuilderToText
+#endif
+
 --
 
 instance IsomorphicTo TextLazy.Text TextLazy.Text where
@@ -245,6 +258,11 @@ instance IsomorphicTo TextLazy.Text Text where
 
 instance IsomorphicTo TextLazy.Text TextLazyBuilder.Builder where
   to = TextLazyBuilder.toLazyText
+
+#if MIN_VERSION_text(2,0,2)
+instance IsomorphicTo TextLazy.Text TextEncoding.StrictBuilder where
+  to = to . TextEncoding.strictBuilderToText
+#endif
 
 --
 
@@ -261,6 +279,31 @@ instance IsomorphicTo TextLazyBuilder.Builder Text where
 instance IsomorphicTo TextLazyBuilder.Builder TextLazy.Text where
   to = TextLazyBuilder.fromLazyText
 
+#if MIN_VERSION_text(2,0,2)
+instance IsomorphicTo TextLazyBuilder.Builder TextEncoding.StrictBuilder where
+  to = to . TextEncoding.strictBuilderToText
+#endif
+
+#if MIN_VERSION_text(2,0,2)
+--
+
+instance IsomorphicTo TextEncoding.StrictBuilder TextEncoding.StrictBuilder where
+  to = id
+
+-- | Performs replacement on invalid Unicode chars in the string.
+instance IsomorphicTo TextEncoding.StrictBuilder String where
+  to = TextEncoding.textToStrictBuilder . to
+
+instance IsomorphicTo TextEncoding.StrictBuilder Text where
+  to = TextEncoding.textToStrictBuilder
+
+instance IsomorphicTo TextEncoding.StrictBuilder TextLazy.Text where
+  to = TextEncoding.textToStrictBuilder . to
+
+instance IsomorphicTo TextEncoding.StrictBuilder TextLazyBuilder.Builder where
+  to = TextEncoding.textToStrictBuilder . to
+
+#endif
 --
 
 instance IsomorphicTo ByteString ByteString where
