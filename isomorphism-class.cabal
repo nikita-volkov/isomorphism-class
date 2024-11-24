@@ -33,6 +33,8 @@ library
   hs-source-dirs:  library
   exposed-modules: IsomorphismClass
   other-modules:
+    IsomorphismClass.Classes.IsomorphicTo
+    IsomorphismClass.Classes.PartiallyIsomorphicTo
     IsomorphismClass.Prelude
     IsomorphismClass.TextCompat.Array
 
