@@ -113,9 +113,15 @@ allTests =
       testPair @Word8 @Word8 Proxy Proxy
     ]
 
-testPair :: forall a b. (IsomorphicTo a b, Eq a, Arbitrary a, Show a, Typeable a, Typeable b) => Proxy a -> Proxy b -> TestTree
-testPair _ _ =
-  testProperty name $ \a ->
-    a === from @b (from @a a)
+testPair :: (IsomorphicTo a b, Eq a, Eq b, Arbitrary a, Show a, Arbitrary b, Show b, Typeable a, Typeable b) => Proxy a -> Proxy b -> TestTree
+testPair superp subp =
+  isomorphicToProperties superp subp
+    & fmap (uncurry testProperty)
+    & testGroup groupName
   where
-    name = show (typeOf (undefined :: a)) <> "/" <> show (typeOf (undefined :: b))
+    groupName =
+      mconcat
+        [ show (typeOf (asProxyTypeOf undefined superp)),
+          "/",
+          show (typeOf (asProxyTypeOf undefined subp))
+        ]

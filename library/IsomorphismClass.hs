@@ -86,8 +86,8 @@ module IsomorphismClass
     IsomorphicTo,
     from,
 
-    -- * Common Utilities
-    showAs,
+    -- * Testing
+    module IsomorphismClass.Laws,
 
     -- * FAQ
 
@@ -111,18 +111,5 @@ module IsomorphismClass
 where
 
 import IsomorphismClass.Classes
-import IsomorphismClass.Prelude
+import IsomorphismClass.Laws
 import IsomorphismClass.Relations ()
-
--- | A utility, which uses the 'Show' instance to produce a value
--- that is isomorphic to 'String'.
---
--- It lets you generalize over the functions like the following:
---
--- > showAsText :: Show a => a -> Text
--- > showAsText = showAs @Text
---
--- > showAsBuilder :: Show a => a -> Builder
--- > showAsBuilder = showAs @Builder
-showAs :: forall b a. (IsomorphicTo String b, Show a) => a -> b
-showAs = from . show

@@ -39,7 +39,7 @@ library
     IsomorphismClass.Classes.PartiallyIsomorphicTo
     IsomorphismClass.Classes.PartiallyIsomorphicTo.Class
     IsomorphismClass.Classes.PartiallyIsomorphicTo.Instances
-    IsomorphismClass.Classes.PartiallyIsomorphicTo.Laws
+    IsomorphismClass.Laws
     IsomorphismClass.Prelude
     IsomorphismClass.Relations
     IsomorphismClass.Relations.BoxedVectorAndList
