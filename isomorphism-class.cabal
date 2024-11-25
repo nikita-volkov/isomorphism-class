@@ -42,39 +42,39 @@ library
     IsomorphismClass.Classes.PartiallyIsomorphicTo.Laws
     IsomorphismClass.Prelude
     IsomorphismClass.Relations
-    IsomorphismClass.Relations.BoxedVector.List
-    IsomorphismClass.Relations.BoxedVector.Seq
-    IsomorphismClass.Relations.ByteArray.ByteString
-    IsomorphismClass.Relations.ByteArray.LazyByteString
-    IsomorphismClass.Relations.ByteArray.LazyByteStringBuilder
-    IsomorphismClass.Relations.ByteArray.ShortByteString
-    IsomorphismClass.Relations.ByteArray.TextArray
-    IsomorphismClass.Relations.ByteArray.Word8List
-    IsomorphismClass.Relations.ByteString.LazyByteString
-    IsomorphismClass.Relations.ByteString.LazyByteStringBuilder
-    IsomorphismClass.Relations.ByteString.ShortByteString
-    IsomorphismClass.Relations.ByteString.TextArray
-    IsomorphismClass.Relations.ByteString.Word8List
-    IsomorphismClass.Relations.LazyByteString.LazyByteStringBuilder
-    IsomorphismClass.Relations.LazyByteString.ShortByteString
-    IsomorphismClass.Relations.LazyByteString.TextArray
-    IsomorphismClass.Relations.LazyByteString.Word8List
-    IsomorphismClass.Relations.LazyByteStringBuilder.ShortByteString
-    IsomorphismClass.Relations.LazyByteStringBuilder.TextArray
-    IsomorphismClass.Relations.LazyByteStringBuilder.Word8List
-    IsomorphismClass.Relations.LazyText.LazyTextBuilder
-    IsomorphismClass.Relations.LazyText.StrictTextBuilder
-    IsomorphismClass.Relations.LazyText.Text
-    IsomorphismClass.Relations.LazyTextBuilder.StrictTextBuilder
-    IsomorphismClass.Relations.LazyTextBuilder.Text
-    IsomorphismClass.Relations.ShortByteString.TextArray
-    IsomorphismClass.Relations.ShortByteString.Word8List
-    IsomorphismClass.Relations.StrictTextBuilder.Text
-    IsomorphismClass.Relations.String.LazyText
-    IsomorphismClass.Relations.String.LazyTextBuilder
-    IsomorphismClass.Relations.String.StrictTextBuilder
-    IsomorphismClass.Relations.String.Text
-    IsomorphismClass.Relations.TextArray.Word8List
+    IsomorphismClass.Relations.BoxedVectorAndList
+    IsomorphismClass.Relations.BoxedVectorAndSeq
+    IsomorphismClass.Relations.ByteArrayAndByteString
+    IsomorphismClass.Relations.ByteArrayAndLazyByteString
+    IsomorphismClass.Relations.ByteArrayAndLazyByteStringBuilder
+    IsomorphismClass.Relations.ByteArrayAndShortByteString
+    IsomorphismClass.Relations.ByteArrayAndTextArray
+    IsomorphismClass.Relations.ByteArrayAndWord8List
+    IsomorphismClass.Relations.ByteStringAndLazyByteString
+    IsomorphismClass.Relations.ByteStringAndLazyByteStringBuilder
+    IsomorphismClass.Relations.ByteStringAndShortByteString
+    IsomorphismClass.Relations.ByteStringAndTextArray
+    IsomorphismClass.Relations.ByteStringAndWord8List
+    IsomorphismClass.Relations.LazyByteStringAndLazyByteStringBuilder
+    IsomorphismClass.Relations.LazyByteStringAndShortByteString
+    IsomorphismClass.Relations.LazyByteStringAndTextArray
+    IsomorphismClass.Relations.LazyByteStringAndWord8List
+    IsomorphismClass.Relations.LazyByteStringBuilderAndShortByteString
+    IsomorphismClass.Relations.LazyByteStringBuilderAndTextArray
+    IsomorphismClass.Relations.LazyByteStringBuilderAndWord8List
+    IsomorphismClass.Relations.LazyTextAndLazyTextBuilder
+    IsomorphismClass.Relations.LazyTextAndStrictTextBuilder
+    IsomorphismClass.Relations.LazyTextAndString
+    IsomorphismClass.Relations.LazyTextAndText
+    IsomorphismClass.Relations.LazyTextBuilderAndStrictTextBuilder
+    IsomorphismClass.Relations.LazyTextBuilderAndString
+    IsomorphismClass.Relations.LazyTextBuilderAndText
+    IsomorphismClass.Relations.ShortByteStringAndTextArray
+    IsomorphismClass.Relations.ShortByteStringAndWord8List
+    IsomorphismClass.Relations.StrictTextBuilderAndString
+    IsomorphismClass.Relations.StrictTextBuilderAndText
+    IsomorphismClass.Relations.StringAndText
+    IsomorphismClass.Relations.TextArrayAndWord8List
     IsomorphismClass.TextCompat.Array
 
   build-tool-depends: autoexporter:autoexporter >=1.1.19 && <3
