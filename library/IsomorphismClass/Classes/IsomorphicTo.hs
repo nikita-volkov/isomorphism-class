@@ -1,7 +1,6 @@
 module IsomorphismClass.Classes.IsomorphicTo where
 
 import IsomorphismClass.Classes.PartiallyIsomorphicTo
-import IsomorphismClass.Prelude
 
 -- | Bidirectional conversion between two types with no loss of information.
 --
@@ -50,48 +49,16 @@ class (PartiallyIsomorphicTo a b, IsomorphicTo b a) => IsomorphicTo a b
 
 instance IsomorphicTo a a
 
-instance IsomorphicTo [a] (Seq a)
-
-instance IsomorphicTo (Seq a) [a]
-
-instance IsomorphicTo (Set Int) IntSet
-
-instance IsomorphicTo IntSet (Set Int)
-
-instance IsomorphicTo (Map Int v) (IntMap v)
-
-instance IsomorphicTo (IntMap v) (Map Int v)
-
-instance IsomorphicTo Int Word
-
-instance IsomorphicTo Int16 Word16
-
-instance IsomorphicTo Int32 Word32
-
-instance IsomorphicTo Int64 Word64
-
-instance IsomorphicTo Int8 Word8
-
-instance IsomorphicTo Word Int
-
-instance IsomorphicTo Word16 Int16
-
-instance IsomorphicTo Word32 Int32
-
-instance IsomorphicTo Word64 Int64
-
-instance IsomorphicTo Word8 Int8
-
 -- |
 -- 'to' in reverse direction.
 --
 -- Particularly useful in combination with the @TypeApplications@ extension,
 -- where it allows to specify the input type, e.g.:
 --
--- > fromText :: IsomorphicTo Text a => Text -> a
+-- > fromText :: IsomorphicTo Text sub => Text -> sub
 -- > fromText = from @Text
 --
 -- The first type application of the 'to' function on the other hand specifies
 -- the output data type.
-from :: (IsomorphicTo a b) => a -> b
+from :: (IsomorphicTo super sub) => super -> sub
 from = to

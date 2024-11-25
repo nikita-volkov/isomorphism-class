@@ -9,11 +9,9 @@ import IsomorphismClass.Prelude
 
 instance PartiallyIsomorphicTo Data.ByteString.Builder.Builder [Word8] where
   to = Data.ByteString.Builder.lazyByteString . Data.ByteString.Lazy.pack
-  partiallyFrom = Just . to
 
 instance PartiallyIsomorphicTo [Word8] Data.ByteString.Builder.Builder where
   to = Data.ByteString.Lazy.unpack . Data.ByteString.Builder.toLazyByteString
-  partiallyFrom = Just . to
 
 instance IsomorphicTo Data.ByteString.Builder.Builder [Word8]
 

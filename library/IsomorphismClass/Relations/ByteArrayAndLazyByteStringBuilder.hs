@@ -12,11 +12,9 @@ import IsomorphismClass.Relations.LazyByteStringBuilderAndShortByteString ()
 
 instance PartiallyIsomorphicTo Data.Primitive.ByteArray.ByteArray Data.ByteString.Builder.Builder where
   to = to . to @Data.ByteString.Short.ShortByteString
-  partiallyFrom = Just . to
 
 instance PartiallyIsomorphicTo Data.ByteString.Builder.Builder Data.Primitive.ByteArray.ByteArray where
   to = to . to @Data.ByteString.Short.ShortByteString
-  partiallyFrom = Just . to
 
 instance IsomorphicTo Data.Primitive.ByteArray.ByteArray Data.ByteString.Builder.Builder
 

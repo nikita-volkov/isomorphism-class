@@ -9,11 +9,9 @@ import IsomorphismClass.Relations.ByteArrayAndShortByteString ()
 
 instance PartiallyIsomorphicTo Data.Primitive.ByteArray.ByteArray [Word8] where
   to = fromList
-  partiallyFrom = Just . to
 
 instance PartiallyIsomorphicTo [Word8] Data.Primitive.ByteArray.ByteArray where
   to = toList
-  partiallyFrom = Just . to
 
 instance IsomorphicTo Data.Primitive.ByteArray.ByteArray [Word8]
 

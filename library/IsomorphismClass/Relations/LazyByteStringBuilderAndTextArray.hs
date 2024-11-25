@@ -15,7 +15,6 @@ import qualified IsomorphismClass.TextCompat.Array
 
 instance PartiallyIsomorphicTo Data.ByteString.Builder.Builder Data.Text.Array.Array where
   to = Data.ByteString.Builder.shortByteString . IsomorphismClass.TextCompat.Array.toShortByteString
-  partiallyFrom = Just . to
 
 instance PartiallyIsomorphicTo Data.Text.Array.Array Data.ByteString.Builder.Builder where
   to =
@@ -23,7 +22,6 @@ instance PartiallyIsomorphicTo Data.Text.Array.Array Data.ByteString.Builder.Bui
       . Data.ByteString.Short.toShort
       . Data.ByteString.Lazy.toStrict
       . Data.ByteString.Builder.toLazyByteString
-  partiallyFrom = Just . to
 
 instance IsomorphicTo Data.Text.Array.Array Data.ByteString.Builder.Builder
 

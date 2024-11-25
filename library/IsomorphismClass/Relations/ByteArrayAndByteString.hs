@@ -11,11 +11,9 @@ import IsomorphismClass.Relations.ByteStringAndShortByteString ()
 
 instance PartiallyIsomorphicTo Data.Primitive.ByteArray.ByteArray ByteString where
   to = to . to @Data.ByteString.Short.ShortByteString
-  partiallyFrom = Just . to
 
 instance PartiallyIsomorphicTo ByteString Data.Primitive.ByteArray.ByteArray where
   to = to . to @Data.ByteString.Short.ShortByteString
-  partiallyFrom = Just . to
 
 instance IsomorphicTo Data.Primitive.ByteArray.ByteArray ByteString
 

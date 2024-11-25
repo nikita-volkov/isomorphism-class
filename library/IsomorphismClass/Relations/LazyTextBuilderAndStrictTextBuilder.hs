@@ -13,11 +13,9 @@ import IsomorphismClass.Prelude
 
 instance PartiallyIsomorphicTo Data.Text.Lazy.Builder.Builder Data.Text.Encoding.StrictBuilder where
   to = Data.Text.Lazy.Builder.fromText . Data.Text.Encoding.strictBuilderToText
-  partiallyFrom = Just . to
 
 instance PartiallyIsomorphicTo Data.Text.Encoding.StrictBuilder Data.Text.Lazy.Builder.Builder where
   to = Data.Text.Encoding.textToStrictBuilder . Data.Text.Lazy.toStrict . Data.Text.Lazy.Builder.toLazyText
-  partiallyFrom = Just . to
 
 instance IsomorphicTo Data.Text.Lazy.Builder.Builder Data.Text.Encoding.StrictBuilder
 

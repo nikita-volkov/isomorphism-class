@@ -13,11 +13,9 @@ import qualified IsomorphismClass.TextCompat.Array
 
 instance PartiallyIsomorphicTo Data.Primitive.ByteArray.ByteArray Data.Text.Array.Array where
   to = IsomorphismClass.TextCompat.Array.toByteArray
-  partiallyFrom = Just . to
 
 instance PartiallyIsomorphicTo Data.Text.Array.Array Data.Primitive.ByteArray.ByteArray where
   to = IsomorphismClass.TextCompat.Array.fromByteArray
-  partiallyFrom = Just . to
 
 instance IsomorphicTo Data.Primitive.ByteArray.ByteArray Data.Text.Array.Array
 

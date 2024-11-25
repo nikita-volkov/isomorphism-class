@@ -8,11 +8,9 @@ import IsomorphismClass.Prelude
 
 instance PartiallyIsomorphicTo (Vector a) [a] where
   to = Data.Vector.fromList
-  partiallyFrom = Just . to
 
 instance PartiallyIsomorphicTo [a] (Vector a) where
   to = Data.Vector.toList
-  partiallyFrom = Just . to
 
 instance IsomorphicTo (Vector a) [a]
 

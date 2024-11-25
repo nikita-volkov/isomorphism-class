@@ -8,11 +8,9 @@ import IsomorphismClass.Prelude
 
 instance PartiallyIsomorphicTo ByteString Data.ByteString.Short.ShortByteString where
   to = Data.ByteString.Short.fromShort
-  partiallyFrom = Just . to
 
 instance PartiallyIsomorphicTo Data.ByteString.Short.ShortByteString ByteString where
   to = Data.ByteString.Short.toShort
-  partiallyFrom = Just . to
 
 instance IsomorphicTo ByteString Data.ByteString.Short.ShortByteString
 
