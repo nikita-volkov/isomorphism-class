@@ -20,6 +20,7 @@ common language-settings
   default-language:   Haskell2010
   default-extensions:
     NoImplicitPrelude
+    BlockArguments
     FlexibleContexts
     FlexibleInstances
     MagicHash
@@ -29,21 +30,45 @@ common language-settings
     UndecidableSuperClasses
 
 library
-  import:          language-settings
-  hs-source-dirs:  library
-  exposed-modules: IsomorphismClass
+  import:             language-settings
+  hs-source-dirs:     library
+  exposed-modules:    IsomorphismClass
   other-modules:
     IsomorphismClass.Classes.IsomorphicTo
     IsomorphismClass.Classes.PartiallyIsomorphicTo
+    IsomorphismClass.Classes.PartiallyIsomorphicTo.Class
+    IsomorphismClass.Classes.PartiallyIsomorphicTo.Instances
+    IsomorphismClass.Classes.PartiallyIsomorphicTo.Instances.ByteString
+    IsomorphismClass.Classes.PartiallyIsomorphicTo.Instances.ByteString.TextArray
+    IsomorphismClass.Classes.PartiallyIsomorphicTo.Instances.LazyByteString
+    IsomorphismClass.Classes.PartiallyIsomorphicTo.Instances.LazyText
+    IsomorphismClass.Classes.PartiallyIsomorphicTo.Instances.LazyText.StrictTextBuilder
+    IsomorphismClass.Classes.PartiallyIsomorphicTo.Instances.LazyTextBuilder
+    IsomorphismClass.Classes.PartiallyIsomorphicTo.Instances.LazyTextBuilder.StrictTextBuilder
+    IsomorphismClass.Classes.PartiallyIsomorphicTo.Instances.Other
+    IsomorphismClass.Classes.PartiallyIsomorphicTo.Instances.ShortByteString
+    IsomorphismClass.Classes.PartiallyIsomorphicTo.Instances.ShortByteString.TextArray
+    IsomorphismClass.Classes.PartiallyIsomorphicTo.Instances.StrictTextBuilder
+    IsomorphismClass.Classes.PartiallyIsomorphicTo.Instances.String
+    IsomorphismClass.Classes.PartiallyIsomorphicTo.Instances.String.LazyText
+    IsomorphismClass.Classes.PartiallyIsomorphicTo.Instances.String.LazyTextBuilder
+    IsomorphismClass.Classes.PartiallyIsomorphicTo.Instances.String.StrictTextBuilder
+    IsomorphismClass.Classes.PartiallyIsomorphicTo.Instances.String.Text
+    IsomorphismClass.Classes.PartiallyIsomorphicTo.Instances.Text
+    IsomorphismClass.Classes.PartiallyIsomorphicTo.Instances.Text.StrictTextBuilder
+    IsomorphismClass.Classes.PartiallyIsomorphicTo.Instances.TextArray
+    IsomorphismClass.Classes.PartiallyIsomorphicTo.Laws
     IsomorphismClass.Prelude
     IsomorphismClass.TextCompat.Array
 
+  build-tool-depends: autoexporter:autoexporter >=1.1.19 && <3
   build-depends:
     , base >=4.12 && <5
     , bytestring >=0.10 && <0.13
     , containers >=0.6 && <0.8
     , hashable >=1 && <2
     , primitive >=0.7.3 && <0.10
+    , QuickCheck >=2.13 && <3
     , text >=1.2 && <2.2
     , unordered-containers >=0.2 && <0.3
     , vector >=0.12 && <0.14

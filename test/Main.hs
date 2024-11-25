@@ -18,10 +18,7 @@ main = defaultMain allTests
 allTests :: TestTree
 allTests =
   testGroup "All" $
-    [ testPair @String @Text Proxy Proxy,
-      testPair @String @TextLazy.Text Proxy Proxy,
-      testPair @String @TextLazyBuilder.Builder Proxy Proxy,
-      testPair @[Word8] @ByteString Proxy Proxy,
+    [ testPair @[Word8] @ByteString Proxy Proxy,
       testPair @[Word8] @ByteStringLazy.ByteString Proxy Proxy,
       testPair @[Word8] @ByteStringShort.ShortByteString Proxy Proxy,
       testPair @[Word8] @ByteStringBuilder.Builder Proxy Proxy,
@@ -30,15 +27,12 @@ allTests =
       testPair @[Word8] @(Vector Word8) Proxy Proxy,
       testPair @[Word8] @(Seq Word8) Proxy Proxy,
       testPair @Text @Text Proxy Proxy,
-      testPair @Text @String Proxy Proxy,
       testPair @Text @TextLazy.Text Proxy Proxy,
       testPair @Text @TextLazyBuilder.Builder Proxy Proxy,
       testPair @TextLazy.Text @TextLazy.Text Proxy Proxy,
-      testPair @TextLazy.Text @String Proxy Proxy,
       testPair @TextLazy.Text @Text Proxy Proxy,
       testPair @TextLazy.Text @TextLazyBuilder.Builder Proxy Proxy,
       testPair @TextLazyBuilder.Builder @TextLazyBuilder.Builder Proxy Proxy,
-      testPair @TextLazyBuilder.Builder @String Proxy Proxy,
       testPair @TextLazyBuilder.Builder @Text Proxy Proxy,
       testPair @TextLazyBuilder.Builder @TextLazy.Text Proxy Proxy,
       testPair @ByteString @ByteString Proxy Proxy,

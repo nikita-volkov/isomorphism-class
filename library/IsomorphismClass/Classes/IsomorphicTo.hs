@@ -15,6 +15,7 @@ import qualified Data.Text.Encoding as TextEncoding
 #endif
 
 -- | Bidirectional conversion between two types with no loss of information.
+--
 -- The bidirectionality is encoded via a recursive dependency with arguments
 -- flipped.
 --
@@ -58,14 +59,6 @@ import qualified Data.Text.Encoding as TextEncoding
 -- B A@.
 class (PartiallyIsomorphicTo a b, IsomorphicTo b a) => IsomorphicTo a b
 
-instance IsomorphicTo String Text
-
-instance IsomorphicTo String TextLazy.Text
-
-instance IsomorphicTo String TextLazyBuilder.Builder
-#if MIN_VERSION_text(2,0,2)
-instance IsomorphicTo String TextEncoding.StrictBuilder
-#endif
 instance IsomorphicTo [Word8] ByteString
 
 instance IsomorphicTo [Word8] ByteStringLazy.ByteString
@@ -86,8 +79,6 @@ instance IsomorphicTo [a] (Seq a)
 
 instance IsomorphicTo Text Text
 
-instance IsomorphicTo Text String
-
 instance IsomorphicTo Text TextLazy.Text
 
 instance IsomorphicTo Text TextLazyBuilder.Builder
@@ -95,8 +86,6 @@ instance IsomorphicTo Text TextLazyBuilder.Builder
 instance IsomorphicTo Text TextEncoding.StrictBuilder
 #endif
 instance IsomorphicTo TextLazy.Text TextLazy.Text
-
-instance IsomorphicTo TextLazy.Text String
 
 instance IsomorphicTo TextLazy.Text Text
 
@@ -106,8 +95,6 @@ instance IsomorphicTo TextLazy.Text TextEncoding.StrictBuilder
 
 instance IsomorphicTo TextLazyBuilder.Builder TextLazyBuilder.Builder
 
-instance IsomorphicTo TextLazyBuilder.Builder String
-
 instance IsomorphicTo TextLazyBuilder.Builder Text
 
 instance IsomorphicTo TextLazyBuilder.Builder TextLazy.Text
@@ -115,7 +102,6 @@ instance IsomorphicTo TextLazyBuilder.Builder TextLazy.Text
 instance IsomorphicTo TextLazyBuilder.Builder TextEncoding.StrictBuilder
 #if MIN_VERSION_text(2,0,2)
 instance IsomorphicTo TextEncoding.StrictBuilder TextEncoding.StrictBuilder
-instance IsomorphicTo TextEncoding.StrictBuilder String
 instance IsomorphicTo TextEncoding.StrictBuilder Text
 instance IsomorphicTo TextEncoding.StrictBuilder TextLazy.Text
 instance IsomorphicTo TextEncoding.StrictBuilder TextLazyBuilder.Builder
@@ -301,5 +287,5 @@ instance IsomorphicTo Word8 Word8
 --
 -- The first type application of the 'to' function on the other hand specifies
 -- the output data type.
-from :: (IsomorphicTo a b) => b -> a
+from :: forall b a. (IsomorphicTo a b) => b -> a
 from = to
