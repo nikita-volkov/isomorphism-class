@@ -110,9 +110,9 @@ module IsomorphismClass
   )
 where
 
-import IsomorphismClass.Classes.IsomorphicTo
-import IsomorphismClass.Classes.PartiallyIsomorphicTo
+import IsomorphismClass.Classes
 import IsomorphismClass.Prelude
+import IsomorphismClass.Relations ()
 
 -- | A utility, which uses the 'Show' instance to produce a value
 -- that is isomorphic to 'String'.

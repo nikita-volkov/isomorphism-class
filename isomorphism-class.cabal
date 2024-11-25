@@ -34,31 +34,47 @@ library
   hs-source-dirs:     library
   exposed-modules:    IsomorphismClass
   other-modules:
+    IsomorphismClass.Classes
     IsomorphismClass.Classes.IsomorphicTo
     IsomorphismClass.Classes.PartiallyIsomorphicTo
     IsomorphismClass.Classes.PartiallyIsomorphicTo.Class
     IsomorphismClass.Classes.PartiallyIsomorphicTo.Instances
-    IsomorphismClass.Classes.PartiallyIsomorphicTo.Instances.ByteString
-    IsomorphismClass.Classes.PartiallyIsomorphicTo.Instances.ByteString.TextArray
-    IsomorphismClass.Classes.PartiallyIsomorphicTo.Instances.LazyByteString
-    IsomorphismClass.Classes.PartiallyIsomorphicTo.Instances.LazyText
-    IsomorphismClass.Classes.PartiallyIsomorphicTo.Instances.LazyText.StrictTextBuilder
-    IsomorphismClass.Classes.PartiallyIsomorphicTo.Instances.LazyTextBuilder
-    IsomorphismClass.Classes.PartiallyIsomorphicTo.Instances.LazyTextBuilder.StrictTextBuilder
-    IsomorphismClass.Classes.PartiallyIsomorphicTo.Instances.Other
-    IsomorphismClass.Classes.PartiallyIsomorphicTo.Instances.ShortByteString
-    IsomorphismClass.Classes.PartiallyIsomorphicTo.Instances.ShortByteString.TextArray
-    IsomorphismClass.Classes.PartiallyIsomorphicTo.Instances.StrictTextBuilder
-    IsomorphismClass.Classes.PartiallyIsomorphicTo.Instances.String
-    IsomorphismClass.Classes.PartiallyIsomorphicTo.Instances.String.LazyText
-    IsomorphismClass.Classes.PartiallyIsomorphicTo.Instances.String.LazyTextBuilder
-    IsomorphismClass.Classes.PartiallyIsomorphicTo.Instances.String.StrictTextBuilder
-    IsomorphismClass.Classes.PartiallyIsomorphicTo.Instances.String.Text
-    IsomorphismClass.Classes.PartiallyIsomorphicTo.Instances.Text
-    IsomorphismClass.Classes.PartiallyIsomorphicTo.Instances.Text.StrictTextBuilder
-    IsomorphismClass.Classes.PartiallyIsomorphicTo.Instances.TextArray
     IsomorphismClass.Classes.PartiallyIsomorphicTo.Laws
     IsomorphismClass.Prelude
+    IsomorphismClass.Relations
+    IsomorphismClass.Relations.BoxedVector.List
+    IsomorphismClass.Relations.BoxedVector.Seq
+    IsomorphismClass.Relations.ByteArray.ByteString
+    IsomorphismClass.Relations.ByteArray.LazyByteString
+    IsomorphismClass.Relations.ByteArray.LazyByteStringBuilder
+    IsomorphismClass.Relations.ByteArray.ShortByteString
+    IsomorphismClass.Relations.ByteArray.TextArray
+    IsomorphismClass.Relations.ByteArray.Word8List
+    IsomorphismClass.Relations.ByteString.LazyByteString
+    IsomorphismClass.Relations.ByteString.LazyByteStringBuilder
+    IsomorphismClass.Relations.ByteString.ShortByteString
+    IsomorphismClass.Relations.ByteString.TextArray
+    IsomorphismClass.Relations.ByteString.Word8List
+    IsomorphismClass.Relations.LazyByteString.LazyByteStringBuilder
+    IsomorphismClass.Relations.LazyByteString.ShortByteString
+    IsomorphismClass.Relations.LazyByteString.TextArray
+    IsomorphismClass.Relations.LazyByteString.Word8List
+    IsomorphismClass.Relations.LazyByteStringBuilder.ShortByteString
+    IsomorphismClass.Relations.LazyByteStringBuilder.TextArray
+    IsomorphismClass.Relations.LazyByteStringBuilder.Word8List
+    IsomorphismClass.Relations.LazyText.LazyTextBuilder
+    IsomorphismClass.Relations.LazyText.StrictTextBuilder
+    IsomorphismClass.Relations.LazyText.Text
+    IsomorphismClass.Relations.LazyTextBuilder.StrictTextBuilder
+    IsomorphismClass.Relations.LazyTextBuilder.Text
+    IsomorphismClass.Relations.ShortByteString.TextArray
+    IsomorphismClass.Relations.ShortByteString.Word8List
+    IsomorphismClass.Relations.StrictTextBuilder.Text
+    IsomorphismClass.Relations.String.LazyText
+    IsomorphismClass.Relations.String.LazyTextBuilder
+    IsomorphismClass.Relations.String.StrictTextBuilder
+    IsomorphismClass.Relations.String.Text
+    IsomorphismClass.Relations.TextArray.Word8List
     IsomorphismClass.TextCompat.Array
 
   build-tool-depends: autoexporter:autoexporter >=1.1.19 && <3
