@@ -1,6 +1,6 @@
 module IsomorphismClass.Laws
-  ( partiallyIsEqualToProperties,
-    isomorphicToProperties,
+  ( isSubsetOfProperties,
+    isEqualToProperties,
   )
 where
 
@@ -8,30 +8,43 @@ import IsomorphismClass.Classes
 import IsomorphismClass.Prelude
 import Test.QuickCheck
 
-partiallyIsEqualToProperties ::
+isSubsetOfProperties ::
   (IsSubsetOf a b, Eq a, Eq b, Arbitrary a, Show a, Arbitrary b, Show b) =>
   Proxy a ->
   Proxy b ->
   [(String, Property)]
-partiallyIsEqualToProperties superp subp =
-  [ ( "Law 1",
-      property \sub ->
-        maybeFrom (asProxyTypeOf (to (asProxyTypeOf sub subp)) superp) === Just sub
+isSubsetOfProperties superp subp =
+  [ ( "'to' is injective",
+      property \a b ->
+        a /= b ==>
+          to' a =/= to' b
     ),
-    ( "Law 2",
-      property \super ->
-        case maybeFrom (asProxyTypeOf super superp) of
-          Just sub -> to (asProxyTypeOf sub subp) === super
-          Nothing -> property ()
+    ( "'maybeFrom' is partially injective",
+      property \a b ->
+        a /= b ==>
+          isJust (maybeFrom' a) ==>
+            maybeFrom' a =/= maybeFrom' b
+    ),
+    ( "'maybeFrom' is an inverse of 'to'",
+      property \a ->
+        maybeFrom' (to' a) == Just a
+    ),
+    ( "'to' is an inverse of 'maybeFrom'",
+      property \a ->
+        fmap to' (maybeFrom' a) == fmap (const a) (maybeFrom' a)
     )
   ]
+  where
+    to' = as superp . to . as subp
+    maybeFrom' = fmap (as subp) . maybeFrom . as superp
+    as = flip asProxyTypeOf
 
-isomorphicToProperties ::
+isEqualToProperties ::
   (IsEqualTo a b, Eq a, Eq b, Arbitrary a, Show a, Arbitrary b, Show b) =>
   Proxy a ->
   Proxy b ->
   [(String, Property)]
-isomorphicToProperties superp subp =
+isEqualToProperties superp subp =
   [ directedLaws "↻" superp subp,
     directedLaws "↺" subp superp
   ]
@@ -42,7 +55,7 @@ isomorphicToProperties superp subp =
           property \b ->
             b === to (asProxyTypeOf (to (asProxyTypeOf b bp)) ap)
         )
-          : prefixEachName "Partially isomorphic: " (partiallyIsEqualToProperties ap bp)
+          : prefixEachName "Partially isomorphic: " (isSubsetOfProperties ap bp)
       )
         & prefixEachName (prefix <> ": ")
 

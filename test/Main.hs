@@ -115,7 +115,7 @@ allTests =
 
 testPair :: (IsEqualTo a b, Eq a, Eq b, Arbitrary a, Show a, Arbitrary b, Show b, Typeable a, Typeable b) => Proxy a -> Proxy b -> TestTree
 testPair superp subp =
-  isomorphicToProperties superp subp
+  isEqualToProperties superp subp
     & fmap (uncurry testProperty)
     & testGroup groupName
   where
