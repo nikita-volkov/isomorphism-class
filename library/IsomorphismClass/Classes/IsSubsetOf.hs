@@ -3,7 +3,7 @@ module IsomorphismClass.Classes.IsSubsetOf where
 import IsomorphismClass.Prelude
 
 -- |
--- Evidence that @sub@ is a subset of @super@.
+-- Evidence that all values of type @sub@ form a subset of all values of type @sup@.
 --
 -- [From Wikipedia](https://en.wikipedia.org/wiki/Subset):
 --
@@ -11,13 +11,34 @@ import IsomorphismClass.Prelude
 --
 -- === Laws
 --
--- - @'maybeFrom' . 'to' = 'Just'@ - For all values of @sub@ converting @sub@ to @super@ and then and attempting to convert back to @sub@ always succeeds and produces a value that is identical to the original.
+-- ==== 'to' is injective
 --
--- - @\a -> fmap 'to' ('maybeFrom' a) = fmap (const a) ('maybeFrom' a)@ - For all values of @super@ attempting to convert to @sub@ and then convert back on success produces the same result as the original if the conversion succeeds.
-class IsSubsetOf super sub where
-  to :: sub -> super
-  maybeFrom :: super -> Maybe sub
-  default maybeFrom :: (IsSubsetOf sub super) => super -> Maybe sub
+-- For every two values of type @sub@ that are not equal converting with 'to' will always produce values that are not equal.
+--
+-- > \(a, b) -> a == b || to a /= to b
+--
+-- ==== 'maybeFrom' is injective
+--
+-- > \(a, b) -> a == b || maybeFrom a /= maybeFrom b
+--
+-- ==== 'maybeFrom' is an inverse of 'to'
+--
+-- For all values of @sub@ converting to @sup@ and then attempting to convert back to @sub@ always succeeds and produces a value that is equal to the original.
+--
+-- > \a -> maybeFrom (to a) == Just a
+class IsSubsetOf sup sub where
+  -- |
+  -- Convert a value a subset type to a superset type.
+  --
+  -- This function is injective non-surjective.
+  to :: sub -> sup
+
+  -- |
+  -- [Partial inverse](https://en.wikipedia.org/wiki/Inverse_function#Partial_inverses) of 'to'.
+  --
+  -- This function is a [partial bijection](https://en.wikipedia.org/wiki/Bijection#Generalization_to_partial_functions).
+  maybeFrom :: sup -> Maybe sub
+  default maybeFrom :: (IsSubsetOf sub sup) => sup -> Maybe sub
   maybeFrom = Just . to
 
 instance IsSubsetOf a a where
@@ -29,6 +50,6 @@ instance IsSubsetOf () sub where
   maybeFrom = const Nothing
 
 -- | The empty set has no elements, and therefore is vacuously a subset of any set.
-instance IsSubsetOf super Void where
+instance IsSubsetOf sup Void where
   to = absurd
   maybeFrom = const Nothing
