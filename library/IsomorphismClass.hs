@@ -107,6 +107,11 @@ module IsomorphismClass
     IsomorphicToSubsetOf (..),
     from,
 
+    -- * Instance derivation
+
+    -- | Proxy data-types useful for deriving various standard instances using the @DerivingVia@ extension.
+    module IsomorphismClass.Proxies,
+
     -- * Testing
     module IsomorphismClass.Laws,
   )
@@ -114,4 +119,5 @@ where
 
 import IsomorphismClass.Classes
 import IsomorphismClass.Laws
+import IsomorphismClass.Proxies
 import IsomorphismClass.Relations ()

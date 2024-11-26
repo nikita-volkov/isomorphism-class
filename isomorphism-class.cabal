@@ -40,6 +40,8 @@ library
     IsomorphismClass.Classes.IsomorphicToSubsetOf
     IsomorphismClass.Laws
     IsomorphismClass.Prelude
+    IsomorphismClass.Proxies
+    IsomorphismClass.Proxies.ViaIsomorphicToSubsetOf
     IsomorphismClass.Relations
     IsomorphismClass.Relations.BoxedVectorAndList
     IsomorphismClass.Relations.BoxedVectorAndSeq
