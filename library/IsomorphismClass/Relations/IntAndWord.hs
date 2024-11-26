@@ -5,12 +5,12 @@ module IsomorphismClass.Relations.IntAndWord where
 import IsomorphismClass.Classes
 import IsomorphismClass.Prelude
 
-instance PartiallyIsomorphicTo Int Word where
+instance IsSubsetOf Int Word where
   to = fromIntegral
 
-instance PartiallyIsomorphicTo Word Int where
+instance IsSubsetOf Word Int where
   to = fromIntegral
 
-instance IsomorphicTo Int Word
+instance IsEqualTo Int Word
 
-instance IsomorphicTo Word Int
+instance IsEqualTo Word Int

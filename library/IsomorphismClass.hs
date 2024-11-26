@@ -82,8 +82,8 @@
 -- @
 module IsomorphismClass
   ( -- * Typeclasses
-    PartiallyIsomorphicTo (..),
-    IsomorphicTo,
+    IsSubsetOf (..),
+    IsEqualTo,
     from,
 
     -- * Testing

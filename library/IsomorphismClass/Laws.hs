@@ -1,5 +1,5 @@
 module IsomorphismClass.Laws
-  ( partiallyIsomorphicToProperties,
+  ( partiallyIsEqualToProperties,
     isomorphicToProperties,
   )
 where
@@ -8,12 +8,12 @@ import IsomorphismClass.Classes
 import IsomorphismClass.Prelude
 import Test.QuickCheck
 
-partiallyIsomorphicToProperties ::
-  (PartiallyIsomorphicTo a b, Eq a, Eq b, Arbitrary a, Show a, Arbitrary b, Show b) =>
+partiallyIsEqualToProperties ::
+  (IsSubsetOf a b, Eq a, Eq b, Arbitrary a, Show a, Arbitrary b, Show b) =>
   Proxy a ->
   Proxy b ->
   [(String, Property)]
-partiallyIsomorphicToProperties superp subp =
+partiallyIsEqualToProperties superp subp =
   [ ( "Law 1",
       property \sub ->
         maybeFrom (asProxyTypeOf (to (asProxyTypeOf sub subp)) superp) === Just sub
@@ -27,7 +27,7 @@ partiallyIsomorphicToProperties superp subp =
   ]
 
 isomorphicToProperties ::
-  (IsomorphicTo a b, Eq a, Eq b, Arbitrary a, Show a, Arbitrary b, Show b) =>
+  (IsEqualTo a b, Eq a, Eq b, Arbitrary a, Show a, Arbitrary b, Show b) =>
   Proxy a ->
   Proxy b ->
   [(String, Property)]
@@ -42,7 +42,7 @@ isomorphicToProperties superp subp =
           property \b ->
             b === to (asProxyTypeOf (to (asProxyTypeOf b bp)) ap)
         )
-          : prefixEachName "Partially isomorphic: " (partiallyIsomorphicToProperties ap bp)
+          : prefixEachName "Partially isomorphic: " (partiallyIsEqualToProperties ap bp)
       )
         & prefixEachName (prefix <> ": ")
 

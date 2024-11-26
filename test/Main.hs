@@ -113,7 +113,7 @@ allTests =
       testPair @Word8 @Word8 Proxy Proxy
     ]
 
-testPair :: (IsomorphicTo a b, Eq a, Eq b, Arbitrary a, Show a, Arbitrary b, Show b, Typeable a, Typeable b) => Proxy a -> Proxy b -> TestTree
+testPair :: (IsEqualTo a b, Eq a, Eq b, Arbitrary a, Show a, Arbitrary b, Show b, Typeable a, Typeable b) => Proxy a -> Proxy b -> TestTree
 testPair superp subp =
   isomorphicToProperties superp subp
     & fmap (uncurry testProperty)

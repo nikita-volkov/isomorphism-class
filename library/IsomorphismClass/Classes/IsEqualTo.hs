@@ -1,13 +1,13 @@
-module IsomorphismClass.Classes.IsomorphicTo where
+module IsomorphismClass.Classes.IsEqualTo where
 
-import IsomorphismClass.Classes.PartiallyIsomorphicTo
+import IsomorphismClass.Classes.IsSubsetOf
 
 -- | Bidirectional conversion between two types with no loss of information.
 --
 -- The bidirectionality is encoded via a recursive dependency with arguments
 -- flipped.
 --
--- You can read the signature @IsomorphicTo a b@ as \"/B/ is isomorphic to /A/\".
+-- You can read the signature @IsEqualTo a b@ as \"/B/ is isomorphic to /A/\".
 --
 -- __Laws__
 --
@@ -35,19 +35,19 @@ import IsomorphismClass.Classes.PartiallyIsomorphicTo
 -- The types are also self-evident:
 --
 -- > > :t from @String
--- > from @String :: IsomorphicTo b String => String -> b
+-- > from @String :: IsEqualTo b String => String -> b
 --
 -- > > :t to @Text
--- > to @Text :: IsomorphicTo Text b => b -> Text
+-- > to @Text :: IsEqualTo Text b => b -> Text
 --
 -- __Instance Definition__
 --
 -- For each pair of isomorphic types (/A/ and /B/) the compiler will require
--- you to define two instances, namely: @IsomorphicTo A B@ and @IsomorphicTo
+-- you to define two instances, namely: @IsEqualTo A B@ and @IsEqualTo
 -- B A@.
-class (PartiallyIsomorphicTo a b, IsomorphicTo b a) => IsomorphicTo a b
+class (IsSubsetOf a b, IsEqualTo b a) => IsEqualTo a b
 
-instance IsomorphicTo a a
+instance IsEqualTo a a
 
 -- |
 -- 'to' in reverse direction.
@@ -55,10 +55,10 @@ instance IsomorphicTo a a
 -- Particularly useful in combination with the @TypeApplications@ extension,
 -- where it allows to specify the input type, e.g.:
 --
--- > fromText :: IsomorphicTo Text sub => Text -> sub
+-- > fromText :: IsEqualTo Text sub => Text -> sub
 -- > fromText = from @Text
 --
 -- The first type application of the 'to' function on the other hand specifies
 -- the output data type.
-from :: (IsomorphicTo super sub) => super -> sub
+from :: (IsEqualTo super sub) => super -> sub
 from = to

@@ -6,7 +6,7 @@ import qualified Data.Text as Text
 import IsomorphismClass.Classes
 import IsomorphismClass.Prelude
 
-instance PartiallyIsomorphicTo String Text where
+instance IsSubsetOf String Text where
   to = Text.unpack
   maybeFrom string =
     -- FIXME: Optimize.

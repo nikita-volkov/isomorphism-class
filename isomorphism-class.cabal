@@ -36,8 +36,8 @@ library
   exposed-modules:    IsomorphismClass
   other-modules:
     IsomorphismClass.Classes
-    IsomorphismClass.Classes.IsomorphicTo
-    IsomorphismClass.Classes.PartiallyIsomorphicTo
+    IsomorphismClass.Classes.IsEqualTo
+    IsomorphismClass.Classes.IsSubsetOf
     IsomorphismClass.Laws
     IsomorphismClass.Prelude
     IsomorphismClass.Relations

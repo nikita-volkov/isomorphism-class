@@ -6,12 +6,12 @@ import qualified Data.Sequence
 import IsomorphismClass.Classes
 import IsomorphismClass.Prelude
 
-instance PartiallyIsomorphicTo [a] (Seq a) where
+instance IsSubsetOf [a] (Seq a) where
   to = toList
 
-instance PartiallyIsomorphicTo (Seq a) [a] where
+instance IsSubsetOf (Seq a) [a] where
   to = Data.Sequence.fromList
 
-instance IsomorphicTo [a] (Seq a)
+instance IsEqualTo [a] (Seq a)
 
-instance IsomorphicTo (Seq a) [a]
+instance IsEqualTo (Seq a) [a]

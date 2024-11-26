@@ -9,12 +9,12 @@ import IsomorphismClass.Prelude
 import IsomorphismClass.Relations.ByteArrayAndShortByteString ()
 import IsomorphismClass.Relations.ByteStringAndShortByteString ()
 
-instance PartiallyIsomorphicTo Data.Primitive.ByteArray.ByteArray ByteString where
+instance IsSubsetOf Data.Primitive.ByteArray.ByteArray ByteString where
   to = to . to @Data.ByteString.Short.ShortByteString
 
-instance PartiallyIsomorphicTo ByteString Data.Primitive.ByteArray.ByteArray where
+instance IsSubsetOf ByteString Data.Primitive.ByteArray.ByteArray where
   to = to . to @Data.ByteString.Short.ShortByteString
 
-instance IsomorphicTo Data.Primitive.ByteArray.ByteArray ByteString
+instance IsEqualTo Data.Primitive.ByteArray.ByteArray ByteString
 
-instance IsomorphicTo ByteString Data.Primitive.ByteArray.ByteArray
+instance IsEqualTo ByteString Data.Primitive.ByteArray.ByteArray

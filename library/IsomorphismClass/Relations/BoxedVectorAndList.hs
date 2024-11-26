@@ -6,12 +6,12 @@ import qualified Data.Vector
 import IsomorphismClass.Classes
 import IsomorphismClass.Prelude
 
-instance PartiallyIsomorphicTo (Vector a) [a] where
+instance IsSubsetOf (Vector a) [a] where
   to = Data.Vector.fromList
 
-instance PartiallyIsomorphicTo [a] (Vector a) where
+instance IsSubsetOf [a] (Vector a) where
   to = Data.Vector.toList
 
-instance IsomorphicTo (Vector a) [a]
+instance IsEqualTo (Vector a) [a]
 
-instance IsomorphicTo [a] (Vector a)
+instance IsEqualTo [a] (Vector a)
