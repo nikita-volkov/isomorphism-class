@@ -52,6 +52,7 @@ library
     IsomorphismClass.Relations.ByteStringAndLazyByteString
     IsomorphismClass.Relations.ByteStringAndLazyByteStringBuilder
     IsomorphismClass.Relations.ByteStringAndShortByteString
+    IsomorphismClass.Relations.ByteStringAndText
     IsomorphismClass.Relations.ByteStringAndTextArray
     IsomorphismClass.Relations.ByteStringAndWord8List
     IsomorphismClass.Relations.Int16AndWord16
@@ -62,6 +63,7 @@ library
     IsomorphismClass.Relations.IntMapAndMapOfInt
     IsomorphismClass.Relations.IntSetAndSetOfInts
     IsomorphismClass.Relations.LazyByteStringAndLazyByteStringBuilder
+    IsomorphismClass.Relations.LazyByteStringAndLazyText
     IsomorphismClass.Relations.LazyByteStringAndShortByteString
     IsomorphismClass.Relations.LazyByteStringAndTextArray
     IsomorphismClass.Relations.LazyByteStringAndWord8List
