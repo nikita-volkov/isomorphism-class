@@ -9,7 +9,7 @@ import IsomorphismClass.Classes.IsomorphicToSubsetOf
 --
 -- You can read the signature @IsomorphicTo a b@ as \"/B/ is isomorphic to /A/\".
 --
--- __Laws__
+-- === Laws
 --
 -- /B/ is isomorphic to /A/ if and only if there exists a conversion from /B/
 -- to /A/ ('to') and a conversion from /A/ to /B/ ('from') such that:
@@ -22,12 +22,13 @@ import IsomorphismClass.Classes.IsomorphicToSubsetOf
 --     and then converting from /B/ to /A/ produces a value that is identical
 --     to the original.
 --
--- __Instance Definition__
+-- === Instance Definition
 --
--- For each pair of equal types (/A/ and /B/) the compiler will require
+-- For each pair of isomorphic types (/A/ and /B/) the compiler will require
 -- you to define four instances, namely: @IsomorphicTo A B@ and @IsomorphicTo B A@ as well as @IsomorphicToSubsetOf A B@ and @IsomorphicToSubsetOf B A@.
 class (IsomorphicToSubsetOf a b, IsomorphicTo b a) => IsomorphicTo a b
 
+-- | Any type is isomorphic to itself.
 instance IsomorphicTo a a
 
 -- |

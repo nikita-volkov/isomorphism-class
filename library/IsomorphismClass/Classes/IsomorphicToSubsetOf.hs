@@ -41,6 +41,7 @@ class IsomorphicToSubsetOf sup sub where
   default maybeFrom :: (IsomorphicToSubsetOf sub sup) => sup -> Maybe sub
   maybeFrom = Just . to
 
+-- | Every type is isomorphic to itself.
 instance IsomorphicToSubsetOf a a where
   to = id
   maybeFrom = Just . id

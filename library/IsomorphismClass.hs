@@ -78,7 +78,7 @@
 -- @
 -- renderNameAndHeight :: 'Text' -> 'Int' -> 'Text'
 -- renderNameAndHeight name height =
---   'from' @'Data.Text.Lazy.Builder' $
+--   'from' @'Data.Text.Encoding.StrictTextBuilder' $
 --     "Height of " <> 'to' name <> " is " <> 'to' (show height)
 -- @
 --
@@ -91,12 +91,21 @@
 --
 -- = Partial conversions
 --
--- Atop of all said this library also captures
+-- Atop of all said this library also captures the notion of smart constructors via the 'IsomorphicToSubsetOf' class, which associates a total 'to' conversion with partial 'maybeFrom'.
+--
+-- This captures the codec relationship between types.
+-- E.g.,
+--
+-- - Every 'Int16' can be losslessly converted into 'Int32', but not every 'Int32' can be losslessly converted into 'Int16'.
+--
+-- - Every 'Text' can be converted into 'ByteString' via UTF-8 encoding, but not every 'ByteString' forms a valid UTF-8 sequence.
+--
+-- - Every URL can be uniquely represented as 'Text', but most 'Text's are not URLs unfortunately.
 module IsomorphismClass
   ( -- * Typeclasses
     IsomorphicTo,
-    from,
     IsomorphicToSubsetOf (..),
+    from,
 
     -- * Testing
     module IsomorphismClass.Laws,

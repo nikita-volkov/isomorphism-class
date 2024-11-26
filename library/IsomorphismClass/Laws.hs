@@ -8,6 +8,18 @@ import IsomorphismClass.Classes
 import IsomorphismClass.Prelude
 import Test.QuickCheck
 
+-- |
+-- Properties testing whether an instance satisfies the laws of 'IsomorphicToSubsetOf'.
+--
+-- The instance is identified via the proxy types that you provide.
+--
+-- E.g., here's how you can integrate it into an Hspec test-suite:
+--
+-- > spec = do
+-- >   describe "IsomorphicToSubsetOf laws" do
+-- >     traverse
+-- >       (uncurry prop)
+-- >       (isomorphicToSubsetOfProperties @Int32 @Int16 Proxy Proxy)
 isomorphicToSubsetOfProperties ::
   (IsomorphicToSubsetOf a b, Eq a, Eq b, Arbitrary a, Show a, Arbitrary b, Show b) =>
   Proxy a ->
@@ -39,6 +51,18 @@ isomorphicToSubsetOfProperties superp subp =
     maybeFrom' = fmap (as subp) . maybeFrom . as superp
     as = flip asProxyTypeOf
 
+-- |
+-- Properties testing whether an instance satisfies the laws of 'IsomorphicTo'.
+--
+-- The instance is identified via the proxy types that you provide.
+--
+-- E.g., here's how you can integrate it into an Hspec test-suite:
+--
+-- > spec = do
+-- >   describe "IsomorphicTo laws" do
+-- >     traverse
+-- >       (uncurry prop)
+-- >       (isomorphicToProperties @Int32 @Word32 Proxy Proxy)
 isomorphicToProperties ::
   (IsomorphicTo a b, Eq a, Eq b, Arbitrary a, Show a, Arbitrary b, Show b) =>
   Proxy a ->
