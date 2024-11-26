@@ -17,7 +17,7 @@ import Test.QuickCheck
 --
 -- > spec = do
 -- >   describe "IsomorphicToSubsetOf laws" do
--- >     traverse
+-- >     traverse_
 -- >       (uncurry prop)
 -- >       (isomorphicToSubsetOfProperties @Int32 @Int16 Proxy Proxy)
 isomorphicToSubsetOfProperties ::
@@ -60,7 +60,7 @@ isomorphicToSubsetOfProperties superp subp =
 --
 -- > spec = do
 -- >   describe "IsomorphicTo laws" do
--- >     traverse
+-- >     traverse_
 -- >       (uncurry prop)
 -- >       (isomorphicToProperties @Int32 @Word32 Proxy Proxy)
 isomorphicToProperties ::
