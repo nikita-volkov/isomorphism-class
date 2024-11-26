@@ -6,12 +6,12 @@ import qualified Data.ByteString.Lazy
 import IsomorphismClass.Classes
 import IsomorphismClass.Prelude
 
-instance IsSubsetOf ByteString Data.ByteString.Lazy.ByteString where
+instance IsomorphicToSubsetOf ByteString Data.ByteString.Lazy.ByteString where
   to = Data.ByteString.Lazy.toStrict
 
-instance IsSubsetOf Data.ByteString.Lazy.ByteString ByteString where
+instance IsomorphicToSubsetOf Data.ByteString.Lazy.ByteString ByteString where
   to = Data.ByteString.Lazy.fromStrict
 
-instance IsEqualTo ByteString Data.ByteString.Lazy.ByteString
+instance IsomorphicTo ByteString Data.ByteString.Lazy.ByteString
 
-instance IsEqualTo Data.ByteString.Lazy.ByteString ByteString
+instance IsomorphicTo Data.ByteString.Lazy.ByteString ByteString

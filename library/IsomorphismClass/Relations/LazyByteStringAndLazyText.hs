@@ -8,6 +8,6 @@ import qualified Data.Text.Lazy.Encoding
 import IsomorphismClass.Classes
 import IsomorphismClass.Prelude
 
-instance IsSubsetOf Data.ByteString.Lazy.ByteString Data.Text.Lazy.Text where
+instance IsomorphicToSubsetOf Data.ByteString.Lazy.ByteString Data.Text.Lazy.Text where
   to = Data.Text.Lazy.Encoding.encodeUtf8
   maybeFrom = either (const Nothing) Just . Data.Text.Lazy.Encoding.decodeUtf8'

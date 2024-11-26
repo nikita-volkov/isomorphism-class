@@ -5,12 +5,12 @@ module IsomorphismClass.Relations.Int16AndWord16 where
 import IsomorphismClass.Classes
 import IsomorphismClass.Prelude
 
-instance IsSubsetOf Int16 Word16 where
+instance IsomorphicToSubsetOf Int16 Word16 where
   to = fromIntegral
 
-instance IsSubsetOf Word16 Int16 where
+instance IsomorphicToSubsetOf Word16 Int16 where
   to = fromIntegral
 
-instance IsEqualTo Int16 Word16
+instance IsomorphicTo Int16 Word16
 
-instance IsEqualTo Word16 Int16
+instance IsomorphicTo Word16 Int16

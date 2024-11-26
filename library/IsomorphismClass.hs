@@ -64,10 +64,10 @@
 -- The types are self-evident:
 --
 -- > > :t to @String
--- > to @String :: IsEqualTo String b => b -> String
+-- > to @String :: IsomorphicTo String b => b -> String
 --
 -- > > :t from @Text
--- > from @Text :: IsEqualTo Text b => Text -> b
+-- > from @Text :: IsomorphicTo Text b => Text -> b
 --
 -- In other words 'to' and 'from' let you explicitly specify either the source
 -- or the target type of a conversion when you need to help the type
@@ -88,15 +88,15 @@
 --   'from' @'Data.ByteString.Builder.Builder' $
 --     'to' a <> 'to' b <> 'to' c
 -- @
--- 
+--
 -- = Partial conversions
--- 
+--
 -- Atop of all said this library also captures
 module IsomorphismClass
   ( -- * Typeclasses
-    IsEqualTo,
+    IsomorphicTo,
     from,
-    IsSubsetOf (..),
+    IsomorphicToSubsetOf (..),
 
     -- * Testing
     module IsomorphismClass.Laws,

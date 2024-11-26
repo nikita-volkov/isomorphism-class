@@ -10,12 +10,12 @@ import IsomorphismClass.Prelude
 import IsomorphismClass.Relations.ByteArrayAndShortByteString ()
 import IsomorphismClass.Relations.LazyByteStringBuilderAndShortByteString ()
 
-instance IsSubsetOf Data.Primitive.ByteArray.ByteArray Data.ByteString.Builder.Builder where
+instance IsomorphicToSubsetOf Data.Primitive.ByteArray.ByteArray Data.ByteString.Builder.Builder where
   to = to . to @Data.ByteString.Short.ShortByteString
 
-instance IsSubsetOf Data.ByteString.Builder.Builder Data.Primitive.ByteArray.ByteArray where
+instance IsomorphicToSubsetOf Data.ByteString.Builder.Builder Data.Primitive.ByteArray.ByteArray where
   to = to . to @Data.ByteString.Short.ShortByteString
 
-instance IsEqualTo Data.Primitive.ByteArray.ByteArray Data.ByteString.Builder.Builder
+instance IsomorphicTo Data.Primitive.ByteArray.ByteArray Data.ByteString.Builder.Builder
 
-instance IsEqualTo Data.ByteString.Builder.Builder Data.Primitive.ByteArray.ByteArray
+instance IsomorphicTo Data.ByteString.Builder.Builder Data.Primitive.ByteArray.ByteArray

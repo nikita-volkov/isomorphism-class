@@ -1,4 +1,4 @@
-module IsomorphismClass.Classes.IsSubsetOf where
+module IsomorphismClass.Classes.IsomorphicToSubsetOf where
 
 import IsomorphismClass.Prelude
 
@@ -26,7 +26,7 @@ import IsomorphismClass.Prelude
 -- For all values of @sub@ converting to @sup@ and then attempting to convert back to @sub@ always succeeds and produces a value that is equal to the original.
 --
 -- > \a -> maybeFrom (to a) == Just a
-class IsSubsetOf sup sub where
+class IsomorphicToSubsetOf sup sub where
   -- |
   -- Convert a value a subset type to a superset type.
   --
@@ -38,18 +38,18 @@ class IsSubsetOf sup sub where
   --
   -- This function is a [partial bijection](https://en.wikipedia.org/wiki/Bijection#Generalization_to_partial_functions).
   maybeFrom :: sup -> Maybe sub
-  default maybeFrom :: (IsSubsetOf sub sup) => sup -> Maybe sub
+  default maybeFrom :: (IsomorphicToSubsetOf sub sup) => sup -> Maybe sub
   maybeFrom = Just . to
 
-instance IsSubsetOf a a where
+instance IsomorphicToSubsetOf a a where
   to = id
   maybeFrom = Just . id
 
-instance IsSubsetOf () sub where
+instance IsomorphicToSubsetOf () sub where
   to = const ()
   maybeFrom = const Nothing
 
 -- | The empty set has no elements, and therefore is vacuously a subset of any set.
-instance IsSubsetOf sup Void where
+instance IsomorphicToSubsetOf sup Void where
   to = absurd
   maybeFrom = const Nothing

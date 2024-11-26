@@ -11,14 +11,14 @@ import IsomorphismClass.Classes
 import IsomorphismClass.Prelude
 import qualified IsomorphismClass.TextCompat.Array
 
-instance IsSubsetOf ByteString Data.Text.Array.Array where
+instance IsomorphicToSubsetOf ByteString Data.Text.Array.Array where
   to = Data.ByteString.Short.fromShort . IsomorphismClass.TextCompat.Array.toShortByteString
 
-instance IsSubsetOf Data.Text.Array.Array ByteString where
+instance IsomorphicToSubsetOf Data.Text.Array.Array ByteString where
   to = IsomorphismClass.TextCompat.Array.fromShortByteString . Data.ByteString.Short.toShort
 
-instance IsEqualTo ByteString Data.Text.Array.Array
+instance IsomorphicTo ByteString Data.Text.Array.Array
 
-instance IsEqualTo Data.Text.Array.Array ByteString
+instance IsomorphicTo Data.Text.Array.Array ByteString
 
 #endif

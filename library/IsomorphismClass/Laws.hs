@@ -1,6 +1,6 @@
 module IsomorphismClass.Laws
-  ( isSubsetOfProperties,
-    isEqualToProperties,
+  ( isomorphicToSubsetOfProperties,
+    isomorphicToProperties,
   )
 where
 
@@ -8,12 +8,12 @@ import IsomorphismClass.Classes
 import IsomorphismClass.Prelude
 import Test.QuickCheck
 
-isSubsetOfProperties ::
-  (IsSubsetOf a b, Eq a, Eq b, Arbitrary a, Show a, Arbitrary b, Show b) =>
+isomorphicToSubsetOfProperties ::
+  (IsomorphicToSubsetOf a b, Eq a, Eq b, Arbitrary a, Show a, Arbitrary b, Show b) =>
   Proxy a ->
   Proxy b ->
   [(String, Property)]
-isSubsetOfProperties superp subp =
+isomorphicToSubsetOfProperties superp subp =
   [ ( "'to' is injective",
       property \a b ->
         a /= b ==>
@@ -39,12 +39,12 @@ isSubsetOfProperties superp subp =
     maybeFrom' = fmap (as subp) . maybeFrom . as superp
     as = flip asProxyTypeOf
 
-isEqualToProperties ::
-  (IsEqualTo a b, Eq a, Eq b, Arbitrary a, Show a, Arbitrary b, Show b) =>
+isomorphicToProperties ::
+  (IsomorphicTo a b, Eq a, Eq b, Arbitrary a, Show a, Arbitrary b, Show b) =>
   Proxy a ->
   Proxy b ->
   [(String, Property)]
-isEqualToProperties superp subp =
+isomorphicToProperties superp subp =
   [ directedLaws "↻" superp subp,
     directedLaws "↺" subp superp
   ]
@@ -55,7 +55,7 @@ isEqualToProperties superp subp =
           property \b ->
             b === to (asProxyTypeOf (to (asProxyTypeOf b bp)) ap)
         )
-          : prefixEachName "Partially isomorphic: " (isSubsetOfProperties ap bp)
+          : prefixEachName "Partially isomorphic: " (isomorphicToSubsetOfProperties ap bp)
       )
         & prefixEachName (prefix <> ": ")
 

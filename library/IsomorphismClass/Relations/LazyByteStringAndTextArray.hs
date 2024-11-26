@@ -12,20 +12,20 @@ import IsomorphismClass.Classes
 import IsomorphismClass.Prelude
 import qualified IsomorphismClass.TextCompat.Array
 
-instance IsSubsetOf Data.ByteString.Lazy.ByteString Data.Text.Array.Array where
+instance IsomorphicToSubsetOf Data.ByteString.Lazy.ByteString Data.Text.Array.Array where
   to =
     Data.ByteString.Lazy.fromStrict
       . Data.ByteString.Short.fromShort
       . IsomorphismClass.TextCompat.Array.toShortByteString
 
-instance IsSubsetOf Data.Text.Array.Array Data.ByteString.Lazy.ByteString where
+instance IsomorphicToSubsetOf Data.Text.Array.Array Data.ByteString.Lazy.ByteString where
   to =
     IsomorphismClass.TextCompat.Array.fromShortByteString
       . Data.ByteString.Short.toShort
       . Data.ByteString.Lazy.toStrict
 
-instance IsEqualTo Data.Text.Array.Array Data.ByteString.Lazy.ByteString
+instance IsomorphicTo Data.Text.Array.Array Data.ByteString.Lazy.ByteString
 
-instance IsEqualTo Data.ByteString.Lazy.ByteString Data.Text.Array.Array
+instance IsomorphicTo Data.ByteString.Lazy.ByteString Data.Text.Array.Array
 
 #endif

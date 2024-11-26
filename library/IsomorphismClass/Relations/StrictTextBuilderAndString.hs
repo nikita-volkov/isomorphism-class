@@ -10,7 +10,7 @@ import IsomorphismClass.Classes
 import IsomorphismClass.Relations.StringAndText ()
 import IsomorphismClass.Prelude
 
-instance IsSubsetOf String Data.Text.Encoding.StrictBuilder where
+instance IsomorphicToSubsetOf String Data.Text.Encoding.StrictBuilder where
   to = to . Data.Text.Encoding.strictBuilderToText
   maybeFrom = fmap Data.Text.Encoding.textToStrictBuilder . maybeFrom
 
