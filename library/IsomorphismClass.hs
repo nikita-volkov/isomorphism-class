@@ -64,10 +64,10 @@
 -- The types are self-evident:
 --
 -- > > :t to @String
--- > to @String :: IsomorphicTo String b => b -> String
+-- > to @String :: Is String b => b -> String
 --
 -- > > :t from @Text
--- > from @Text :: IsomorphicTo Text b => Text -> b
+-- > from @Text :: Is Text b => Text -> b
 --
 -- In other words 'to' and 'from' let you explicitly specify either the source
 -- or the target type of a conversion when you need to help the type
@@ -91,7 +91,7 @@
 --
 -- = Partial conversions
 --
--- Atop of all said this library also captures the notion of smart constructors via the 'IsomorphicToSubsetOf' class, which associates a total 'to' conversion with partial 'maybeFrom'.
+-- Atop of all said this library also captures the notion of smart constructors via the 'IsSome' class, which associates a total 'to' conversion with partial 'maybeFrom'.
 --
 -- This captures the codec relationship between types.
 -- E.g.,
@@ -103,8 +103,8 @@
 -- - Every URL can be uniquely represented as 'Text', but most 'Text's are not URLs unfortunately.
 module IsomorphismClass
   ( -- * Typeclasses
-    IsomorphicTo,
-    IsomorphicToSubsetOf (..),
+    Is,
+    IsSome (..),
     from,
 
     -- * Instance derivation

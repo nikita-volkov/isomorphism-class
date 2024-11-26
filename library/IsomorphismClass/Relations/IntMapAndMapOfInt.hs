@@ -7,12 +7,12 @@ import qualified Data.Map.Strict
 import IsomorphismClass.Classes
 import IsomorphismClass.Prelude
 
-instance IsomorphicToSubsetOf (Map Int v) (IntMap v) where
+instance IsSome (Map Int v) (IntMap v) where
   to = Data.Map.Strict.fromList . Data.IntMap.Strict.toList
 
-instance IsomorphicToSubsetOf (IntMap v) (Map Int v) where
+instance IsSome (IntMap v) (Map Int v) where
   to = Data.IntMap.Strict.fromList . Data.Map.Strict.toList
 
-instance IsomorphicTo (Map Int v) (IntMap v)
+instance Is (Map Int v) (IntMap v)
 
-instance IsomorphicTo (IntMap v) (Map Int v)
+instance Is (IntMap v) (Map Int v)

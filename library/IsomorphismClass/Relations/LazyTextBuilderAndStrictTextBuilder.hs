@@ -11,14 +11,14 @@ import qualified Data.Text.Lazy.Builder
 import IsomorphismClass.Classes
 import IsomorphismClass.Prelude
 
-instance IsomorphicToSubsetOf Data.Text.Lazy.Builder.Builder Data.Text.Encoding.StrictBuilder where
+instance IsSome Data.Text.Lazy.Builder.Builder Data.Text.Encoding.StrictBuilder where
   to = Data.Text.Lazy.Builder.fromText . Data.Text.Encoding.strictBuilderToText
 
-instance IsomorphicToSubsetOf Data.Text.Encoding.StrictBuilder Data.Text.Lazy.Builder.Builder where
+instance IsSome Data.Text.Encoding.StrictBuilder Data.Text.Lazy.Builder.Builder where
   to = Data.Text.Encoding.textToStrictBuilder . Data.Text.Lazy.toStrict . Data.Text.Lazy.Builder.toLazyText
 
-instance IsomorphicTo Data.Text.Lazy.Builder.Builder Data.Text.Encoding.StrictBuilder
+instance Is Data.Text.Lazy.Builder.Builder Data.Text.Encoding.StrictBuilder
 
-instance IsomorphicTo Data.Text.Encoding.StrictBuilder Data.Text.Lazy.Builder.Builder
+instance Is Data.Text.Encoding.StrictBuilder Data.Text.Lazy.Builder.Builder
 
 #endif

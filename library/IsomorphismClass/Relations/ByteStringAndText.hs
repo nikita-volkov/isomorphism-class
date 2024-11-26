@@ -6,6 +6,6 @@ import qualified Data.Text.Encoding
 import IsomorphismClass.Classes
 import IsomorphismClass.Prelude
 
-instance IsomorphicToSubsetOf ByteString Text where
+instance IsSome ByteString Text where
   to = Data.Text.Encoding.encodeUtf8
   maybeFrom = either (const Nothing) Just . Data.Text.Encoding.decodeUtf8'

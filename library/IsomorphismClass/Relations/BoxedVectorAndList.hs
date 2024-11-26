@@ -6,12 +6,12 @@ import qualified Data.Vector
 import IsomorphismClass.Classes
 import IsomorphismClass.Prelude
 
-instance IsomorphicToSubsetOf (Vector a) [a] where
+instance IsSome (Vector a) [a] where
   to = Data.Vector.fromList
 
-instance IsomorphicToSubsetOf [a] (Vector a) where
+instance IsSome [a] (Vector a) where
   to = Data.Vector.toList
 
-instance IsomorphicTo (Vector a) [a]
+instance Is (Vector a) [a]
 
-instance IsomorphicTo [a] (Vector a)
+instance Is [a] (Vector a)

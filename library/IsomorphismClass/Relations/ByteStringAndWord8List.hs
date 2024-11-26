@@ -6,12 +6,12 @@ import qualified Data.ByteString
 import IsomorphismClass.Classes
 import IsomorphismClass.Prelude
 
-instance IsomorphicToSubsetOf ByteString [Word8] where
+instance IsSome ByteString [Word8] where
   to = Data.ByteString.pack
 
-instance IsomorphicToSubsetOf [Word8] ByteString where
+instance IsSome [Word8] ByteString where
   to = Data.ByteString.unpack
 
-instance IsomorphicTo ByteString [Word8]
+instance Is ByteString [Word8]
 
-instance IsomorphicTo [Word8] ByteString
+instance Is [Word8] ByteString

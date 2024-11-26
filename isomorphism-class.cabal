@@ -36,12 +36,12 @@ library
   exposed-modules:    IsomorphismClass
   other-modules:
     IsomorphismClass.Classes
-    IsomorphismClass.Classes.IsomorphicTo
-    IsomorphismClass.Classes.IsomorphicToSubsetOf
+    IsomorphismClass.Classes.Is
+    IsomorphismClass.Classes.IsSome
     IsomorphismClass.Laws
     IsomorphismClass.Prelude
     IsomorphismClass.Proxies
-    IsomorphismClass.Proxies.ViaIsomorphicToSubsetOf
+    IsomorphismClass.Proxies.ViaIsSome
     IsomorphismClass.Relations
     IsomorphismClass.Relations.BoxedVectorAndList
     IsomorphismClass.Relations.BoxedVectorAndSeq

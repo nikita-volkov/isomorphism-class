@@ -1,6 +1,6 @@
 module IsomorphismClass.Laws
-  ( isomorphicToSubsetOfProperties,
-    isomorphicToProperties,
+  ( isSomeLawsProperties,
+    isLawsProperties,
   )
 where
 
@@ -9,23 +9,23 @@ import IsomorphismClass.Prelude
 import Test.QuickCheck
 
 -- |
--- Properties testing whether an instance satisfies the laws of 'IsomorphicToSubsetOf'.
+-- Properties testing whether an instance satisfies the laws of 'IsSome'.
 --
 -- The instance is identified via the proxy types that you provide.
 --
 -- E.g., here's how you can integrate it into an Hspec test-suite:
 --
 -- > spec = do
--- >   describe "IsomorphicToSubsetOf laws" do
+-- >   describe "IsSome laws" do
 -- >     traverse_
 -- >       (uncurry prop)
--- >       (isomorphicToSubsetOfProperties @Int32 @Int16 Proxy Proxy)
-isomorphicToSubsetOfProperties ::
-  (IsomorphicToSubsetOf a b, Eq a, Eq b, Arbitrary a, Show a, Arbitrary b, Show b) =>
+-- >       (isSomeLawsProperties @Int32 @Int16 Proxy Proxy)
+isSomeLawsProperties ::
+  (IsSome a b, Eq a, Eq b, Arbitrary a, Show a, Arbitrary b, Show b) =>
   Proxy a ->
   Proxy b ->
   [(String, Property)]
-isomorphicToSubsetOfProperties superp subp =
+isSomeLawsProperties superp subp =
   [ ( "'to' is injective",
       property \a b ->
         a /= b ==>
@@ -52,23 +52,23 @@ isomorphicToSubsetOfProperties superp subp =
     as = flip asProxyTypeOf
 
 -- |
--- Properties testing whether an instance satisfies the laws of 'IsomorphicTo'.
+-- Properties testing whether an instance satisfies the laws of 'Is'.
 --
 -- The instance is identified via the proxy types that you provide.
 --
 -- E.g., here's how you can integrate it into an Hspec test-suite:
 --
 -- > spec = do
--- >   describe "IsomorphicTo laws" do
+-- >   describe "Is laws" do
 -- >     traverse_
 -- >       (uncurry prop)
--- >       (isomorphicToProperties @Int32 @Word32 Proxy Proxy)
-isomorphicToProperties ::
-  (IsomorphicTo a b, Eq a, Eq b, Arbitrary a, Show a, Arbitrary b, Show b) =>
+-- >       (isLawsProperties @Int32 @Word32 Proxy Proxy)
+isLawsProperties ::
+  (Is a b, Eq a, Eq b, Arbitrary a, Show a, Arbitrary b, Show b) =>
   Proxy a ->
   Proxy b ->
   [(String, Property)]
-isomorphicToProperties superp subp =
+isLawsProperties superp subp =
   [ directedLaws "↻" superp subp,
     directedLaws "↺" subp superp
   ]
@@ -79,7 +79,7 @@ isomorphicToProperties superp subp =
           property \b ->
             b === to (asProxyTypeOf (to (asProxyTypeOf b bp)) ap)
         )
-          : prefixEachName "Partially isomorphic: " (isomorphicToSubsetOfProperties ap bp)
+          : prefixEachName "Partially isomorphic: " (isSomeLawsProperties ap bp)
       )
         & prefixEachName (prefix <> ": ")
 

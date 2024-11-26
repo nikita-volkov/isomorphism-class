@@ -6,12 +6,12 @@ import qualified Data.Sequence
 import IsomorphismClass.Classes
 import IsomorphismClass.Prelude
 
-instance IsomorphicToSubsetOf [a] (Seq a) where
+instance IsSome [a] (Seq a) where
   to = toList
 
-instance IsomorphicToSubsetOf (Seq a) [a] where
+instance IsSome (Seq a) [a] where
   to = Data.Sequence.fromList
 
-instance IsomorphicTo [a] (Seq a)
+instance Is [a] (Seq a)
 
-instance IsomorphicTo (Seq a) [a]
+instance Is (Seq a) [a]

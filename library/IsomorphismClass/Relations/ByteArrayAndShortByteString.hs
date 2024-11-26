@@ -7,14 +7,14 @@ import qualified Data.ByteString.Short.Internal
 import qualified Data.Primitive.ByteArray
 import IsomorphismClass.Classes
 
-instance IsomorphicToSubsetOf Data.ByteString.Short.ShortByteString Data.Primitive.ByteArray.ByteArray where
+instance IsSome Data.ByteString.Short.ShortByteString Data.Primitive.ByteArray.ByteArray where
   to (Data.Primitive.ByteArray.ByteArray array) =
     Data.ByteString.Short.Internal.SBS array
 
-instance IsomorphicToSubsetOf Data.Primitive.ByteArray.ByteArray Data.ByteString.Short.ShortByteString where
+instance IsSome Data.Primitive.ByteArray.ByteArray Data.ByteString.Short.ShortByteString where
   to (Data.ByteString.Short.Internal.SBS array) =
     Data.Primitive.ByteArray.ByteArray array
 
-instance IsomorphicTo Data.Primitive.ByteArray.ByteArray Data.ByteString.Short.ShortByteString
+instance Is Data.Primitive.ByteArray.ByteArray Data.ByteString.Short.ShortByteString
 
-instance IsomorphicTo Data.ByteString.Short.ShortByteString Data.Primitive.ByteArray.ByteArray
+instance Is Data.ByteString.Short.ShortByteString Data.Primitive.ByteArray.ByteArray

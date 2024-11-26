@@ -7,12 +7,12 @@ import IsomorphismClass.Classes
 import IsomorphismClass.Prelude
 import IsomorphismClass.Relations.ByteArrayAndShortByteString ()
 
-instance IsomorphicToSubsetOf Data.Primitive.ByteArray.ByteArray [Word8] where
+instance IsSome Data.Primitive.ByteArray.ByteArray [Word8] where
   to = fromList
 
-instance IsomorphicToSubsetOf [Word8] Data.Primitive.ByteArray.ByteArray where
+instance IsSome [Word8] Data.Primitive.ByteArray.ByteArray where
   to = toList
 
-instance IsomorphicTo Data.Primitive.ByteArray.ByteArray [Word8]
+instance Is Data.Primitive.ByteArray.ByteArray [Word8]
 
-instance IsomorphicTo [Word8] Data.Primitive.ByteArray.ByteArray
+instance Is [Word8] Data.Primitive.ByteArray.ByteArray

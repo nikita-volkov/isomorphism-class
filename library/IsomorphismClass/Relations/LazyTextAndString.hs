@@ -7,6 +7,6 @@ import IsomorphismClass.Classes
 import IsomorphismClass.Prelude
 import IsomorphismClass.Relations.StringAndText ()
 
-instance IsomorphicToSubsetOf String Data.Text.Lazy.Text where
+instance IsSome String Data.Text.Lazy.Text where
   to = Data.Text.Lazy.unpack
   maybeFrom = fmap Data.Text.Lazy.fromStrict . maybeFrom
