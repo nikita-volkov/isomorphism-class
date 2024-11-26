@@ -46,10 +46,6 @@ instance IsomorphicToSubsetOf a a where
   to = id
   maybeFrom = Just . id
 
-instance IsomorphicToSubsetOf () sub where
-  to = const ()
-  maybeFrom = const Nothing
-
 -- | The empty set has no elements, and therefore is vacuously a subset of any set.
 instance IsomorphicToSubsetOf sup Void where
   to = absurd
