@@ -13,7 +13,7 @@ instance PartiallyIsomorphicTo Data.ByteString.Builder.Builder Data.ByteString.S
 
 instance PartiallyIsomorphicTo Data.ByteString.Short.ShortByteString Data.ByteString.Builder.Builder where
   to = Data.ByteString.Short.toShort . Data.ByteString.Lazy.toStrict . Data.ByteString.Builder.toLazyByteString
-  partiallyFrom = Just . Data.ByteString.Builder.shortByteString
+  maybeFrom = Just . Data.ByteString.Builder.shortByteString
 
 instance IsomorphicTo Data.ByteString.Builder.Builder Data.ByteString.Short.ShortByteString
 

@@ -16,11 +16,11 @@ partiallyIsomorphicToProperties ::
 partiallyIsomorphicToProperties superp subp =
   [ ( "Law 1",
       property \sub ->
-        partiallyFrom (asProxyTypeOf (to (asProxyTypeOf sub subp)) superp) === Just sub
+        maybeFrom (asProxyTypeOf (to (asProxyTypeOf sub subp)) superp) === Just sub
     ),
     ( "Law 2",
       property \super ->
-        case partiallyFrom (asProxyTypeOf super superp) of
+        case maybeFrom (asProxyTypeOf super superp) of
           Just sub -> to (asProxyTypeOf sub subp) === super
           Nothing -> property ()
     )

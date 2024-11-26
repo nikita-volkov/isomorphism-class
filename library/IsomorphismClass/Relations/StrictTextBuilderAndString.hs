@@ -12,6 +12,6 @@ import IsomorphismClass.Prelude
 
 instance PartiallyIsomorphicTo String Data.Text.Encoding.StrictBuilder where
   to = to . Data.Text.Encoding.strictBuilderToText
-  partiallyFrom = fmap Data.Text.Encoding.textToStrictBuilder . partiallyFrom
+  maybeFrom = fmap Data.Text.Encoding.textToStrictBuilder . maybeFrom
 
 #endif

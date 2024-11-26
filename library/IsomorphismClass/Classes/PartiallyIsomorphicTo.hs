@@ -11,24 +11,24 @@ import IsomorphismClass.Prelude
 --
 -- === Laws
 --
--- - @'partiallyFrom' . 'to' = 'Just'@ - For all values of @sub@ converting @sub@ to @super@ and then and attempting to convert back to @sub@ always succeeds and produces a value that is identical to the original.
+-- - @'maybeFrom' . 'to' = 'Just'@ - For all values of @sub@ converting @sub@ to @super@ and then and attempting to convert back to @sub@ always succeeds and produces a value that is identical to the original.
 --
--- - @\a -> fmap 'to' ('partiallyFrom' a) = fmap (const a) ('partiallyFrom' a)@ - For all values of @super@ attempting to convert to @sub@ and then convert back on success produces the same result as the original if the conversion succeeds.
+-- - @\a -> fmap 'to' ('maybeFrom' a) = fmap (const a) ('maybeFrom' a)@ - For all values of @super@ attempting to convert to @sub@ and then convert back on success produces the same result as the original if the conversion succeeds.
 class PartiallyIsomorphicTo super sub where
   to :: sub -> super
-  partiallyFrom :: super -> Maybe sub
-  default partiallyFrom :: (PartiallyIsomorphicTo sub super) => super -> Maybe sub
-  partiallyFrom = Just . to
+  maybeFrom :: super -> Maybe sub
+  default maybeFrom :: (PartiallyIsomorphicTo sub super) => super -> Maybe sub
+  maybeFrom = Just . to
 
 instance PartiallyIsomorphicTo a a where
   to = id
-  partiallyFrom = Just . id
+  maybeFrom = Just . id
 
 instance PartiallyIsomorphicTo () sub where
   to = const ()
-  partiallyFrom = const Nothing
+  maybeFrom = const Nothing
 
 -- | The empty set has no elements, and therefore is vacuously a subset of any set.
 instance PartiallyIsomorphicTo super Void where
   to = absurd
-  partiallyFrom = const Nothing
+  maybeFrom = const Nothing

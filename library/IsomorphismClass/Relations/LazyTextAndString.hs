@@ -9,4 +9,4 @@ import IsomorphismClass.Relations.StringAndText ()
 
 instance PartiallyIsomorphicTo String Data.Text.Lazy.Text where
   to = Data.Text.Lazy.unpack
-  partiallyFrom = fmap Data.Text.Lazy.fromStrict . partiallyFrom
+  maybeFrom = fmap Data.Text.Lazy.fromStrict . maybeFrom

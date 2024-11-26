@@ -8,7 +8,7 @@ import IsomorphismClass.Prelude
 
 instance PartiallyIsomorphicTo String Text where
   to = Text.unpack
-  partiallyFrom string =
+  maybeFrom string =
     -- FIXME: Optimize.
     let text = Text.pack string
      in if string == Text.unpack text
