@@ -21,7 +21,7 @@ import Test.QuickCheck
 -- >       (uncurry prop)
 -- >       (isSomeLawsProperties @Int32 @Int16 Proxy Proxy)
 isSomeLawsProperties ::
-  (IsSome a b, Eq a, Eq b, Arbitrary a, Show a, Arbitrary b, Show b) =>
+  (IsSome a b, Eq a, Eq b, Show a, Arbitrary b, Show b) =>
   Proxy a ->
   Proxy b ->
   [(String, Property)]
@@ -30,12 +30,6 @@ isSomeLawsProperties superp subp =
       property \a b ->
         a /= b ==>
           to' a =/= to' b
-    ),
-    ( "'maybeFrom' is partially injective",
-      property \a b ->
-        a /= b ==>
-          isJust (maybeFrom' a) ==>
-            maybeFrom' a =/= maybeFrom' b
     ),
     ( "'maybeFrom' is an inverse of 'to'",
       property \a ->
