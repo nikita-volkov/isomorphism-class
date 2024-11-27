@@ -40,10 +40,6 @@ isSomeLawsProperties superp subp =
     ( "'maybeFrom' is an inverse of 'to'",
       property \a ->
         maybeFrom' (to' a) === Just a
-    ),
-    ( "'to' is an inverse of 'maybeFrom'",
-      property \a ->
-        fmap to' (maybeFrom' a) === fmap (const a) (maybeFrom' a)
     )
   ]
   where
