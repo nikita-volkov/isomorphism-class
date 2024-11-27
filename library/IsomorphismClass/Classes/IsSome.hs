@@ -48,3 +48,11 @@ instance IsSome a a where
 instance IsSome sup Void where
   to = absurd
   maybeFrom = const Nothing
+
+-- | Van-Laarhoven-style Prism, compatible with the \"lens\" library.
+isSomePrism :: (IsSome a b, Choice p, Applicative f) => p b (f b) -> p a (f a)
+isSomePrism =
+  dimap
+    (\s -> maybe (Left s) Right (maybeFrom s))
+    (either pure (fmap to))
+    . right'

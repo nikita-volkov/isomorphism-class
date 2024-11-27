@@ -1,6 +1,7 @@
 module IsomorphismClass.Classes.Is where
 
 import IsomorphismClass.Classes.IsSome
+import IsomorphismClass.Prelude
 
 -- | Bidirectional conversion between two types with no loss of information.
 --
@@ -46,3 +47,7 @@ instance Is a a
 -- the output data type.
 from :: (Is a b) => a -> b
 from = to
+
+-- | Van-Laarhoven-style Isomorphism, compatible with the \"lens\" library.
+isIso :: (Is a b, Profunctor p, Functor f) => p b (f b) -> p a (f a)
+isIso = dimap from (fmap to)
