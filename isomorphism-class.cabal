@@ -1,6 +1,6 @@
 cabal-version: 3.0
 name: isomorphism-class
-version: 0.1.1
+version: 0.2
 synopsis: Isomorphism typeclass solving the conversion problem
 description: Lawful typeclass for lossless conversion between types.
 category: Conversion
