@@ -4,7 +4,24 @@ import IsomorphismClass.Classes.IsSome
 import IsomorphismClass.Prelude
 import qualified Test.QuickCheck as QuickCheck
 
--- | Helper for derivation of instances on types which have an instance of @'IsSome' sup@.
+-- |
+-- Helper for deriving common instances on types which have an instance of @'IsSome' sup@ using the @DerivingVia@ extension.
+--
+-- E.g.,
+--
+-- > newtype Percent = Percent Double
+-- >   deriving newtype (Show, Eq, Ord)
+-- >   deriving (Read, IsString, Arbitrary) via (ViaIsSome Double Percent)
+-- >
+-- > instance IsSome Double Percent where
+-- >   to (Percent double) = double
+-- >   maybeFrom double =
+-- >     if double < 0 || double > 1
+-- >       then Nothing
+-- >       else Just (Percent double)
+--
+-- In the code above all the instances that are able to construct the values of 'Percent' are automatically derived based on the @IsSome Double Percent@ instance.
+-- This guarantees that they only construct values that pass thru the checks defined in 'maybeFrom'.
 newtype ViaIsSome sup sub = ViaIsSome sub
 
 instance (IsSome sup sub) => IsSome sup (ViaIsSome sup sub) where

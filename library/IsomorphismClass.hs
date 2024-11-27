@@ -37,6 +37,7 @@
 -- direction, there usually appears to be only one way of defining it. That
 -- makes it very clear what the conversion does to the user and how to define
 -- it to the author of the conversion.
+-- It also gives a clear criteria for validating whether the instances are correct, which can be encoded in property-tests.
 --
 -- That insight itself stems from an observation that almost all of the
 -- practical conversions in Haskell share a property: you can restore the

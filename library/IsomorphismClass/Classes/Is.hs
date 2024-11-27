@@ -22,6 +22,8 @@ import IsomorphismClass.Classes.IsSome
 --     and then converting from /B/ to /A/ produces a value that is identical
 --     to the original.
 --
+-- For testing whether your instances conform to these laws use 'IsomorphismClass.isLawsProperties'.
+--
 -- === Instance Definition
 --
 -- For each pair of isomorphic types (/A/ and /B/) the compiler will require

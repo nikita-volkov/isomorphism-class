@@ -26,6 +26,8 @@ import IsomorphismClass.Prelude
 -- For all values of @sub@ converting to @sup@ and then attempting to convert back to @sub@ always succeeds and produces a value that is equal to the original.
 --
 -- > \a -> maybeFrom (to a) == Just a
+--
+-- For testing whether your instances conform to these laws use 'IsomorphismClass.isSomeLawsProperties'.
 class IsSome sup sub where
   -- |
   -- Convert a value a subset type to a superset type.
