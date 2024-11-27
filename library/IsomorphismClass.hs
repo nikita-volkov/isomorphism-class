@@ -108,6 +108,10 @@ module IsomorphismClass
     IsSome (..),
     from,
 
+    -- * Optics
+    isSomePrism,
+    isIso,
+
     -- * Instance derivation
 
     -- | Proxy data-types useful for deriving various standard instances using the @DerivingVia@ extension.
@@ -120,5 +124,6 @@ where
 
 import IsomorphismClass.Classes
 import IsomorphismClass.Laws
+import IsomorphismClass.Optics
 import IsomorphismClass.Proxies
 import IsomorphismClass.Relations ()

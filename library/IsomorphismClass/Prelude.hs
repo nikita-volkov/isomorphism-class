@@ -4,7 +4,6 @@ module IsomorphismClass.Prelude
 where
 
 import Control.Applicative as Exports
-import Control.Arrow as Exports hiding (first, second)
 import Control.Category as Exports
 import Control.Concurrent as Exports
 import Control.Exception as Exports
@@ -55,7 +54,6 @@ import Data.String as Exports
 import Data.Text as Exports (Text)
 import Data.Traversable as Exports
 import Data.Tuple as Exports
-import Data.Unique as Exports
 import Data.Vector as Exports (Vector)
 import Data.Version as Exports
 import Data.Void as Exports
