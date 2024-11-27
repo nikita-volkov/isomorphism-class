@@ -7,8 +7,7 @@
 --
 -- Have you ever looked for a @toString@ function? How often do you
 -- import @Data.Text.Lazy@ only to call its 'Data.Text.Lazy.fromStrict'? How
--- about going thru the always fun sequence of
--- importing @Data.ByteString.Builder@ only to call its
+-- about importing @Data.ByteString.Builder@ only to call its
 -- 'Data.ByteString.Builder.toLazyByteString' and then importing
 -- @Data.ByteString.Lazy@ only to call its 'Data.ByteString.Lazy.toStrict'?
 --
