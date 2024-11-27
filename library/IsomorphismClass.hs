@@ -124,5 +124,6 @@ where
 
 import IsomorphismClass.Classes
 import IsomorphismClass.Laws
+import IsomorphismClass.Optics
 import IsomorphismClass.Proxies
 import IsomorphismClass.Relations ()

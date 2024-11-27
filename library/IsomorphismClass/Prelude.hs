@@ -44,7 +44,6 @@ import Data.Map.Strict as Exports (Map)
 import Data.Maybe as Exports
 import Data.Monoid as Exports hiding (First (..), Last (..), (<>))
 import Data.Ord as Exports
-import Data.Profunctor as Exports (Choice (..), Profunctor (..))
 import Data.Proxy as Exports
 import Data.Ratio as Exports
 import Data.STRef as Exports

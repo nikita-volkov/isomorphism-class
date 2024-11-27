@@ -39,6 +39,7 @@ library
     IsomorphismClass.Classes.Is
     IsomorphismClass.Classes.IsSome
     IsomorphismClass.Laws
+    IsomorphismClass.Optics
     IsomorphismClass.Prelude
     IsomorphismClass.Proxies
     IsomorphismClass.Proxies.ViaIsSome
