@@ -18,10 +18,7 @@ main = defaultMain allTests
 allTests :: TestTree
 allTests =
   testGroup "All" $
-    [ testPair @String @Text Proxy Proxy,
-      testPair @String @TextLazy.Text Proxy Proxy,
-      testPair @String @TextLazyBuilder.Builder Proxy Proxy,
-      testPair @[Word8] @ByteString Proxy Proxy,
+    [ testPair @[Word8] @ByteString Proxy Proxy,
       testPair @[Word8] @ByteStringLazy.ByteString Proxy Proxy,
       testPair @[Word8] @ByteStringShort.ShortByteString Proxy Proxy,
       testPair @[Word8] @ByteStringBuilder.Builder Proxy Proxy,
@@ -30,15 +27,12 @@ allTests =
       testPair @[Word8] @(Vector Word8) Proxy Proxy,
       testPair @[Word8] @(Seq Word8) Proxy Proxy,
       testPair @Text @Text Proxy Proxy,
-      testPair @Text @String Proxy Proxy,
       testPair @Text @TextLazy.Text Proxy Proxy,
       testPair @Text @TextLazyBuilder.Builder Proxy Proxy,
       testPair @TextLazy.Text @TextLazy.Text Proxy Proxy,
-      testPair @TextLazy.Text @String Proxy Proxy,
       testPair @TextLazy.Text @Text Proxy Proxy,
       testPair @TextLazy.Text @TextLazyBuilder.Builder Proxy Proxy,
       testPair @TextLazyBuilder.Builder @TextLazyBuilder.Builder Proxy Proxy,
-      testPair @TextLazyBuilder.Builder @String Proxy Proxy,
       testPair @TextLazyBuilder.Builder @Text Proxy Proxy,
       testPair @TextLazyBuilder.Builder @TextLazy.Text Proxy Proxy,
       testPair @ByteString @ByteString Proxy Proxy,
@@ -119,9 +113,15 @@ allTests =
       testPair @Word8 @Word8 Proxy Proxy
     ]
 
-testPair :: forall a b. (IsomorphicTo a b, Eq a, Arbitrary a, Show a, Typeable a, Typeable b) => Proxy a -> Proxy b -> TestTree
-testPair _ _ =
-  testProperty name $ \a ->
-    a === from @b (from @a a)
+testPair :: (Is a b, Eq a, Eq b, Arbitrary a, Show a, Arbitrary b, Show b, Typeable a, Typeable b) => Proxy a -> Proxy b -> TestTree
+testPair superp subp =
+  isLawsProperties superp subp
+    & fmap (uncurry testProperty)
+    & testGroup groupName
   where
-    name = show (typeOf (undefined :: a)) <> "/" <> show (typeOf (undefined :: b))
+    groupName =
+      mconcat
+        [ show (typeOf (asProxyTypeOf undefined superp)),
+          "/",
+          show (typeOf (asProxyTypeOf undefined subp))
+        ]
