@@ -26,7 +26,7 @@ import IsomorphismClass.Prelude
 -- For testing whether your instances conform to these laws use 'IsomorphismClass.isSomeLawsProperties'.
 class IsSome sup sub where
   -- |
-  -- Convert a value a subset type to a superset type.
+  -- Convert a value of a subset type to a superset type.
   --
   -- This function is injective non-surjective.
   to :: sub -> sup
