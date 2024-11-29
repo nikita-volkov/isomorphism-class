@@ -23,6 +23,8 @@ import IsomorphismClass.Prelude
 --
 -- > \a -> maybeFrom (to a) == Just a
 --
+-- === Testing
+-- 
 -- For testing whether your instances conform to these laws use 'IsomorphismClass.isSomeLawsProperties'.
 class IsSome sup sub where
   -- |
