@@ -1,4 +1,4 @@
-module IsomorphismClass.Proxies.ViaIsSome (ViaIsSome) where
+module IsomorphismClass.Proxies.ViaIsSome where
 
 import IsomorphismClass.Classes
 import IsomorphismClass.Prelude
