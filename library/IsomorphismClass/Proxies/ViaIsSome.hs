@@ -11,7 +11,7 @@ import qualified Test.QuickCheck as QuickCheck
 --
 -- > newtype Percent = Percent Double
 -- >   deriving newtype (Show, Eq, Ord)
--- >   deriving (Read, IsString, Arbitrary) via (ViaIsSome Double Percent)
+-- >   deriving (Read, Arbitrary) via (ViaIsSome Double Percent)
 -- >
 -- > instance IsSome Double Percent where
 -- >   to (Percent double) = double
