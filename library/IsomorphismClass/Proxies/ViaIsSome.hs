@@ -1,6 +1,6 @@
 module IsomorphismClass.Proxies.ViaIsSome where
 
-import IsomorphismClass.Classes.IsSome
+import IsomorphismClass.Classes
 import IsomorphismClass.Prelude
 import qualified Test.QuickCheck as QuickCheck
 
@@ -27,6 +27,16 @@ newtype ViaIsSome sup sub = ViaIsSome sub
 instance (IsSome sup sub) => IsSome sup (ViaIsSome sup sub) where
   to (ViaIsSome a) = to a
   maybeFrom = fmap ViaIsSome . maybeFrom
+
+instance IsSome sub (ViaIsSome sup sub) where
+  to (ViaIsSome sub) = sub
+
+instance IsSome (ViaIsSome sup sub) sub where
+  to = ViaIsSome
+
+instance Is sub (ViaIsSome sup sub)
+
+instance Is (ViaIsSome sup sub) sub
 
 instance (IsSome sup sub, Show sup) => Show (ViaIsSome sup sub) where
   show (ViaIsSome a) = show (to @sup a)
