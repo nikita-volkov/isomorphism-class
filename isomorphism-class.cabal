@@ -1,6 +1,6 @@
 cabal-version: 3.0
 name: isomorphism-class
-version: 0.2.0.3
+version: 0.2.1
 synopsis: Lawful typeclasses for conversion between types
 category: Conversion
 homepage: https://github.com/nikita-volkov/isomorphism-class
