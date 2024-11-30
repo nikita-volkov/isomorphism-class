@@ -29,10 +29,10 @@ instance (IsSome sup sub) => IsSome sup (ViaIsSome sup sub) where
   maybeFrom = fmap ViaIsSome . maybeFrom
 
 instance IsSome sub (ViaIsSome sup sub) where
-  to (ViaIsSome sub) = sub
+  to = coerce
 
 instance IsSome (ViaIsSome sup sub) sub where
-  to = ViaIsSome
+  to = coerce
 
 instance Is sub (ViaIsSome sup sub)
 
