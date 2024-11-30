@@ -28,6 +28,10 @@ import IsomorphismClass.Classes.IsSome
 --
 -- For each pair of isomorphic types (/A/ and /B/) the compiler will require
 -- you to define four instances, namely: @Is A B@ and @Is B A@ as well as @IsSome A B@ and @IsSome B A@.
+--
+-- === Testing
+--
+-- For testing whether your instances conform to these laws use 'IsomorphismClass.isLawsProperties'.
 class (IsSome a b, Is b a) => Is a b
 
 -- | Any type is isomorphic to itself.
