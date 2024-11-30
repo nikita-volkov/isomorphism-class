@@ -65,7 +65,7 @@ library
     IsomorphismClass.Relations.Int8AndWord8
     IsomorphismClass.Relations.IntAndWord
     IsomorphismClass.Relations.IntMapAndMapOfInt
-    IsomorphismClass.Relations.IntSetAndSetOfInts
+    IsomorphismClass.Relations.IntSetAndSetOfInt
     IsomorphismClass.Relations.LazyByteStringAndLazyByteStringBuilder
     IsomorphismClass.Relations.LazyByteStringAndLazyText
     IsomorphismClass.Relations.LazyByteStringAndShortByteString

@@ -1,6 +1,6 @@
 {-# OPTIONS_GHC -Wno-orphans #-}
 
-module IsomorphismClass.Relations.IntSetAndSetOfInts where
+module IsomorphismClass.Relations.IntSetAndSetOfInt where
 
 import IsomorphismClass.Classes
 import IsomorphismClass.Prelude
