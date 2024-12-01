@@ -1,6 +1,6 @@
 cabal-version: 3.0
 name: isomorphism-class
-version: 0.2.1.1
+version: 0.2.1.2
 synopsis: Lawful typeclasses for conversion between types
 category: Conversion
 homepage: https://github.com/nikita-volkov/isomorphism-class
@@ -90,7 +90,6 @@ library
     IsomorphismClass.Relations.TextArrayAndWord8List
     IsomorphismClass.TextCompat.Array
 
-  build-tool-depends: autoexporter:autoexporter >=1.1.19 && <3
   build-depends:
     QuickCheck >=2.13 && <3,
     base >=4.12 && <5,
