@@ -9,14 +9,14 @@ import qualified Data.Text.Encoding
 import IsomorphismClass.Classes
 import IsomorphismClass.Prelude
 
-instance IsSome Text Data.Text.Encoding.StrictBuilder where
+instance IsomorphicTo Text Data.Text.Encoding.StrictBuilder where
   to = Data.Text.Encoding.strictBuilderToText
 
-instance IsSome Data.Text.Encoding.StrictBuilder Text where
+instance IsomorphicTo Data.Text.Encoding.StrictBuilder Text where
   to = Data.Text.Encoding.textToStrictBuilder
 
-instance Is Text Data.Text.Encoding.StrictBuilder
 
-instance Is Data.Text.Encoding.StrictBuilder Text
+
+
 
 #endif

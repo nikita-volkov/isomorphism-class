@@ -1,5 +1,3 @@
-{-# LANGUAGE CPP #-}
-
 -- |
 -- Lawful solution to the conversion problem.
 --
@@ -26,10 +24,10 @@
 -- the user and no way to check whether an instance is correct.
 --
 -- This library tackles this problem with a lawful typeclass, making it
--- evident what any of its instances do and it provides property-tests for you
+-- evident what any of its instances do and it provides a property-test for you
 -- to validate your instances.
 --
--- = The insight
+-- = The laws
 --
 -- The key insight of this library is that if you add a requirement for the
 -- conversion to be lossless and to have a mirror conversion in the opposite
@@ -57,30 +55,23 @@
 -- perform a conversion between two types. The only difference between them
 -- is in what the first type application parameter specifies. E.g.:
 --
--- > toString = to @String
+-- > toText = to @Text
 --
--- > fromText = from @Text
+-- > fromBuilder = from @Builder
 --
 -- The types are self-evident:
 --
--- > > :t to @String
--- > to @String :: Is String b => b -> String
+-- > > :t to @Text
+-- > to @Text :: IsomorphicTo Text b => b -> Text
 --
--- > > :t from @Text
--- > from @Text :: Is Text b => Text -> b
+-- > > :t from @Builder
+-- > from @Builder :: IsomorphicTo Builder b => Builder -> b
 --
 -- In other words 'to' and 'from' let you explicitly specify either the source
 -- or the target type of a conversion when you need to help the type
--- inferencer.
+-- inferencer or the reader.
 --
--- Here are more practical examples:
---
--- @
--- renderNameAndHeight :: 'Text' -> 'Int' -> 'Text'
--- renderNameAndHeight name height =
---   'from' @'Data.Text.Encoding.StrictTextBuilder' $
---     "Height of " <> 'to' name <> " is " <> 'to' (show height)
--- @
+-- = Examples
 --
 -- @
 -- combineEncodings :: 'Data.ByteString.Short.ShortByteString' -> 'Data.Primitive.ByteArray' -> 'Data.ByteString.Lazy.ByteString' -> [Word8]
@@ -89,32 +80,19 @@
 --     'to' a <> 'to' b <> 'to' c
 -- @
 --
--- = Partial conversions
---
--- Atop of all said this library also captures the notion of smart constructors via the 'IsSome' class, which associates a total 'to' conversion with partial 'maybeFrom'.
---
--- This captures the codec relationship between types.
--- E.g.,
---
--- - Every 'Int16' can be losslessly converted into 'Int32', but not every 'Int32' can be losslessly converted into 'Int16'.
---
--- - Every 'Text' can be converted into 'ByteString' via UTF-8 encoding, but not every 'ByteString' forms a valid UTF-8 sequence.
---
--- - Every URL can be uniquely represented as 'Text', but most 'Text's are not URLs unfortunately.
+-- @
+-- renderNameAndHeight :: 'Text' -> 'Int' -> 'Text'
+-- renderNameAndHeight name height =
+--   'from' @'Data.Text.Encoding.StrictTextBuilder' $
+--     "Height of " <> 'to' name <> " is " <> 'fromString' (show height)
+-- @
 module IsomorphismClass
   ( -- * Typeclasses
-    Is,
-    IsSome (..),
+    IsomorphicTo,
     from,
 
     -- * Optics
-    isSomePrism,
-    isIso,
-
-    -- * Instance derivation
-
-    -- | Proxy data-types useful for deriving various standard instances using the @DerivingVia@ extension.
-    module IsomorphismClass.Proxies,
+    isomorphicToIso,
 
     -- * Testing
     module IsomorphismClass.Laws,
@@ -124,5 +102,4 @@ where
 import IsomorphismClass.Classes
 import IsomorphismClass.Laws
 import IsomorphismClass.Optics
-import IsomorphismClass.Proxies
 import IsomorphismClass.Relations ()

@@ -1,7 +1,7 @@
 cabal-version: 3.0
 name: isomorphism-class
 version: 0.2.1.2
-synopsis: Lawful typeclasses for conversion between types
+synopsis: Isomorphism typeclass solving the conversion problem
 category: Conversion
 homepage: https://github.com/nikita-volkov/isomorphism-class
 bug-reports: https://github.com/nikita-volkov/isomorphism-class/issues
@@ -37,13 +37,10 @@ library
   exposed-modules: IsomorphismClass
   other-modules:
     IsomorphismClass.Classes
-    IsomorphismClass.Classes.Is
-    IsomorphismClass.Classes.IsSome
+    IsomorphismClass.Classes.IsomorphicTo
     IsomorphismClass.Laws
     IsomorphismClass.Optics
     IsomorphismClass.Prelude
-    IsomorphismClass.Proxies
-    IsomorphismClass.Proxies.ViaIsSome
     IsomorphismClass.Relations
     IsomorphismClass.Relations.BoxedVectorAndList
     IsomorphismClass.Relations.BoxedVectorAndSeq
@@ -56,7 +53,6 @@ library
     IsomorphismClass.Relations.ByteStringAndLazyByteString
     IsomorphismClass.Relations.ByteStringAndLazyByteStringBuilder
     IsomorphismClass.Relations.ByteStringAndShortByteString
-    IsomorphismClass.Relations.ByteStringAndText
     IsomorphismClass.Relations.ByteStringAndTextArray
     IsomorphismClass.Relations.ByteStringAndWord8List
     IsomorphismClass.Relations.Int16AndWord16
@@ -67,7 +63,6 @@ library
     IsomorphismClass.Relations.IntMapAndMapOfInt
     IsomorphismClass.Relations.IntSetAndSetOfInt
     IsomorphismClass.Relations.LazyByteStringAndLazyByteStringBuilder
-    IsomorphismClass.Relations.LazyByteStringAndLazyText
     IsomorphismClass.Relations.LazyByteStringAndShortByteString
     IsomorphismClass.Relations.LazyByteStringAndTextArray
     IsomorphismClass.Relations.LazyByteStringAndWord8List
@@ -76,17 +71,13 @@ library
     IsomorphismClass.Relations.LazyByteStringBuilderAndWord8List
     IsomorphismClass.Relations.LazyTextAndLazyTextBuilder
     IsomorphismClass.Relations.LazyTextAndStrictTextBuilder
-    IsomorphismClass.Relations.LazyTextAndString
     IsomorphismClass.Relations.LazyTextAndText
     IsomorphismClass.Relations.LazyTextBuilderAndStrictTextBuilder
-    IsomorphismClass.Relations.LazyTextBuilderAndString
     IsomorphismClass.Relations.LazyTextBuilderAndText
     IsomorphismClass.Relations.ListAndSeq
     IsomorphismClass.Relations.ShortByteStringAndTextArray
     IsomorphismClass.Relations.ShortByteStringAndWord8List
-    IsomorphismClass.Relations.StrictTextBuilderAndString
     IsomorphismClass.Relations.StrictTextBuilderAndText
-    IsomorphismClass.Relations.StringAndText
     IsomorphismClass.Relations.TextArrayAndWord8List
     IsomorphismClass.TextCompat.Array
 

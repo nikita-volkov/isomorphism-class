@@ -13,18 +13,14 @@ import IsomorphismClass.Classes
 import IsomorphismClass.Prelude
 import qualified IsomorphismClass.TextCompat.Array
 
-instance IsSome Data.ByteString.Builder.Builder Data.Text.Array.Array where
+instance IsomorphicTo Data.ByteString.Builder.Builder Data.Text.Array.Array where
   to = Data.ByteString.Builder.shortByteString . IsomorphismClass.TextCompat.Array.toShortByteString
 
-instance IsSome Data.Text.Array.Array Data.ByteString.Builder.Builder where
+instance IsomorphicTo Data.Text.Array.Array Data.ByteString.Builder.Builder where
   to =
     IsomorphismClass.TextCompat.Array.fromShortByteString
       . Data.ByteString.Short.toShort
       . Data.ByteString.Lazy.toStrict
       . Data.ByteString.Builder.toLazyByteString
-
-instance Is Data.Text.Array.Array Data.ByteString.Builder.Builder
-
-instance Is Data.ByteString.Builder.Builder Data.Text.Array.Array
 
 #endif

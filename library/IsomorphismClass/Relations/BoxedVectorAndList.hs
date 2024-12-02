@@ -6,12 +6,8 @@ import qualified Data.Vector
 import IsomorphismClass.Classes
 import IsomorphismClass.Prelude
 
-instance IsSome (Vector a) [a] where
+instance IsomorphicTo (Vector a) [a] where
   to = Data.Vector.fromList
 
-instance IsSome [a] (Vector a) where
+instance IsomorphicTo [a] (Vector a) where
   to = Data.Vector.toList
-
-instance Is (Vector a) [a]
-
-instance Is [a] (Vector a)
