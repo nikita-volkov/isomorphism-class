@@ -6,12 +6,8 @@ import qualified Data.ByteString.Lazy
 import IsomorphismClass.Classes
 import IsomorphismClass.Prelude
 
-instance IsSome Data.ByteString.Lazy.ByteString [Word8] where
+instance IsomorphicTo Data.ByteString.Lazy.ByteString [Word8] where
   to = Data.ByteString.Lazy.pack
 
-instance IsSome [Word8] Data.ByteString.Lazy.ByteString where
+instance IsomorphicTo [Word8] Data.ByteString.Lazy.ByteString where
   to = Data.ByteString.Lazy.unpack
-
-instance Is Data.ByteString.Lazy.ByteString [Word8]
-
-instance Is [Word8] Data.ByteString.Lazy.ByteString
