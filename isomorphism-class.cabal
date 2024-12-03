@@ -38,9 +38,9 @@ library
   other-modules:
     IsomorphismClass.Classes
     IsomorphismClass.Classes.IsomorphicTo
-    IsomorphismClass.Laws
     IsomorphismClass.Optics
     IsomorphismClass.Prelude
+    IsomorphismClass.Properties
     IsomorphismClass.Relations
     IsomorphismClass.Relations.BoxedVectorAndList
     IsomorphismClass.Relations.BoxedVectorAndSeq

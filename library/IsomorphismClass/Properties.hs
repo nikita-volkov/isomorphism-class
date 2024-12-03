@@ -1,4 +1,4 @@
-module IsomorphismClass.Laws
+module IsomorphismClass.Properties
   ( isomorphicToProperties,
   )
 where

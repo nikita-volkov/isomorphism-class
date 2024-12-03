@@ -95,11 +95,11 @@ module IsomorphismClass
     isomorphicToIso,
 
     -- * Testing
-    module IsomorphismClass.Laws,
+    module IsomorphismClass.Properties,
   )
 where
 
 import IsomorphismClass.Classes
-import IsomorphismClass.Laws
+import IsomorphismClass.Properties
 import IsomorphismClass.Optics
 import IsomorphismClass.Relations ()
