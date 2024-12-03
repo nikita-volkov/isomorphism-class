@@ -88,7 +88,7 @@
 -- @
 module IsomorphismClass
   ( -- * Typeclasses
-    IsomorphicTo,
+    IsomorphicTo(..),
     from,
 
     -- * Optics
