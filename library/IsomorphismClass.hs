@@ -100,6 +100,6 @@ module IsomorphismClass
 where
 
 import IsomorphismClass.Classes
-import IsomorphismClass.Properties
 import IsomorphismClass.Optics
+import IsomorphismClass.Properties
 import IsomorphismClass.Relations ()
