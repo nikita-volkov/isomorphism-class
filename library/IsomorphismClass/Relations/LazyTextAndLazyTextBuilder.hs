@@ -5,7 +5,6 @@ module IsomorphismClass.Relations.LazyTextAndLazyTextBuilder where
 import qualified Data.Text.Lazy
 import qualified Data.Text.Lazy.Builder
 import IsomorphismClass.Classes
-import IsomorphismClass.Prelude
 
 instance IsomorphicTo Data.Text.Lazy.Text Data.Text.Lazy.Builder.Builder where
   to = Data.Text.Lazy.Builder.toLazyText
