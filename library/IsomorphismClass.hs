@@ -29,6 +29,23 @@
 --   'from' @'Data.ByteString.Builder.Builder' $
 --     'to' a <> 'to' b <> 'to' c
 -- @
+--
+-- Which is equivalent to:
+--
+-- @
+-- combineEncodings :: 'Data.ByteString.Short.ShortByteString' -> 'Data.Primitive.ByteArray' -> 'Data.ByteString.Lazy.ByteString' -> [Word8]
+-- combineEncodings a b c =
+--   LazyByteString.'Data.ByteString.Lazy.unpack' $
+--     Builder.'Data.ByteString.Builder.toLazyByteString' $
+--       mconcat
+--         [ Builder.'Data.ByteString.Builder.shortByteString' a,
+--           Builder.'Data.ByteString.Builder.shortByteString'
+--             ( let ByteArray.'Data.Primitive.ByteArray.ByteArray' array = b
+--                in ShortByteString.'Data.ByteString.Short.SBS' array
+--             ),
+--           Builder.'Data.ByteString.Builder.lazyByteString' c
+--         ]
+-- @
 module IsomorphismClass
   ( -- * Typeclasses
     IsomorphicTo (..),
