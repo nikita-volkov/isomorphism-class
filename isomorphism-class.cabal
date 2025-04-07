@@ -55,6 +55,8 @@ library
     IsomorphismClass.Relations.ByteStringAndShortByteString
     IsomorphismClass.Relations.ByteStringAndTextArray
     IsomorphismClass.Relations.ByteStringAndWord8List
+    IsomorphismClass.Relations.DiffTimeAndNominalDiffTime
+    IsomorphismClass.Relations.DiffTimeAndPico
     IsomorphismClass.Relations.Int16AndWord16
     IsomorphismClass.Relations.Int32AndWord32
     IsomorphismClass.Relations.Int64AndWord64
@@ -75,6 +77,7 @@ library
     IsomorphismClass.Relations.LazyTextBuilderAndStrictTextBuilder
     IsomorphismClass.Relations.LazyTextBuilderAndText
     IsomorphismClass.Relations.ListAndSeq
+    IsomorphismClass.Relations.NominalDiffTimeAndPico
     IsomorphismClass.Relations.ShortByteStringAndTextArray
     IsomorphismClass.Relations.ShortByteStringAndWord8List
     IsomorphismClass.Relations.StrictTextBuilderAndText
@@ -90,6 +93,7 @@ library
     primitive >=0.7 && <0.10,
     profunctors >=5 && <6,
     text >=1.2 && <2.2,
+    time >=1.9 && <2,
     unordered-containers >=0.2 && <0.3,
     vector >=0.12 && <0.14,
 
