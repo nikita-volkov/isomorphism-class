@@ -3,13 +3,13 @@
 --
 -- = Conversion problem
 --
--- Have you ever looked for a @toString@ function? How often do you
--- import @Data.Text.Lazy@ only to call its 'Data.Text.Lazy.fromStrict'? How
--- about importing @Data.ByteString.Builder@ only to call its
+-- How often do you import @Data.Text.Lazy@ only to call @fromStrict@ or @toStrict@?
+-- How about importing @Data.ByteString.Builder@ only to call its
 -- 'Data.ByteString.Builder.toLazyByteString' and then importing
 -- @Data.ByteString.Lazy@ only to call its 'Data.ByteString.Lazy.toStrict'?
+-- How often do you convert from @DiffTime@ to @NominalDiffTime@ and back?
 --
--- Those all are instances of one pattern. They are conversions between
+-- Those all are instances of one pattern. They are conversions between different
 -- representations of the same information. Codebases that don't attempt to
 -- abstract over this pattern tend to be sprawling with this type of
 -- boilerplate. It's noise to the codereader, it's a burden to the
