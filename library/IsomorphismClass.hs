@@ -29,13 +29,6 @@
 --   'from' @'Data.ByteString.Builder.Builder' $
 --     'to' a <> 'to' b <> 'to' c
 -- @
---
--- @
--- renderNameAndHeight :: 'Text' -> 'Int' -> 'Text'
--- renderNameAndHeight name height =
---   'from' @'Data.Text.Encoding.StrictTextBuilder' $
---     "Height of " <> 'to' name <> " is " <> 'fromString' (show height)
--- @
 module IsomorphismClass
   ( -- * Typeclasses
     IsomorphicTo (..),

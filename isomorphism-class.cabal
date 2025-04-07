@@ -7,9 +7,9 @@ description:
 
   How often do you import @Data.Text.Lazy@ only to call @fromStrict@ or @toStrict@?
   How about importing @Data.ByteString.Builder@ only to call its
-  'Data.ByteString.Builder.toLazyByteString' and then importing
-  @Data.ByteString.Lazy@ only to call its 'Data.ByteString.Lazy.toStrict'?
-  How often do you convert from @DiffTime@ to @NominalDiffTime@ and back?
+  @toLazyByteString@ and then importing
+  @Data.ByteString.Lazy@ only to call its @toStrict@?
+  How often do you convert from @DiffTime@ to @NominalDiffTime@ or back?
 
   These are all instances of one pattern. They are conversions between different
   representations of the same information. Codebases that don't attempt to
@@ -53,7 +53,7 @@ description:
 
   = Other work and acknowledgements
 
-  There is ["lawful-conversions"](https://hackage.haskell.org/package/lawful-conversions), which is a sibling of this library expanding upon the ideas from this one to also cover the patterns of smart construction and canonicalization. It's more involved and has different tradeoffs. Both libraries are maintained, letting their designs compete.
+  - [lawful-conversions](https://hackage.haskell.org/package/lawful-conversions) - sibling of this library expanding upon the same insights to also cover the patterns of smart construction and canonicalization. It's more involved and has different tradeoffs. Both libraries are maintained, letting their designs compete.
 
   Some ideas and concepts are also shared with the following libraries:
 
