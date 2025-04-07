@@ -1,39 +1,42 @@
-module IsomorphismClass.Relations (module Exports) where
+module IsomorphismClass.Relations () where
 
-import IsomorphismClass.Relations.BoxedVectorAndList as Exports
-import IsomorphismClass.Relations.BoxedVectorAndSeq as Exports
-import IsomorphismClass.Relations.ByteArrayAndByteString as Exports
-import IsomorphismClass.Relations.ByteArrayAndLazyByteString as Exports
-import IsomorphismClass.Relations.ByteArrayAndLazyByteStringBuilder as Exports
-import IsomorphismClass.Relations.ByteArrayAndShortByteString as Exports
-import IsomorphismClass.Relations.ByteArrayAndTextArray as Exports
-import IsomorphismClass.Relations.ByteArrayAndWord8List as Exports
-import IsomorphismClass.Relations.ByteStringAndLazyByteString as Exports
-import IsomorphismClass.Relations.ByteStringAndLazyByteStringBuilder as Exports
-import IsomorphismClass.Relations.ByteStringAndShortByteString as Exports
-import IsomorphismClass.Relations.ByteStringAndTextArray as Exports
-import IsomorphismClass.Relations.ByteStringAndWord8List as Exports
-import IsomorphismClass.Relations.Int16AndWord16 as Exports
-import IsomorphismClass.Relations.Int32AndWord32 as Exports
-import IsomorphismClass.Relations.Int64AndWord64 as Exports
-import IsomorphismClass.Relations.Int8AndWord8 as Exports
-import IsomorphismClass.Relations.IntAndWord as Exports
-import IsomorphismClass.Relations.IntMapAndMapOfInt as Exports
-import IsomorphismClass.Relations.IntSetAndSetOfInt as Exports
-import IsomorphismClass.Relations.LazyByteStringAndLazyByteStringBuilder as Exports
-import IsomorphismClass.Relations.LazyByteStringAndShortByteString as Exports
-import IsomorphismClass.Relations.LazyByteStringAndTextArray as Exports
-import IsomorphismClass.Relations.LazyByteStringAndWord8List as Exports
-import IsomorphismClass.Relations.LazyByteStringBuilderAndShortByteString as Exports
-import IsomorphismClass.Relations.LazyByteStringBuilderAndTextArray as Exports
-import IsomorphismClass.Relations.LazyByteStringBuilderAndWord8List as Exports
-import IsomorphismClass.Relations.LazyTextAndLazyTextBuilder as Exports
-import IsomorphismClass.Relations.LazyTextAndStrictTextBuilder as Exports
-import IsomorphismClass.Relations.LazyTextAndText as Exports
-import IsomorphismClass.Relations.LazyTextBuilderAndStrictTextBuilder as Exports
-import IsomorphismClass.Relations.LazyTextBuilderAndText as Exports
-import IsomorphismClass.Relations.ListAndSeq as Exports
-import IsomorphismClass.Relations.ShortByteStringAndTextArray as Exports
-import IsomorphismClass.Relations.ShortByteStringAndWord8List as Exports
-import IsomorphismClass.Relations.StrictTextBuilderAndText as Exports
-import IsomorphismClass.Relations.TextArrayAndWord8List as Exports
+import IsomorphismClass.Relations.BoxedVectorAndList ()
+import IsomorphismClass.Relations.BoxedVectorAndSeq ()
+import IsomorphismClass.Relations.ByteArrayAndByteString ()
+import IsomorphismClass.Relations.ByteArrayAndLazyByteString ()
+import IsomorphismClass.Relations.ByteArrayAndLazyByteStringBuilder ()
+import IsomorphismClass.Relations.ByteArrayAndShortByteString ()
+import IsomorphismClass.Relations.ByteArrayAndTextArray ()
+import IsomorphismClass.Relations.ByteArrayAndWord8List ()
+import IsomorphismClass.Relations.ByteStringAndLazyByteString ()
+import IsomorphismClass.Relations.ByteStringAndLazyByteStringBuilder ()
+import IsomorphismClass.Relations.ByteStringAndShortByteString ()
+import IsomorphismClass.Relations.ByteStringAndTextArray ()
+import IsomorphismClass.Relations.ByteStringAndWord8List ()
+import IsomorphismClass.Relations.DiffTimeAndNominalDiffTime ()
+import IsomorphismClass.Relations.DiffTimeAndPico ()
+import IsomorphismClass.Relations.Int16AndWord16 ()
+import IsomorphismClass.Relations.Int32AndWord32 ()
+import IsomorphismClass.Relations.Int64AndWord64 ()
+import IsomorphismClass.Relations.Int8AndWord8 ()
+import IsomorphismClass.Relations.IntAndWord ()
+import IsomorphismClass.Relations.IntMapAndMapOfInt ()
+import IsomorphismClass.Relations.IntSetAndSetOfInt ()
+import IsomorphismClass.Relations.LazyByteStringAndLazyByteStringBuilder ()
+import IsomorphismClass.Relations.LazyByteStringAndShortByteString ()
+import IsomorphismClass.Relations.LazyByteStringAndTextArray ()
+import IsomorphismClass.Relations.LazyByteStringAndWord8List ()
+import IsomorphismClass.Relations.LazyByteStringBuilderAndShortByteString ()
+import IsomorphismClass.Relations.LazyByteStringBuilderAndTextArray ()
+import IsomorphismClass.Relations.LazyByteStringBuilderAndWord8List ()
+import IsomorphismClass.Relations.LazyTextAndLazyTextBuilder ()
+import IsomorphismClass.Relations.LazyTextAndStrictTextBuilder ()
+import IsomorphismClass.Relations.LazyTextAndText ()
+import IsomorphismClass.Relations.LazyTextBuilderAndStrictTextBuilder ()
+import IsomorphismClass.Relations.LazyTextBuilderAndText ()
+import IsomorphismClass.Relations.ListAndSeq ()
+import IsomorphismClass.Relations.NominalDiffTimeAndPico ()
+import IsomorphismClass.Relations.ShortByteStringAndTextArray ()
+import IsomorphismClass.Relations.ShortByteStringAndWord8List ()
+import IsomorphismClass.Relations.StrictTextBuilderAndText ()
+import IsomorphismClass.Relations.TextArrayAndWord8List ()

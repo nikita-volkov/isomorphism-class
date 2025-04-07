@@ -110,7 +110,10 @@ allTests =
       testPair @Word64 @Int64 Proxy Proxy,
       testPair @Word64 @Word64 Proxy Proxy,
       testPair @Word8 @Int8 Proxy Proxy,
-      testPair @Word8 @Word8 Proxy Proxy
+      testPair @Word8 @Word8 Proxy Proxy,
+      testPair @DiffTime @NominalDiffTime Proxy Proxy,
+      testPair @DiffTime @Pico Proxy Proxy,
+      testPair @NominalDiffTime @Pico Proxy Proxy
     ]
 
 testPair :: (IsomorphicTo a b, Eq a, Eq b, Arbitrary a, Show a, Arbitrary b, Show b, Typeable a, Typeable b) => Proxy a -> Proxy b -> TestTree
